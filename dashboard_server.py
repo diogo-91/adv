@@ -3,7 +3,7 @@ API Flask para Dashboard do Sistema de Petições
 Fornece estatísticas em tempo real
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from datetime import datetime, timedelta
 import os
@@ -30,6 +30,20 @@ def add_header(response):
     response.headers['Expires'] = '0'
     return response
 
+@app.route('/health')
+def health_check():
+    """Health check endpoint - não depende de Google Drive"""
+    return jsonify({
+        'status': 'healthy',
+        'service': 'peticoes-automatizadas',
+        'timestamp': datetime.now().isoformat()
+    })
+
+@app.route('/')
+def index():
+    """Serve o dashboard HTML"""
+    return send_from_directory('telas', 'dashboard_v2.html')
+
 SCOPES = ['https://www.googleapis.com/auth/drive']
 HISTORICO_FILE = 'historico_peticoes.json'
 
@@ -45,15 +59,21 @@ def carregar_historico():
 
 def autenticar_google_drive():
     """Autentica com Google Drive"""
-    creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-            with open('token.json', 'w') as token:
-                token.write(creds.to_json())
-    return build('drive', 'v3', credentials=creds)
+    try:
+        creds = None
+        if os.path.exists('token.json'):
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+                with open('token.json', 'w') as token:
+                    token.write(creds.to_json())
+        if creds:
+            return build('drive', 'v3', credentials=creds)
+        return None
+    except Exception as e:
+        print(f"⚠️ Erro ao autenticar Google Drive: {e}")
+        return None
 
 def listar_arquivos_pasta(service, pasta_id):
     """Lista arquivos em uma pasta"""
@@ -244,6 +264,20 @@ def get_detailed_stats():
     """Endpoint detalhado - retorna info completa por pasta/tipo/cliente"""
     try:
         service = autenticar_google_drive()
+        
+        # Se não conseguiu autenticar, retornar estrutura vazia
+        if not service:
+            return jsonify({
+                'total_clientes': 0,
+                'total_aprovadas': 0,
+                'total_rejeitadas': 0,
+                'taxa_aprovacao': 0,
+                'casos_novos': {},
+                'peticoes_geradas': {},
+                'aprovadas': {},
+                'rejeitadas': {},
+                'error': 'Google Drive não autenticado'
+            })
         
         # Estrutura de retorno
         result = {
@@ -729,6 +763,20 @@ def get_stats():
     """Endpoint principal - retorna estatísticas"""
     try:
         service = autenticar_google_drive()
+        
+        # Se não conseguiu autenticar, retornar dados vazios
+        if not service:
+            return jsonify({
+                'total_clientes': 0,
+                'total_aprovadas': 0,
+                'total_rejeitadas': 0,
+                'taxa_aprovacao': 0,
+                'score_medio': 0,
+                'peticoes_hoje': 0,
+                'ultimas_atividades': [],
+                'timestamp': datetime.now().isoformat(),
+                'error': 'Google Drive não autenticado'
+            })
         
         # Contar clientes processados
         total_clientes = contar_clientes_processados(service)
