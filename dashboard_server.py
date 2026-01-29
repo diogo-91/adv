@@ -3,7 +3,7 @@ API Flask para Dashboard do Sistema de Petições
 Fornece estatísticas em tempo real
 """
 
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import datetime, timedelta
 import os
@@ -39,10 +39,6 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
-@app.route('/')
-def index():
-    """Serve o dashboard HTML"""
-    return send_from_directory('telas', 'dashboard_v2.html')
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 HISTORICO_FILE = 'historico_peticoes.json'
