@@ -48,14 +48,22 @@ def carregar_historico():
 def autenticar_google_drive():
     """Autentica com Google Drive"""
     try:
+        # Tentar recuperar token da variável de ambiente se o arquivo não existir
+        if not os.path.exists('token.json') and os.getenv('GOOGLE_DRIVE_TOKEN_JSON'):
+            print("📝 Criando token.json a partir da variável de ambiente...")
+            with open('token.json', 'w') as f:
+                f.write(os.getenv('GOOGLE_DRIVE_TOKEN_JSON'))
+
         creds = None
         if os.path.exists('token.json'):
             creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+            
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
                 with open('token.json', 'w') as token:
                     token.write(creds.to_json())
+                    
         if creds:
             return build('drive', 'v3', credentials=creds)
         return None
