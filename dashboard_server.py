@@ -899,13 +899,34 @@ def debug_auth():
         service = autenticar_google_drive()
         auth_status = "Sucesso" if service else "Falha"
         
+        # Testar acesso à pasta 01
+        folder_test = "N/A"
+        pasta_id = os.getenv('PASTA_01_CASOS_NOVOS')
+        files_found = []
+        
+        if service and pasta_id:
+            try:
+                folder_test = f"Tentando ler pasta: {pasta_id}"
+                results = service.files().list(
+                    q=f"'{pasta_id}' in parents",
+                    pageSize=10,
+                    fields="files(id, name)"
+                ).execute()
+                files = results.get('files', [])
+                files_found = [f['name'] for f in files]
+                folder_test = "Sucesso - Arquivos encontrados"
+            except Exception as e:
+                folder_test = f"Erro ao ler pasta: {str(e)}"
+        
         return jsonify({
-            'env_var_GOOGLE_DRIVE_TOKEN_JSON_exists': env_var_exists,
-            'token_file_exists': token_file_exists,
-            'token_file_preview': token_content_preview,
             'authentication_status': auth_status,
-            'cwd': os.getcwd(),
-            'files_in_cwd': os.listdir('.')
+            'folder_id_configured': pasta_id,
+            'folder_access_test': folder_test,
+            'files_found_in_folder': files_found,
+            'env_vars_loaded': {
+                'PASTA_01': bool(os.getenv('PASTA_01_CASOS_NOVOS')),
+                'PASTA_RECONHECIMENTO': bool(os.getenv('PASTA_RECONHECIMENTO_VINCULO'))
+            }
         })
     except Exception as e:
         return jsonify({'error': str(e)})
