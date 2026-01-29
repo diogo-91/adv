@@ -1,0 +1,7 @@
+DA JUNTADA DE DOCUMENTOS
+
+{PARAGRAFO_INICIAL}. Instruem a presente inicial os seguintes documentos:
+
+{LISTA_DOCUMENTOS}
+
+{PARAGRAFO_FINAL}. Reserva-se o reclamante o direito de juntar outros documentos que se fizerem necessários no curso da instrução processual.

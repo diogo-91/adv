@@ -1,0 +1,72 @@
+# Arquivos de ambiente e credenciais
+.env
+.env.local
+.env.*.local
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Ambientes virtuais
+venv/
+.venv/
+ENV/
+env/
+.env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs e dados temporários
+*.log
+logs/
+logs_auditoria/
+logs_prints/
+
+# Dados sensíveis e backups
+historico_peticoes.json
+historico_peticoes_backup*.json
+estatisticas_escritorio.json
+jurisprudencias.json
+
+# Arquivos de clientes (NUNCA fazer commit de dados reais)
+clientes/
+casos/
+documentos_clientes/
+
+# Arquivos temporários do Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Arquivos gerados
+*.docx
+*.pdf
+*.txt.bak

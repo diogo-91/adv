@@ -1,0 +1,26 @@
+DAS HORAS EXTRAS E SEUS REFLEXOS
+
+{PARAGRAFO_INICIAL}. Durante todo o período contratual, o reclamante laborou em jornada extraordinária, ultrapassando habitualmente a jornada normal de 8 (oito) horas diárias e 44 (quarenta e quatro) horas semanais previstas no art. 7º, XIII, da Constituição Federal.
+
+{PARAGRAFO_JORNADA}. A jornada efetivamente cumprida pelo reclamante era de {JORNADA_DETALHADA}, totalizando aproximadamente {HORAS_EXTRAS_MES} horas extras por mês.
+
+{PARAGRAFO_FUNDAMENTO_LEGAL}. O art. 59 da CLT estabelece que a duração normal do trabalho poderá ser acrescida de horas extras, em número não excedente de duas, mediante acordo escrito ou norma coletiva, sendo que cada hora extra deverá ser remunerada com adicional de, no mínimo, 50% (cinquenta por cento) sobre o valor da hora normal.
+
+{PARAGRAFO_CALCULO}. Considerando o salário mensal de {SALARIO} e a jornada extraordinária habitual, o valor devido a título de horas extras e seus reflexos é o seguinte:
+
+{TABELA_CALCULOS}
+
+{PARAGRAFO_REFLEXOS}. Importante ressaltar que as horas extras prestadas de forma habitual integram a remuneração do trabalhador para todos os efeitos legais, conforme Súmula 347 do TST, devendo refletir em:
+
+1. Descanso Semanal Remunerado (DSR)
+2. 13º Salário
+3. Férias acrescidas de 1/3 constitucional
+4. FGTS com multa de 40%
+5. Aviso Prévio
+6. Adicional Noturno (quando aplicável)
+
+{PARAGRAFO_JURISPRUDENCIA}. A jurisprudência do TST é pacífica nesse sentido:
+
+{JURISPRUDENCIA}
+
+{PARAGRAFO_PEDIDO}. Ante o exposto, requer-se a condenação da reclamada ao pagamento de horas extras com adicional de {PERCENTUAL_ADICIONAL}%, bem como todos os reflexos acima discriminados, no valor total de {VALOR_TOTAL}.

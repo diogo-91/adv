@@ -1,0 +1,29 @@
+DAS MULTAS DOS ARTIGOS 477 E 467 DA CLT
+
+DA MULTA DO ARTIGO 477, § 8º, DA CLT
+
+{PARAGRAFO_477_INICIAL}. A reclamada não efetuou o pagamento das verbas rescisórias no prazo legal previsto no art. 477, § 6º, da CLT, que estabelece o prazo de até 10 (dez) dias contados a partir do término do contrato.
+
+{PARAGRAFO_477_CONSEQUENCIA}. O descumprimento desse prazo acarreta a aplicação da multa prevista no § 8º do mesmo dispositivo legal, correspondente a um salário do empregado, corrigido monetariamente.
+
+{PARAGRAFO_477_JURISPRUDENCIA}. A jurisprudência do TST é pacífica quanto à aplicabilidade da multa mesmo nos casos em que a rescisão é reconhecida judicialmente:
+
+{JURISPRUDENCIA_477}
+
+{PARAGRAFO_477_VALOR}. Considerando o último salário do reclamante no valor de {SALARIO}, a multa devida corresponde a {VALOR_MULTA_477}.
+
+DA MULTA DO ARTIGO 467 DA CLT
+
+{PARAGRAFO_467_INICIAL}. As verbas rescisórias devidas ao reclamante possuem natureza incontrovers a, uma vez que decorrem diretamente da legislação trabalhista e não foram pagas no prazo legal.
+
+{PARAGRAFO_467_FUNDAMENTO}. O art. 467 da CLT estabelece que, em caso de rescisão do contrato de trabalho, havendo controvérsia sobre o montante das verbas rescisórias, o empregador é obrigado a pagar ao trabalhador, à data do comparecimento à Justiça do Trabalho, a parte incontroversa dessas verbas, sob pena de pagá-las acrescidas de cinquenta por cento.
+
+{PARAGRAFO_467_APLICACAO}. No caso em tela, a reclamada não efetuou o pagamento de nenhuma verba rescisória, mesmo sendo incontroversa a sua existência e o seu quantum, o que atrai a incidência da penalidade prevista no referido dispositivo legal.
+
+{PARAGRAFO_467_JURISPRUDENCIA}. Nesse sentido:
+
+{JURISPRUDENCIA_467}
+
+{PARAGRAFO_467_CALCULO}. Considerando o valor das verbas rescisórias incontroversas em {VALOR_VERBAS_INCONTROVERSAS}, a multa de 50% corresponde a {VALOR_MULTA_467}.
+
+{PARAGRAFO_PEDIDO}. Ante o exposto, requer-se a condenação da reclamada ao pagamento das multas previstas nos arts. 477, § 8º, e 467, ambos da CLT, nos valores acima discriminados.

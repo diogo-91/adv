@@ -1,0 +1,3792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Geral - Analytics</title>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e2e8f0;
+            /* Cinza suave (Slate 200) */
+            --secondary: #FFFFFF;
+            --accent: #6366F1;
+            --accent-light: #818CF8;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --border: rgba(0, 0, 0, 0.08);
+            --card-bg: #FFFFFF;
+            --card-hover: #FFFFFF;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.02) 0%, transparent 50%);
+            animation: backgroundShift 20s ease infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes backgroundShift {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, 30px);
+            }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Sidebar & Layout Legacy Adaptado --- */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: #1e293b;
+            padding: 1.5rem;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+            margin: 0;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: #ef4444;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+            padding: 0;
+        }
+
+        /* --- Novos Estilos --- */
+        .header {
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #1F2937 0%, #6B7280 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-shadow: var(--shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: var(--shadow);
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .stat-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .stat-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .stat-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .stat-card:hover {
+            background: var(--card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .icon-blue {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(99, 102, 241, 0.05));
+            color: #6366F1;
+        }
+
+        .icon-purple {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05));
+            color: #8B5CF6;
+        }
+
+        .icon-green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            color: #10B981;
+        }
+
+        .icon-orange {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+            color: #F59E0B;
+        }
+
+        .stat-title {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .stat-content {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 2px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 240px;
+            width: 100%;
+        }
+
+        .chart-container.small {
+            height: 200px;
+        }
+
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.9s;
+            box-shadow: var(--shadow);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .table-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--primary);
+            padding: 4px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+
+        .tab {
+            padding: 8px 14px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-card:nth-child(1) {
+            grid-column: span 4;
+            animation-delay: 0.5s;
+        }
+
+        .chart-card:nth-child(2) {
+            grid-column: span 4;
+            animation-delay: 0.6s;
+        }
+
+        .chart-card:nth-child(3) {
+            grid-column: span 4;
+            animation-delay: 0.7s;
+        }
+
+        .chart-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.9s;
+            box-shadow: var(--shadow);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .table-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--primary);
+            padding: 4px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+
+        .tab {
+            padding: 10px 18px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+            background: var(--card-bg);
+        }
+
+        .tab.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .tab-badge {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        thead th {
+            background: transparent;
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: none;
+        }
+
+        tbody tr {
+            background: var(--primary);
+            transition: all 0.2s;
+        }
+
+        tbody tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+            transform: scale(1.005);
+        }
+
+        tbody td {
+            padding: 18px 16px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        tbody td:first-child {
+            border-left: 1px solid var(--border);
+            border-radius: 12px 0 0 12px;
+        }
+
+        tbody td:last-child {
+            border-right: 1px solid var(--border);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .client-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .client-avatar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .client-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .client-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .client-id {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-critical {
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .badge-high {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .progress-bar {
+            width: 100px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+
+        .action-btn:hover {
+            background: var(--card-bg);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Utils Recuperados */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideUp 0.3s ease-out;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .spin-icon {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #64748b;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .step-item.completed {
+            color: #22c55e;
+        }
+
+        .view-section {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Modal de Progresso -->
+    <div id="modalProgresso" class="modal-backdrop">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem;">
+            <div id="progressContent">
+                <i class="bi bi-gear-wide-connected spin-icon"
+                    style="font-size: 4rem; color: #3b82f6; margin-bottom: 1.5rem; display: inline-block;"></i>
+                <h3 id="progressTitle" style="margin-bottom: 1rem; color: #1e293b;">Gerando Petição</h3>
+                <p id="progressStatus" style="color: #64748b; margin-bottom: 2rem; font-size: 1.1rem;">Iniciando...</p>
+
+                <div class="progress-bar-container"
+                    style="background: #f1f5f9; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 1.5rem;">
+                    <div id="progressBarFill" class="progress-bar-fill"
+                        style="width: 0%; height: 100%; background: linear-gradient(90deg, #3b82f6, #2563eb); border-radius: 6px; transition: width 0.5s ease;">
+                    </div>
+                </div>
+
+                <div id="progressSteps" style="text-align: left; margin-top: 2rem;">
+                    <!-- Etapas -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-section">
+            <div class="logo-icon">⚖️</div>
+            <div class="logo-text">
+                <h2>DIMOVCI</h2>
+                <span>Sistema Jurídico</span>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" id="nav-dashboard"
+                        onclick="mudarView('dashboard'); return false;">
+                        <span class="nav-icon"><i class="bi bi-speedometer2"></i></span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="nav-peticoes" onclick="mudarView('peticoes'); return false;">
+                        <span class="nav-icon"><i class="bi bi-file-text"></i></span>
+                        <span>Petições</span>
+                        <span class="nav-badge" id="nav-badge-peticoes">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="nav-clientes" onclick="mudarView('clientes'); return false;">
+                        <span class="nav-icon"><i class="bi bi-people"></i></span>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" id="nav-documentos" onclick="mudarView('documentos'); return false;">
+                        <span class="nav-icon"><i class="bi bi-folder"></i></span>
+                        <span>Documentos</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <div class="user-avatar">AD</div>
+                <div class="user-info">
+                    <div class="user-name">Admin</div>
+                    <div class="user-role">Advogado Sênior</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- View Dashboard: Header + Stats + Charts -->
+            <div id="view-dashboard" class="view-section">
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-top">
+                        <div>
+                            <h1>Dashboard Geral</h1>
+                            <p class="subtitle">Visão geral de todas as petições e processos em andamento</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="stat-card" style="padding: 0.75rem;">
+                        <div class="stat-header">
+                            <div class="stat-title">Novos Casos</div>
+                            <div class="stat-icon icon-blue">📋</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="kpi-casosNovos">0</div>
+                            <div class="stat-change positive">
+                                <span>↑</span> Aguardando
+                            </div>
+                        </div>
+                        <div class="stat-label">Aguardando análise</div>
+                    </div>
+
+                    <div class="stat-card" style="padding: 0.75rem;">
+                        <div class="stat-header">
+                            <div class="stat-title">Petições Geradas</div>
+                            <div class="stat-icon icon-purple">📄</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="kpi-peticoesGeradas">0</div>
+                            <div class="stat-change">Total</div>
+                        </div>
+                        <div class="stat-label">Últimos 30 dias</div>
+                    </div>
+
+                    <div class="stat-card" style="padding: 0.75rem;">
+                        <div class="stat-header">
+                            <div class="stat-title">Aprovadas</div>
+                            <div class="stat-icon icon-green">✓</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="kpi-aprovadas">0</div>
+                            <div class="stat-change positive">
+                                <span>↑</span> Prontas
+                            </div>
+                        </div>
+                        <div class="stat-label">Prontas para protocolo</div>
+                    </div>
+
+                    <div class="stat-card" style="padding: 0.75rem;">
+                        <div class="stat-header">
+                            <div class="stat-title">Score Médio</div>
+                            <div class="stat-icon icon-orange">⭐</div>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="kpi-mediaScore">-</div>
+                        </div>
+                        <div class="stat-label">Qualidade técnica</div>
+                    </div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Por Tipo</h3>
+                        </div>
+                        <div class="chart-container small">
+                            <canvas id="typeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Status Atual</h3>
+                        </div>
+                        <div class="chart-container small">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Prioridade</h3>
+                        </div>
+                        <div class="chart-container small">
+                            <canvas id="priorityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Petições Header -->
+            <div id="view-peticoes-header" class="view-section" style="display:none; margin-bottom: 2rem;">
+                <div class="header">
+                    <div class="header-top">
+                        <div>
+                            <h1>Gestão de Petições</h1>
+                            <p class="subtitle">Acompanhe e audite as petições em andamento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Clientes: Lista e Cadastro -->
+            <div id="view-clientes" class="view-section" style="display:none; margin-bottom: 2rem;">
+                <div class="header">
+                    <div class="header-top">
+                        <div>
+                            <h1>Gestão de Clientes</h1>
+                            <p class="subtitle">Cadastre e gerencie seus clientes e pastas</p>
+                        </div>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="abrirModalNovoCliente()">
+                                <span>➕</span> Novo Cliente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Clientes (Reusando estilo table-card) -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>Clientes Cadastrados</h3>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" placeholder="Buscar cliente..."
+                                style="padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit;">
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="tabelaClientes">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tipo de Ação</th>
+                                    <th>Status</th>
+                                    <th>Data Cadastro</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyClientes">
+                                <!-- Preenchido via JS -->
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 2rem; color: #94a3b8;">
+                                        Carregando clientes...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Documentos: Navegação Google Drive -->
+            <div id="view-documentos" class="view-section" style="display:none; margin-bottom: 2rem;">
+                <div class="header">
+                    <div class="header-top">
+                        <div>
+                            <h1>Documentos</h1>
+                            <p class="subtitle">Navegue pelos documentos armazenados no Google Drive</p>
+                        </div>
+                        <div class="header-actions" id="uploadButtonContainer" style="display: none;">
+                            <button class="btn btn-primary" onclick="abrirModalUpload()">
+                                <span>📤</span> Upload Arquivo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breadcrumbs -->
+                <div
+                    style="background: white; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                    <div id="breadcrumbs"
+                        style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #64748b;">
+                        <i class="bi bi-house-door" style="color: #3b82f6;"></i>
+                        <span style="color: #1e293b; font-weight: 600; cursor: pointer;"
+                            onclick="navegarPasta(null, 'Google Drive')">Google Drive</span>
+                    </div>
+                </div>
+
+                <!-- Lista de Arquivos/Pastas -->
+                <div class="table-card">
+                    <div id="loadingDocumentos" style="text-align: center; padding: 3rem; display: none;">
+                        <div class="spin-icon" style="font-size: 2.5rem; color: #3b82f6; margin-bottom: 1rem;"><i
+                                class="bi bi-arrow-repeat"></i></div>
+                        <p style="color: #64748b;">Carregando documentos...</p>
+                    </div>
+
+                    <table id="tabelaDocumentos" style="width: 100%; display: none; table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left; width: 50%;"><i class="bi bi-file-earmark"></i> Nome</th>
+                                <th style="text-align: left; width: 15%;">Tipo</th>
+                                <th style="text-align: left; width: 12%;">Tamanho</th>
+                                <th style="text-align: left; width: 13%;">Modificado</th>
+                                <th style="text-align: center; width: 10%;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyDocumentos">
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+
+                    <div id="emptyDocumentos" style="text-align: center; padding: 3rem; display: none;">
+                        <i class="bi bi-folder-x"
+                            style="font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem; display: block;"></i>
+                        <p style="color: #94a3b8; font-size: 1.1rem;">Pasta vazia</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela Compartilhada -->
+            <div id="section-tabela" class="view-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>Casos em Andamento</h3>
+                        <div class="tabs">
+                            <button class="tab active" data-tipo="ACAO_ACIDENTARIA">
+                                <span>⚡</span> Ação Acidentária
+                                <span class="tab-badge" id="badge-acidentaria">0</span>
+                            </button>
+                            <button class="tab" data-tipo="DIFERENCAS_CONTRATUAIS">
+                                <span>📑</span> Diferenças
+                                <span class="tab-badge" id="badge-contratuais">0</span>
+                            </button>
+                            <button class="tab" data-tipo="RECONHECIMENTO_VINCULO">
+                                <span>🔗</span> Vínculo
+                                <span class="tab-badge" id="badge-vinculo">0</span>
+                            </button>
+                            <button class="tab" data-tipo="FINALIZADAS">
+                                <span>✅</span> Finalizadas
+                                <span class="tab-badge" id="badge-finalizadas">0</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Status</th>
+                                    <th>Progresso</th>
+                                    <th>Prioridade</th>
+                                    <th>Data</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Preenchido via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+        let todosClientes = [];
+        let categoriaAtual = 'ACAO_ACIDENTARIA';
+
+        // Tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                categoriaAtual = tab.dataset.tipo;
+                renderizarTabela();
+            });
+        });
+
+        async function carregarDados() {
+            try {
+                const [historico, casosNovos] = await Promise.all([
+                    fetch(`${API_BASE}/historico`).then(r => r.json()),
+                    fetch(`${API_BASE}/detailed-stats`).then(r => r.json())
+                ]);
+
+                atualizarKPIs(historico, casosNovos);
+                processarClientes(casosNovos, historico);
+                renderizarTabela();
+
+                // Atualizar Gráficos com dados reais
+                const dadosGraficos = processarDadosGraficos();
+                initCharts(dadosGraficos);
+
+                atualizarTimestamp();
+            } catch (error) {
+                console.error('Erro na API:', error);
+            }
+        }
+
+        function atualizarKPIs(historico, casosNovos) {
+            const totalPendentes = Object.values(casosNovos.casos_novos || {}).reduce((s, t) => s + (t.pendentes || 0), 0);
+            document.getElementById('kpi-casosNovos').textContent = totalPendentes;
+
+            let geradas = 0, aprovadas = 0, somaScore = 0, countScore = 0;
+            Object.values(historico).forEach(lista => {
+                lista.forEach(p => {
+                    if (p.status === 'gerada') geradas++;
+                    if (p.status === 'aprovada') {
+                        aprovadas++;
+                        if (p.score) { somaScore += p.score; countScore++; }
+                    }
+                });
+            });
+
+            document.getElementById('kpi-peticoesGeradas').textContent = geradas;
+            document.getElementById('kpi-aprovadas').textContent = aprovadas;
+            document.getElementById('nav-badge-peticoes').textContent = geradas + aprovadas;
+
+            const media = countScore > 0 ? Math.round(somaScore / countScore) : '-';
+            document.getElementById('kpi-mediaScore').textContent = media + (countScore > 0 ? '/100' : '');
+        }
+
+        function processarClientes(casosNovos, historico) {
+            const mapaClientes = new Map(); // Chave: nome normalizado
+
+            // 1. Processar casos novos (Leitura direta das pastas - Fonte da Verdade)
+            Object.entries(casosNovos.casos_novos || {}).forEach(([tipo, info]) => {
+                if (info.clientes) {
+                    info.clientes.forEach(c => {
+                        const nome = c.nome || c.cliente;
+                        if (!nome) return;
+                        const chave = nome.trim().toLowerCase();
+
+                        mapaClientes.set(chave, {
+                            ...c,
+                            nome: nome,
+                            tipo_processo: tipo,
+                            categoria: tipo,
+                            origem_dados: 'pasta'
+                        });
+                    });
+                }
+            });
+
+            // 2. Processar petições finalizadas (pasta APROVADAS)
+            // Sobrescreve casos novos se houver duplicidade (prioridade para aprovado)
+            if (casosNovos.aprovadas) {
+                Object.entries(casosNovos.aprovadas).forEach(([tipo, info]) => {
+                    if (info.clientes) {
+                        info.clientes.forEach(c => {
+                            const nome = c.nome || c.cliente;
+                            if (!nome) return;
+                            const chave = nome.trim().toLowerCase();
+
+                            mapaClientes.set(chave, {
+                                ...c,
+                                nome: nome,
+                                tipo_processo: tipo,
+                                categoria: 'FINALIZADAS',
+                                status: 'aprovada',
+                                origem_dados: 'pasta_finalizada'
+                            });
+                        });
+                    }
+                });
+            }
+
+            // 3. Enriquecer com histórico (apenas metadados, sem adicionar fantasmas)
+            Object.entries(historico).forEach(([tipo, lista]) => {
+                lista.forEach(p => {
+                    const nome = p.cliente || p.nome;
+                    if (!nome) return;
+                    const chave = nome.trim().toLowerCase();
+
+                    if (mapaClientes.has(chave)) {
+                        const dadosAtuais = mapaClientes.get(chave);
+
+                        // Mesclar dados úteis (id, logs, etc) sem sobrescrever o status real da pasta
+                        mapaClientes.set(chave, {
+                            ...dadosAtuais,
+                            historico_id: p.id,
+                            // Se status na pasta for pendente, mas no historico diz gerando/processando, manter aviso?
+                            // Não, confiar na pasta. Se arquivo _PROCESSADO não existe na pasta, é pendente.
+                            // Mas podemos pegar timestamps ou outros metas.
+                        });
+                    }
+                });
+            });
+
+            todosClientes = Array.from(mapaClientes.values());
+
+            // Atualizar contadores (badges)
+            const counts = {
+                'ACAO_ACIDENTARIA': 0,
+                'DIFERENCAS_CONTRATUAIS': 0,
+                'RECONHECIMENTO_VINCULO': 0,
+                'FINALIZADAS': 0
+            };
+
+            todosClientes.forEach(c => {
+                if (counts[c.categoria] !== undefined) {
+                    counts[c.categoria]++;
+                }
+            });
+
+            document.getElementById('badge-acidentaria').textContent = counts['ACAO_ACIDENTARIA'];
+            document.getElementById('badge-contratuais').textContent = counts['DIFERENCAS_CONTRATUAIS'];
+            document.getElementById('badge-vinculo').textContent = counts['RECONHECIMENTO_VINCULO'];
+            document.getElementById('badge-finalizadas').textContent = counts['FINALIZADAS'];
+        }
+
+        function renderizarTabela() {
+            const tbody = document.getElementById('tableBody');
+            const clientesFiltrados = todosClientes.filter(c => c.categoria === categoriaAtual);
+
+            if (clientesFiltrados.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 3rem; color: #94a3b8;">
+                            <i class="bi bi-inbox" style="font-size: 3rem; display: block; margin-bottom: 1rem;"></i>
+                            Nenhum cliente nesta categoria
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = clientesFiltrados.map(c => {
+                const iniciais = (c.nome || c.cliente || 'XX').substring(0, 2).toUpperCase();
+                const nome = c.nome || c.cliente || 'Cliente';
+                const id = c.id || Math.random().toString(36).substr(2, 5);
+                const status = c.status || 'pendente';
+
+                let statusBadgeClass = 'badge-high';
+                let statusIcon = '⏱️';
+                let statusText = 'Pendente';
+
+                if (categoriaAtual === 'FINALIZADAS') {
+                    statusBadgeClass = 'badge-success';
+                    statusIcon = '✅'; statusText = 'Finalizado';
+                } else if (status === 'aprovada' || status === 'processado') {
+                    statusIcon = '✅'; statusText = 'Processado';
+                    statusBadgeClass = 'badge-success';
+                } else if (status === 'rejeitada') {
+                    statusIcon = '❌'; statusText = 'Rejeitada';
+                    statusBadgeClass = 'badge-critical';
+                } else if (status === 'gerada') {
+                    statusIcon = '🔄'; statusText = 'Em Auditoria';
+                    statusBadgeClass = 'badge-info';
+                } else if (c.documentos?.alta_faltantes?.length > 0) {
+                    statusBadgeClass = 'badge-critical';
+                    statusIcon = '⚠️'; statusText = 'Crítico';
+                }
+
+                // Definir cores inline para badges faltantes
+                let badgeStyle = '';
+                if (statusBadgeClass === 'badge-success') badgeStyle = 'background: rgba(34, 197, 94, 0.1); color: #16a34a; border: 1px solid rgba(34, 197, 94, 0.2);';
+                if (statusBadgeClass === 'badge-info') badgeStyle = 'background: rgba(59, 130, 246, 0.1); color: #2563eb; border: 1px solid rgba(59, 130, 246, 0.2);';
+
+                let progresso = 0;
+                if (categoriaAtual === 'FINALIZADAS') {
+                    progresso = 100;
+                } else {
+                    const docsPresentes = c.documentos?.presentes?.length || 0;
+                    const docsFaltantes = (c.documentos?.alta_faltantes?.length || 0) +
+                        (c.documentos?.media_faltantes?.length || 0) +
+                        (c.documentos?.baixa_faltantes?.length || 0);
+                    const totalDocs = docsPresentes + docsFaltantes;
+                    progresso = totalDocs > 0 ? Math.round((docsPresentes / totalDocs) * 100) : 0;
+                }
+
+                let prioridadeHtml = `<span class="badge" style="background:rgba(16, 185, 129, 0.1); color:#10B981">Baixa</span>`;
+                if (c.documentos?.alta_faltantes?.length > 0) {
+                    prioridadeHtml = `<span class="badge badge-critical">Alta</span>`;
+                } else if (c.documentos?.media_faltantes?.length > 0) {
+                    prioridadeHtml = `<span class="badge badge-high">Média</span>`;
+                }
+
+                const data = c.data_geracao ? new Date(c.data_geracao).toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+                const jsonCliente = JSON.stringify(c).replace(/'/g, "&apos;");
+
+                return `
+                    <tr onclick='abrirDetalhes(${jsonCliente})' style="cursor:pointer">
+                        <td>
+                            <div class="client-info">
+                                <div class="client-avatar">${iniciais}</div>
+                                <div class="client-details">
+                                    <span class="client-name">${nome}</span>
+                                    <span class="client-id">#${id}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge ${statusBadgeClass}" style="${badgeStyle}">
+                                ${statusIcon} ${statusText}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progresso}%"></div>
+                            </div>
+                        </td>
+                        <td>
+                            ${prioridadeHtml}
+                        </td>
+                        <td>${data}</td>
+                        <td>
+                             <div class="actions">
+                                <button class="action-btn" title="Visualizar" onclick="event.stopPropagation(); abrirDetalhes(${jsonCliente})">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Variáveis globais para instâncias dos gráficos
+        let chartEvolution = null;
+        let chartType = null;
+        let chartStatus = null;
+        let chartPriority = null;
+
+        function processarDadosGraficos() {
+            // Inicializar contadores
+            const stats = {
+                tipos: { 'ACAO_ACIDENTARIA': 0, 'DIFERENCAS_CONTRATUAIS': 0, 'RECONHECIMENTO_VINCULO': 0 },
+                status: { 'Analise': 0, 'Docs': 0, 'Gerando': 0, 'Auditoria': 0, 'Pronto': 0 },
+                prioridade: { 'Alta': 0, 'Media': 0, 'Baixa': 0 },
+                evolucao: Array(6).fill(0), // Últimos 6 meses
+                meses: []
+            };
+
+            // Preparar labels dos últimos 6 meses
+            const hoje = new Date();
+            for (let i = 5; i >= 0; i--) {
+                const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+                stats.meses.push(d.toLocaleString('default', { month: 'short' }));
+            }
+
+            todosClientes.forEach(c => {
+                // Tipos
+                if (stats.tipos[c.categoria] !== undefined) stats.tipos[c.categoria]++;
+
+                // Status (Simplificado)
+                if (c.status === 'aprovada') stats.status['Pronto']++;
+                else if (c.status === 'gerada') stats.status['Auditoria']++;
+                else if (c.documentos?.alta_faltantes?.length > 0) stats.status['Docs']++;
+                else stats.status['Analise']++; // Padrão pendente
+
+                // Prioridade
+                if (c.documentos?.alta_faltantes?.length > 0) stats.prioridade['Alta']++;
+                else if (c.documentos?.media_faltantes?.length > 0) stats.prioridade['Media']++;
+                else stats.prioridade['Baixa']++;
+
+                // Evolução (Baseado em data_geracao ou fallback para hoje)
+                let dataRef = c.data_geracao ? new Date(c.data_geracao) : new Date();
+                // Calcular diferença em meses
+                const diffMeses = (hoje.getFullYear() - dataRef.getFullYear()) * 12 + (hoje.getMonth() - dataRef.getMonth());
+
+                if (diffMeses >= 0 && diffMeses < 6) {
+                    stats.evolucao[5 - diffMeses]++;
+                }
+            });
+
+            return stats;
+        }
+
+        function initCharts(dados) {
+            if (!dados) return; // Aguardar dados
+
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+            Chart.defaults.color = '#6B7280';
+            Chart.defaults.scale.grid.color = 'rgba(0, 0, 0, 0.05)';
+
+            // --- Evolution Chart ---
+            const ctxEvolution = document.getElementById('evolutionChart')?.getContext('2d');
+            if (ctxEvolution) {
+                if (chartEvolution) {
+                    chartEvolution.data.labels = dados.meses;
+                    chartEvolution.data.datasets[0].data = dados.evolucao;
+                    // Simular dados finalizados (fictício 60% dos novos para demo visual)
+                    chartEvolution.data.datasets[1].data = dados.evolucao.map(v => Math.round(v * 0.6));
+                    chartEvolution.update();
+                } else {
+                    chartEvolution = new Chart(ctxEvolution, {
+                        type: 'line',
+                        data: {
+                            labels: dados.meses,
+                            datasets: [{
+                                label: 'Novos Casos',
+                                data: dados.evolucao,
+                                borderColor: '#6366F1',
+                                backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }, {
+                                label: 'Finalizados',
+                                data: dados.evolucao.map(v => Math.round(v * 0.6)),
+                                borderColor: '#10B981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 6 } } },
+                            interaction: { mode: 'index', intersect: false }
+                        }
+                    });
+                }
+            }
+
+            // --- Type Chart ---
+            const ctxType = document.getElementById('typeChart')?.getContext('2d');
+            if (ctxType) {
+                const dataValues = [
+                    dados.tipos['ACAO_ACIDENTARIA'],
+                    dados.tipos['DIFERENCAS_CONTRATUAIS'],
+                    dados.tipos['RECONHECIMENTO_VINCULO']
+                ];
+
+                if (chartType) {
+                    chartType.data.datasets[0].data = dataValues;
+                    chartType.update();
+                } else {
+                    chartType = new Chart(ctxType, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Acidentária', 'Diferenças', 'Vínculo'],
+                            datasets: [{
+                                data: dataValues,
+                                backgroundColor: ['#6366F1', '#8B5CF6', '#F59E0B'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '75%',
+                            plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } } }
+                        }
+                    });
+                }
+            }
+
+            // --- Status Chart ---
+            const ctxStatus = document.getElementById('statusChart')?.getContext('2d');
+            if (ctxStatus) {
+                const dataValues = [
+                    dados.status['Analise'],
+                    dados.status['Docs'],
+                    dados.status['Auditoria'], // Mapeado de 'Gerando'
+                    dados.status['Pronto']
+                ];
+
+                if (chartStatus) {
+                    chartStatus.data.datasets[0].data = dataValues;
+                    chartStatus.update();
+                } else {
+                    chartStatus = new Chart(ctxStatus, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Análise', 'Docs', 'Audit', 'Pronto'],
+                            datasets: [{
+                                label: 'Casos',
+                                data: dataValues,
+                                backgroundColor: ['#F59E0B', '#EF4444', '#6366F1', '#10B981'],
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                        }
+                    });
+                }
+            }
+
+            // --- Priority Chart ---
+            const ctxPriority = document.getElementById('priorityChart')?.getContext('2d');
+            if (ctxPriority) {
+                const dataValues = [
+                    dados.prioridade['Alta'],
+                    dados.prioridade['Media'],
+                    dados.prioridade['Baixa']
+                ];
+
+                if (chartPriority) {
+                    chartPriority.data.datasets[0].data = dataValues;
+                    chartPriority.update();
+                } else {
+                    chartPriority = new Chart(ctxPriority, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Alta', 'Média', 'Baixa'],
+                            datasets: [{
+                                data: dataValues,
+                                backgroundColor: ['#EF4444', '#F59E0B', '#10B981'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 6 } } }
+                        }
+                    });
+                }
+            }
+        }
+
+        let clienteSelecionado = null;
+        let modalSectionOriginalHTML = null;
+
+        // Salvar HTML original da modal-section ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalSection = document.querySelector('.modal-section');
+            if (modalSection) {
+                modalSectionOriginalHTML = modalSection.innerHTML;
+            }
+        });
+
+        function abrirDetalhes(cliente) {
+            clienteSelecionado = cliente;
+
+            // Usar o modal V2
+            const modal = document.getElementById('modalDetalhesV2');
+
+            // Basic Info
+            modal.querySelector('#modalClienteNome').textContent = cliente.nome || cliente.cliente;
+            modal.querySelector('#modalClienteId').textContent = '#' + (cliente.id || 'N/A');
+
+            // Scoped selectors
+            const modalSection = modal.querySelector('.modal-section');
+            const btnGerarPeticao = modal.querySelector('#btnGerarPeticaoModal');
+
+            // Verificar se é petição finalizada
+            if (categoriaAtual === 'FINALIZADAS' && cliente.link) {
+                // Modal customizado para petições finalizadas
+                modalSection.innerHTML = `
+                    <h3><i class="bi bi-file-earmark-check"></i> Petição Finalizada</h3>
+                    <div style="background: #fff; border-radius: 12px; padding: 2rem; text-align: center;">
+                        <i class="bi bi-check-circle-fill" style="font-size: 4rem; color: #22c55e; display: block; margin-bottom: 1rem;"></i>
+                        <h4 style="color: #1e293b; margin-bottom: 1rem;">Petição Aprovada e Disponível</h4>
+                        <p style="color: #64748b; margin-bottom: 2rem;">A petição foi aprovada pela auditoria e está pronta para uso.</p>
+                        <a href="${cliente.link}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                            <i class="bi bi-download"></i>
+                            Abrir Petição no Google Drive
+                        </a>
+                    </div>
+                `;
+
+                // Esconder botão de gerar petição
+                if (btnGerarPeticao) btnGerarPeticao.style.display = 'none';
+            } else {
+                // Modal padrão para casos novos/pendentes
+                // Restaurar HTML original da seção se disponível, ou limpar
+                // Nota: estamos simplificando para evitar problemas com modalSectionOriginalHTML duplicado
+                modalSection.innerHTML = '';
+
+                // Documents - Precisamos passar o ID correto ou o elemento
+                // Como renderDocsList usa getElementById, vamos garantir que o HTML do modal tenha IDs unicos ou atualizar renderDocsList
+                // Mas wait, renderDocsList busca por ID. Se tivermos ID duplicado (modalDocsEntregues), vai bugar.
+                // Vou renomear os IDs dentro do modalV2 para evitar conflito? Ou assumir que o modalOriginal não está atrapalhando?
+                // O problema é que getElementById pega o primeiro. O primeiro é o original.
+                // Preciso atualizar renderDocsList para aceitar um container ELEMENTO, não ID.
+
+                // Vamos renderizar manualmente aqui para garantir
+                renderDocsListScoped(modal.querySelector('#modalDocsEntregues'), cliente.documentos?.presentes || [], 'bi-check-circle');
+                renderDocsListScoped(modal.querySelector('#modalDocsFaltantesAlta'), cliente.documentos?.alta_faltantes || [], 'bi-exclamation-triangle');
+
+                const outrosFaltantes = [
+                    ...(cliente.documentos?.media_faltantes || []),
+                    ...(cliente.documentos?.baixa_faltantes || [])
+                ];
+
+                const outrosContainer = modal.querySelector('#docsOutrosContainer');
+                if (outrosFaltantes.length > 0) {
+                    outrosContainer.style.display = 'grid';
+                    renderDocsListScoped(modal.querySelector('#modalDocsFaltantesOutros'), outrosFaltantes, 'bi-dash-circle');
+                } else {
+                    outrosContainer.style.display = 'none';
+                }
+
+                // Mostrar botão de gerar petição
+                if (btnGerarPeticao) btnGerarPeticao.style.display = 'inline-flex';
+            }
+
+            // Show
+            modal.style.display = 'flex';
+            // Small timeout to allow display:flex to apply before adding active class for transition
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function renderDocsListScoped(container, docs, iconClass) {
+            if (!container) return;
+            container.innerHTML = '';
+            if (!docs || docs.length === 0) {
+                container.innerHTML = '<div style="color: #94a3b8; font-style: italic; text-align: center; padding: 2rem;">Nenhum documento listado</div>';
+                return;
+            }
+
+            docs.forEach((doc) => {
+                const badge = document.createElement('div');
+                badge.className = 'doc-badge';
+                badge.innerHTML = `<i class="bi ${iconClass}"></i> ${doc}`;
+                container.appendChild(badge);
+            });
+        }
+
+        function renderDocsList(elementId, docs, iconClass) {
+            const container = document.getElementById(elementId);
+            renderDocsListScoped(container, docs, iconClass);
+        }
+
+        function fecharDetalhes(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+
+            const modal = document.getElementById('modalDetalhesV2');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300); // Match transition duration
+            }
+        }
+
+        // --- Funcionalidade de Geração de Petição em Tempo Real ---
+
+        async function iniciarGeracao() {
+            if (!clienteSelecionado) {
+                alert('Nenhum cliente selecionado');
+                return;
+            }
+
+
+
+            // Fechar modal de detalhes
+            fecharDetalhes();
+
+            // Abrir modal de progresso
+            abrirModalProgresso('Gerando Petição', [
+                'Iniciando processo',
+                'Analisando documentos',
+                'Gerando petição',
+                'Finalizando'
+            ]);
+
+            try {
+                // Chamar API de geração manual
+                const response = await fetch(`${API_BASE}/gerar-peticao-manual`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cliente_nome: clienteSelecionado.nome || clienteSelecionado.cliente,
+                        tipo_acao: clienteSelecionado.tipo_processo || clienteSelecionado.categoria,
+                        forcar_geracao: true
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Monitorar status
+                    monitorarProgresso(clienteSelecionado.nome || clienteSelecionado.cliente);
+                } else {
+                    throw new Error(data.error || 'Erro ao iniciar geração');
+                }
+            } catch (error) {
+                mostrarErroGeracao(error.message);
+            }
+        }
+
+        async function gerarCronologiaAtual() {
+            if (!clienteSelecionado) {
+                alert('Nenhum cliente selecionado');
+                return;
+            }
+
+            // Fechar modal de detalhes
+            fecharDetalhes();
+
+            // Abrir modal de progresso
+            abrirModalProgresso('Gerando Cronologia', [
+                'Iniciando processo',
+                'Lendo documentos',
+                'Extraindo datas e fatos',
+                'Gerando arquivo final'
+            ]);
+
+            // Atualizar título para cronologia
+            document.getElementById('progressStatus').textContent = 'Iniciando geração de cronologia...';
+
+            try {
+                // Chamar API de geração de cronologia
+                const response = await fetch(`${API_BASE}/gerar-cronologia`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cliente_nome: clienteSelecionado.nome || clienteSelecionado.cliente
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Monitorar status
+                    monitorarProgresso(clienteSelecionado.nome || clienteSelecionado.cliente);
+                } else {
+                    throw new Error(data.error || 'Erro ao iniciar geração de cronologia');
+                }
+            } catch (error) {
+                mostrarErroGeracao(error.message);
+            }
+        }
+
+        async function gerarTranscricaoVideo() {
+            if (!clienteSelecionado) {
+                alert('Nenhum cliente selecionado');
+                return;
+            }
+
+            const clienteNome = clienteSelecionado.nome || clienteSelecionado.cliente;
+
+            // Fechar modal de detalhes
+            fecharDetalhes();
+
+            // --- NOVA IMPLEMENTAÇÃO SIMPLIFICADA ---
+            if (!confirm(`🎥 Transcrever vídeos do cliente "${clienteNome}"?\n\nO sistema irá buscar e transcrever automaticamente o vídeo mais recente.\n\nFormatos aceitos: MP4, AVI, MOV, MKV, WEBM, FLV, WMV, M4V, MPEG, MPG`)) return;
+
+            abrirModalProgresso('Transcrevendo Vídeo', ['Buscando vídeos', 'Processando com Gemini', 'Gerando documento']);
+            document.getElementById('progressStatus').textContent = 'Iniciando transcrição...';
+
+            try {
+                const response = await fetch(`${API_BASE}/transcrever-video`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cliente_nome: clienteNome })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert('✅ Solicitação enviada! Processamento iniciará em instantes.');
+                    const modal = document.getElementById('modalProgresso');
+                    if (modal) modal.remove();
+                } else {
+                    throw new Error(data.error || 'Erro ao iniciar');
+                }
+            } catch (error) {
+                mostrarErroGeracao(error.message);
+            }
+            return; // Encerra execução aqui
+            // ----------------------------------------
+
+            try {
+                // Primeiro, buscar a pasta do cliente pelo nome
+                const foldersResponse = await fetch(`${API_BASE}/drive/folders`);
+                const foldersData = await foldersResponse.json();
+
+                if (!foldersData.success || !foldersData.folders) {
+                    alert('❌ Erro ao buscar pastas do Google Drive');
+                    return;
+                }
+
+                // Procurar a pasta do cliente
+                let pastaCliente = null;
+                for (const categoria of foldersData.folders) {
+                    if (categoria.subfolders) {
+                        const pasta = categoria.subfolders.find(f => f.name === clienteNome);
+                        if (pasta) {
+                            pastaCliente = pasta;
+                            break;
+                        }
+                    }
+                }
+
+                if (!pastaCliente) {
+                    alert(`❌ Pasta do cliente "${clienteNome}" não encontrada no Google Drive`);
+                    return;
+                }
+
+                const pastaClienteId = pastaCliente.id;
+
+                // Buscar vídeos disponíveis na pasta do cliente
+                const response = await fetch(`${API_BASE}/videos-pendentes?pasta_id=${pastaClienteId}`);
+                const data = await response.json();
+
+                if (!data.success || !data.videos || data.videos.length === 0) {
+                    alert(`📹 Nenhum vídeo encontrado\n\nPara transcrever um vídeo:\n\n1. Vá para a aba "Documentos"\n2. Navegue até a pasta do cliente "${clienteNome}"\n3. Faça upload de um vídeo\n\n✅ Formatos aceitos:\nMP4, AVI, MOV, MKV, WEBM, FLV, WMV, M4V, MPEG, MPG`);
+                    return;
+                }
+
+                // Criar modal de seleção de vídeo
+                const modalHtml = `
+                    <div id="modalSelecionarVideo" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 10000;">
+                        <div style="background: white; border-radius: 16px; padding: 2rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                            <h3 style="margin: 0 0 1.5rem 0; color: #1e293b; font-size: 1.5rem;">
+                                🎥 Selecione o Vídeo para Transcrever
+                            </h3>
+                            <p style="color: #64748b; margin-bottom: 1.5rem;">Cliente: <strong>${clienteNome}</strong></p>
+                            <div id="listaVideos" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                ${data.videos.map(video => `
+                                    <button onclick="selecionarVideoParaTranscricao('${video.id}', '${video.nome.replace(/'/g, "\\'")}', '${pastaClienteId}')" 
+                                            style="padding: 1rem; border: 2px solid #e2e8f0; border-radius: 12px; background: white; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 1rem;"
+                                            onmouseover="this.style.borderColor='#f59e0b'; this.style.background='#fffbeb';"
+                                            onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                        <i class="bi bi-camera-video" style="font-size: 1.5rem; color: #f59e0b;"></i>
+                                        <div style="flex: 1;">
+                                            <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem;">${video.nome}</div>
+                                            <div style="font-size: 0.85rem; color: #64748b;">
+                                                ${video.transcrito ? '✅ Já transcrito' : '⏳ Pendente'}
+                                            </div>
+                                        </div>
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <button onclick="document.getElementById('modalSelecionarVideo').remove()" 
+                                    style="margin-top: 1.5rem; padding: 0.75rem 1.5rem; background: #f1f5f9; border: none; border-radius: 12px; cursor: pointer; width: 100%; font-weight: 600; color: #64748b;">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            } catch (error) {
+                console.error('Erro ao buscar vídeos:', error);
+                alert(`❌ Erro ao buscar vídeos:\n\n${error.message}`);
+            }
+        }
+
+        function selecionarVideoParaTranscricao(videoId, videoNome, pastaClienteId) {
+            // Remover modal de seleção
+            const modal = document.getElementById('modalSelecionarVideo');
+            if (modal) modal.remove();
+
+            // Chamar função de transcrição existente
+            const clienteNome = clienteSelecionado.nome || clienteSelecionado.cliente;
+            transcreverVideo(clienteNome, videoId, videoNome, pastaClienteId);
+        }
+
+        function abrirModalProgresso(titulo = 'Processando', etapas = []) {
+            const modal = document.getElementById('modalProgresso');
+            const steps = document.getElementById('progressSteps');
+            const bar = document.getElementById('progressBarFill');
+            const status = document.getElementById('progressStatus');
+            const titleEl = document.getElementById('progressTitle');
+            const icon = document.querySelector('#modalProgresso .spin-icon');
+
+            // Verificar se elementos existem
+            if (!modal || !bar || !status) {
+                console.error('[ERRO] Elementos do modal de progresso não encontrados');
+                return;
+            }
+
+            // Resetar estado
+            bar.style.width = '5%';
+            bar.className = 'progress-bar-fill'; // remover classes de erro/sucesso
+            status.textContent = 'Iniciando solicitação...';
+            status.style.color = '#64748b';
+
+            if (icon) {
+                icon.className = 'bi bi-gear-wide-connected spin-icon';
+                icon.style.color = '#3b82f6';
+            }
+
+            // Setar Título
+            if (titleEl) titleEl.textContent = titulo;
+
+            // Renderizar etapas
+            if (steps) {
+                if (etapas && etapas.length > 0) {
+                    steps.innerHTML = etapas.map((etapa, index) => `
+                        <div class="step-item ${index === 0 ? 'active' : ''}">
+                            <i class="bi ${index === 0 ? 'bi-circle-fill' : 'bi-circle'}" style="font-size: 0.6rem;"></i> 
+                            ${etapa}
+                        </div>
+                    `).join('');
+                } else {
+                    steps.innerHTML = `
+                    <div class="step-item active"><i class="bi bi-circle-fill" style="font-size: 0.6rem;"></i> Iniciando processo</div>
+                    <div class="step-item"><i class="bi bi-circle" style="font-size: 0.6rem;"></i> Processando dados</div>
+                    <div class="step-item"><i class="bi bi-circle" style="font-size: 0.6rem;"></i> Finalizando</div>
+                `;
+                }
+            }
+
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function fecharModalProgresso() {
+            const modal = document.getElementById('modalProgresso');
+            if (!modal) return;
+
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function mostrarErroGeracao(msg) {
+            const status = document.getElementById('progressStatus');
+            const bar = document.getElementById('progressBarFill');
+            const icon = document.querySelector('#modalProgresso .spin-icon');
+
+            if (status) {
+                status.textContent = `Erro: ${msg}`;
+                status.style.color = '#ef4444';
+            }
+            if (bar) {
+                bar.style.background = '#ef4444';
+            }
+            if (icon) {
+                icon.className = 'bi bi-x-circle';
+                icon.style.color = '#ef4444';
+                icon.style.animation = 'none';
+            }
+
+            // Adicionar botão de fechar após erro
+            const content = document.getElementById('progressContent');
+            if (!document.getElementById('btnFecharErro')) {
+                const btn = document.createElement('button');
+                btn.id = 'btnFecharErro';
+                btn.className = 'btn btn-secondary';
+                btn.style.marginTop = '2rem';
+                btn.textContent = 'Fechar';
+                btn.onclick = fecharModalProgresso;
+                content.appendChild(btn);
+            }
+        }
+
+        async function monitorarProgresso(clienteNome) {
+            // Etapas visuais simuladas (já que não temos websocket real ainda)
+            // O backend retorna apenas "status" textual, vamos mapear para progresso visual
+
+            let tentativas = 0;
+            const maxTentativas = 300; // 10 minutos (2s * 300)
+
+            const interval = setInterval(async () => {
+                tentativas++;
+
+                try {
+                    // Consultar status
+                    // Nota: O endpoint de status-processamento busca no historico.json
+                    // que é atualizado pelo main.py
+                    const response = await fetch(`${API_BASE}/status-processamento?cliente=${encodeURIComponent(clienteNome)}`);
+                    const data = await response.json();
+
+                    if (data.status) {
+                        atualizarInterfaceProgresso(data.status, data.mensagem);
+
+                        if (data.concluido || data.status === 'sucesso' || data.status === 'concluido' || data.status === 'aprovada') {
+                            clearInterval(interval);
+                            finalizarSucesso(data);
+                        } else if (data.status === 'erro') {
+                            clearInterval(interval);
+                            mostrarErroGeracao(data.mensagem);
+                        }
+                    }
+
+                    if (tentativas >= maxTentativas) {
+                        clearInterval(interval);
+                        mostrarErroGeracao('Tempo limite excedido. Verifique se o main.py está rodando.');
+                    }
+                } catch (error) {
+                    console.error('Erro no polling:', error);
+                }
+            }, 2000);
+        }
+
+        function atualizarInterfaceProgresso(status, mensagem) {
+            const bar = document.getElementById('progressBarFill');
+            const statusText = document.getElementById('progressStatus');
+            const steps = document.getElementById('progressSteps');
+
+            statusText.textContent = mensagem || 'Processando...';
+
+            // Lógica simples de progresso baseada na mensagem/status
+            let porcentagem = 10;
+            let stepIndex = 0;
+
+            const msgLower = (mensagem || '').toLowerCase();
+
+            if (msgLower.includes('localizando') || msgLower.includes('buscando')) {
+                porcentagem = 25;
+                stepIndex = 1;
+            } else if (msgLower.includes('analisando') || msgLower.includes('documentos')) {
+                porcentagem = 40;
+                stepIndex = 1;
+            } else if (msgLower.includes('cronologia')) {
+                porcentagem = 60;
+                stepIndex = 2;
+            } else if (msgLower.includes('gerando') || msgLower.includes('petição')) {
+                porcentagem = 80;
+                stepIndex = 2;
+            } else if (msgLower.includes('salvando') || msgLower.includes('movendo')) {
+                porcentagem = 90;
+                stepIndex = 3;
+            } else if (status === 'sucesso' || status === 'concluido' || status === 'aprovada') {
+                porcentagem = 100;
+                stepIndex = 4;
+            }
+
+            bar.style.width = `${porcentagem}%`;
+
+            // Atualizar steps visuais
+            const stepItems = steps.querySelectorAll('.step-item');
+            stepItems.forEach((item, index) => {
+                if (index < stepIndex) {
+                    item.className = 'step-item completed';
+                    item.querySelector('i').className = 'bi bi-check-circle-fill';
+                } else if (index === stepIndex) {
+                    item.className = 'step-item active';
+                    item.querySelector('i').className = 'bi bi-circle-fill';
+                } else {
+                    item.className = 'step-item';
+                    item.querySelector('i').className = 'bi bi-circle';
+                }
+            });
+        }
+
+        function finalizarSucesso(data) {
+            const bar = document.getElementById('progressBarFill');
+            const statusText = document.getElementById('progressStatus');
+            const icon = document.querySelector('.spin-icon');
+
+            bar.style.width = '100%';
+            bar.style.background = '#22c55e';
+
+            statusText.textContent = 'Petição gerada com sucesso!';
+            statusText.style.color = '#22c55e';
+            statusText.style.fontWeight = 'bold';
+
+            icon.className = 'bi bi-check-circle-fill';
+            icon.style.color = '#22c55e';
+            icon.style.animation = 'none';
+
+            // Atualizar dados do dashboard
+            carregarDados();
+
+            setTimeout(() => {
+                fecharModalProgresso();
+                // Opcional: Mostrar toast de sucesso
+            }, 3000);
+        }
+
+        function atualizarTimestamp() {
+            const agora = new Date();
+            document.getElementById('ultimaAtualizacao').textContent = `Atualizado ${agora.toLocaleTimeString()}`;
+        }
+
+        // Carregar dados inicialmente e a cada 30 segundos
+        carregarDados();
+        setInterval(carregarDados, 30000);
+        // --- Controle de Views (Dashboard x Petições) ---
+        // --- Controle de Views (Dashboard x Petições) ---
+        function mudarView(viewName) {
+            // Esconder todas as views
+            document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
+
+            // Remover active dos links
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+
+            // Lógica Específica
+            if (viewName === 'dashboard') {
+                document.getElementById('view-dashboard').style.display = 'block';
+                document.getElementById('section-tabela').style.display = 'block';
+                document.getElementById('nav-dashboard').classList.add('active');
+            } else if (viewName === 'peticoes') {
+                document.getElementById('view-peticoes-header').style.display = 'block';
+                document.getElementById('section-tabela').style.display = 'block';
+                document.getElementById('nav-peticoes').classList.add('active');
+            } else if (viewName === 'clientes') {
+                document.getElementById('view-clientes').style.display = 'block';
+                document.getElementById('nav-clientes').classList.add('active');
+                carregarListaClientesBackend();
+            } else if (viewName === 'documentos') {
+                document.getElementById('view-documentos').style.display = 'block';
+                document.getElementById('nav-documentos').classList.add('active');
+                navegarPasta(null, 'Google Drive'); // Carregar raiz
+            }
+
+            // Animação de fade in para elementos visíveis
+            document.querySelectorAll('.view-section').forEach(el => {
+                if (el.style.display === 'block') {
+                    el.style.opacity = '0';
+                    setTimeout(() => el.style.opacity = '1', 10);
+                }
+            });
+        }
+
+        // Inicializar na view Dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            mudarView('dashboard');
+            // Init Charts inicial vazio ou com placeholder se quiser, mas carregarDados fará o trabalho
+            // initCharts(null); 
+        });
+
+        // --- Gestão de Clientes ---
+
+        function abrirModalNovoCliente() {
+            const modal = document.getElementById('modalNovoCliente');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function fecharModalNovoCliente(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+
+            const modal = document.getElementById('modalNovoCliente');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        async function salvarNovoCliente(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('btnSalvarCliente');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="spin-icon"><i class="bi bi-arrow-repeat"></i></span> Criando...';
+            btn.disabled = true;
+
+            const nome = document.getElementById('inputNomeCliente').value;
+            const tipo = document.getElementById('selectTipoAcao').value;
+            const cpf = document.getElementById('inputCpfCliente').value;
+            const telefone = document.getElementById('inputTelefoneCliente').value;
+            const email = document.getElementById('inputEmailCliente').value;
+            const endereco = document.getElementById('inputEnderecoCliente').value;
+            const observacoes = document.getElementById('inputObsCliente').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/clientes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nome,
+                        tipo,
+                        cpf,
+                        telefone,
+                        email,
+                        endereco,
+                        observacoes
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Cliente cadastrado com sucesso!');
+                    fecharModalNovoCliente();
+                    document.getElementById('formNovoCliente').reset();
+                    // Recarregar dados para aparecer na lista (polling ou manual)
+                    carregarDados();
+                } else {
+                    throw new Error(data.error || 'Erro desconhecido');
+                }
+            } catch (error) {
+                alert('Erro ao cadastrar cliente: ' + error.message);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function carregarListaClientesBackend() {
+            // Reutiliza renderizarTabela mas filtrando para a tabela especifica de clientes
+            // Por simplicidade, vou preencher a tabela #tabelaClientes com todos os dados atuais
+
+            const tbody = document.getElementById('tbodyClientes');
+            if (!tbody) return;
+
+            if (todosClientes.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem;">Nenhum cliente encontrado</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = todosClientes.map(c => {
+                const dataStr = c.data_geracao ? new Date(c.data_geracao).toLocaleDateString() : 'Hoje';
+                const nomeCliente = c.nome || c.cliente;
+                return `
+                    <tr>
+                        <td style="font-weight:600; color:var(--text-primary); cursor: pointer;" 
+                            onclick="abrirDetalhesCliente('${nomeCliente}')"
+                            title="Clique para ver detalhes">
+                            <span style="border-bottom: 1px dashed #94a3b8;">${nomeCliente}</span>
+                        </td>
+                        <td>${c.categoria || c.tipo_processo}</td>
+                        <td><span class="badge badge-info">${c.status || 'Pendente'}</span></td>
+                        <td>${dataStr}</td>
+                        <td>
+
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // --- Visualização de Detalhes do Cliente ---
+
+        function abrirDetalhesCliente(nome) {
+            const modal = document.getElementById('modalVisualizarCliente');
+            const loading = document.getElementById('loadingDetalhes');
+            const conteudo = document.getElementById('conteudoDetalhes');
+
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+
+            // Reset fields
+            document.getElementById('viewNome').innerText = nome;
+            document.getElementById('viewAvatar').innerText = nome.substring(0, 2).toUpperCase();
+            document.getElementById('viewCpf').innerText = '-';
+            document.getElementById('viewTelefone').innerText = '-';
+            document.getElementById('viewEmail').innerText = '-';
+            document.getElementById('viewEndereco').innerText = '-';
+            document.getElementById('viewObs').innerText = '-';
+
+            // Show loading
+            loading.style.display = 'block';
+            conteudo.style.opacity = '0.5';
+
+            // Fetch data
+            fetch(`${API_BASE}/client-metadata?nome=${encodeURIComponent(nome)}`)
+                .then(r => r.json())
+                .then(data => {
+                    loading.style.display = 'none';
+                    conteudo.style.opacity = '1';
+
+                    if (data.success && data.dados) {
+                        const d = data.dados;
+                        document.getElementById('viewTipo').innerText = d.tipo_acao || 'N/A';
+                        document.getElementById('viewCpf').innerText = d.cpf_cnpj || '-';
+                        document.getElementById('viewTelefone').innerText = d.telefone || '-';
+                        document.getElementById('viewEmail').innerText = d.email || '-';
+                        document.getElementById('viewEndereco').innerText = d.endereco || '-';
+                        document.getElementById('viewObs').innerText = d.observacoes || 'Nenhuma observação registrada.';
+                    } else {
+                        // Se não achar metadata (ex: cliente antigo ou erro), mantém o básico
+                        document.getElementById('viewObs').innerText = 'Detalhes adicionais não encontrados no servidor.';
+                    }
+                })
+                .catch(err => {
+                    loading.style.display = 'none';
+                    conteudo.style.opacity = '1';
+                    console.error("Erro ao buscar detalhes", err);
+                    document.getElementById('viewObs').innerText = 'Erro ao buscar detalhes no servidor.';
+                });
+        }
+
+        function fecharModalVisualizarCliente(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+
+            const modal = document.getElementById('modalVisualizarCliente');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        // --- Navegação de Documentos do Google Drive ---
+
+        let navigationStack = []; // Pilha de navegação
+
+        function navegarPasta(folderId, folderName) {
+            const loading = document.getElementById('loadingDocumentos');
+            const tabela = document.getElementById('tabelaDocumentos');
+            const empty = document.getElementById('emptyDocumentos');
+            const tbody = document.getElementById('tbodyDocumentos');
+
+            // Mostrar loading
+            loading.style.display = 'block';
+            tabela.style.display = 'none';
+            empty.style.display = 'none';
+
+            // Atualizar pilha de navegação
+            if (folderId === null) {
+                navigationStack = []; // Reset para raiz
+                currentFolderId = null; // Limpar ID da pasta atual
+                document.getElementById('uploadButtonContainer').style.display = 'none'; // Ocultar botão
+            } else {
+                // Verificar se estamos voltando (clique no breadcrumb)
+                const existingIndex = navigationStack.findIndex(item => item.id === folderId);
+                if (existingIndex !== -1) {
+                    navigationStack = navigationStack.slice(0, existingIndex + 1);
+                } else {
+                    navigationStack.push({ id: folderId, name: folderName });
+                }
+                currentFolderId = folderId; // Armazenar ID da pasta atual
+                document.getElementById('uploadButtonContainer').style.display = 'flex'; // Mostrar botão
+            }
+
+            // Atualizar breadcrumbs
+            atualizarBreadcrumbs();
+
+            // Buscar arquivos/pastas
+            const url = folderId ? `${API_BASE}/drive/folders?folderId=${folderId}` : `${API_BASE}/drive/folders`;
+
+            fetch(url)
+                .then(r => r.json())
+                .then(data => {
+                    loading.style.display = 'none';
+
+                    if (data.success && data.items && data.items.length > 0) {
+                        tabela.style.display = 'table';
+                        renderizarDocumentos(data.items, data.currentFolder);
+                    } else if (data.success && data.currentFolder && data.currentFolder.parentId) {
+                        // Pasta vazia mas não é raiz - mostrar botão voltar
+                        tabela.style.display = 'table';
+                        renderizarDocumentos([], data.currentFolder);
+                    } else {
+                        empty.style.display = 'block';
+                    }
+                })
+                .catch(err => {
+                    loading.style.display = 'none';
+                    empty.style.display = 'block';
+                    console.error('Erro ao carregar documentos:', err);
+                });
+        }
+
+        function atualizarBreadcrumbs() {
+            const breadcrumbs = document.getElementById('breadcrumbs');
+            let html = `
+                <i class="bi bi-house-door" style="color: #3b82f6;"></i>
+                <span style="color: #1e293b; font-weight: 600; cursor: pointer;" onclick="navegarPasta(null, 'Google Drive')">Google Drive</span>
+            `;
+
+            navigationStack.forEach((item, index) => {
+                html += `
+                    <i class="bi bi-chevron-right" style="font-size: 0.75rem; color: #cbd5e1;"></i>
+                    <span style="color: ${index === navigationStack.length - 1 ? '#1e293b' : '#64748b'}; font-weight: ${index === navigationStack.length - 1 ? '600' : '400'}; cursor: pointer;" 
+                          onclick="navegarPasta('${item.id}', '${item.name}')">${item.name}</span>
+                `;
+            });
+
+            breadcrumbs.innerHTML = html;
+        }
+
+        function renderizarDocumentos(items, currentFolder) {
+            const tbody = document.getElementById('tbodyDocumentos');
+
+            let html = '';
+
+            // Adicionar linha "Voltar" se não estiver na raiz
+            if (currentFolder && currentFolder.parentId) {
+                html += `
+                    <tr onclick="voltarPastaPai()" style="cursor: pointer; background: #f8fafc;">
+                        <td style="font-weight: 600; color: #3b82f6;">
+                            <i class="bi bi-arrow-left-circle" style="color: #3b82f6; margin-right: 0.5rem;"></i>
+                            .. (Voltar)
+                        </td>
+                        <td colspan="3" style="color: #64748b; font-size: 0.85rem;">Pasta anterior</td>
+                    </tr>
+                `;
+            }
+
+            html += items.map(item => {
+                const icon = item.isFolder ? 'bi-folder-fill' : getFileIcon(item.mimeType);
+                const iconColor = item.isFolder ? '#fbbf24' : '#64748b';
+                const onClick = item.isFolder
+                    ? `onclick="navegarPasta('${item.id}', '${item.name}')" style="cursor: pointer;"`
+                    : `onclick="window.open('https://drive.google.com/file/d/${item.id}/view', '_blank')" style="cursor: pointer;"`;
+                const modifiedDate = item.modifiedTime !== '-' ? new Date(item.modifiedTime).toLocaleDateString('pt-BR') : '-';
+
+                // Estilo especial para pastas principais
+                const rowStyle = item.isPrincipal ? 'background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-left: 4px solid #3b82f6;' : '';
+                const nameStyle = item.isPrincipal ? 'font-weight: 600; color: #1e40af; font-size: 0.95rem;' : 'font-weight: 500;';
+
+                // Botão de exclusão apenas para arquivos (não pastas)
+                const deleteButton = !item.isFolder
+                    ? `<button onclick="confirmarExclusao('${item.id}', '${item.name}'); event.stopPropagation();" 
+                              style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 0.25rem; font-size: 1.1rem;" 
+                              title="Excluir arquivo">
+                          <i class="bi bi-trash"></i>
+                       </button>`
+                    : '';
+
+                return `
+                    <tr ${onClick} style="${rowStyle}">
+                        <td style="${nameStyle} overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            <i class="bi ${icon}" style="color: ${iconColor}; margin-right: 0.5rem;"></i>
+                            ${item.name}
+                        </td>
+                        <td style="color: #64748b; font-size: 0.85rem;">${getFileTypeLabel(item.mimeType)}</td>
+                        <td style="color: #64748b; font-size: 0.85rem;">${item.size}</td>
+                        <td style="color: #64748b; font-size: 0.85rem;">${modifiedDate}</td>
+                        <td style="text-align: center;">${deleteButton}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            tbody.innerHTML = html;
+        }
+
+        function voltarPastaPai() {
+            if (navigationStack.length > 0) {
+                // Remover pasta atual
+                navigationStack.pop();
+
+                // Navegar para a pasta pai
+                if (navigationStack.length > 0) {
+                    const pastaPai = navigationStack[navigationStack.length - 1];
+                    navegarPasta(pastaPai.id, pastaPai.name);
+                } else {
+                    // Voltar para raiz
+                    navegarPasta(null, 'Google Drive');
+                }
+            }
+        }
+
+        function getFileIcon(mimeType) {
+            if (mimeType.includes('folder')) return 'bi-folder-fill';
+            if (mimeType.includes('pdf')) return 'bi-file-pdf-fill';
+            if (mimeType.includes('word') || mimeType.includes('document')) return 'bi-file-word-fill';
+            if (mimeType.includes('sheet') || mimeType.includes('excel')) return 'bi-file-excel-fill';
+            if (mimeType.includes('image')) return 'bi-file-image-fill';
+            if (mimeType.includes('text')) return 'bi-file-text-fill';
+            return 'bi-file-earmark';
+        }
+
+        function getFileTypeLabel(mimeType) {
+            if (mimeType.includes('folder')) return 'Pasta';
+            if (mimeType.includes('pdf')) return 'PDF';
+            if (mimeType.includes('word') || mimeType.includes('document')) return 'Documento';
+            if (mimeType.includes('sheet') || mimeType.includes('excel')) return 'Planilha';
+            if (mimeType.includes('image')) return 'Imagem';
+            if (mimeType.includes('text')) return 'Texto';
+            return 'Arquivo';
+        }
+
+    </script>
+    <!-- Modal de Detalhes -->
+    <div id="modalDetalhes" class="modal-backdrop" onclick="fecharDetalhes(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <h2 id="modalClienteNome">Nome do Cliente</h2>
+                    <span id="modalClienteId" class="modal-subtitle">#ID</span>
+                </div>
+                <button class="modal-close" onclick="fecharDetalhes()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="modal-section">
+                    <h3><i class="bi bi-file-earmark-text"></i> Análise de Documentos</h3>
+
+                    <div class="docs-grid">
+                        <div class="docs-column">
+                            <h4><i class="bi bi-check-circle-fill text-success"></i> Entregues</h4>
+                            <div id="modalDocsEntregues" class="docs-badges-container success">
+                                <!-- Preenchido via JS -->
+                            </div>
+                        </div>
+                        <div class="docs-column">
+                            <h4><i class="bi bi-exclamation-circle-fill text-danger"></i> Faltantes (Crítico)</h4>
+                            <div id="modalDocsFaltantesAlta" class="docs-badges-container danger">
+                                <!-- Preenchido via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="docsOutrosContainer" class="docs-grid mt-3" style="display:none;">
+                        <div class="docs-column">
+                            <h4><i class="bi bi-dash-circle-fill text-warning"></i> Faltantes (Média/Baixa)</h4>
+                            <div id="modalDocsFaltantesOutros" class="docs-badges-container warning">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="fecharDetalhes()">Fechar</button>
+                <button class="btn" style="background: #8B5CF6; color: white; border: none; margin-right: 8px;"
+                    onclick="gerarCronologiaAtual()">
+                    <i class="bi bi-clock-history"></i> Gerar Cronologia dos Fatos
+                </button>
+                <button class="btn btn-primary" id="btnGerarPeticaoModal" onclick="verificarEIniciarGeracao()">
+                    <i class="bi bi-magic"></i> Gerar Petição Agora
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Visualizar Cliente (ReadOnly) -->
+    <div id="modalVisualizarCliente" class="modal-backdrop" onclick="fecharModalVisualizarCliente(event)">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 600px; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+            <div class="modal-header"
+                style="border-bottom: 1px solid #f1f5f9; padding: 1.5rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                <h3 style="margin: 0; font-size: 1.25rem; color: white;">Detalhes do Cliente</h3>
+                <button class="modal-close" onclick="fecharModalVisualizarCliente()"
+                    style="background: rgba(255,255,255,0.2); border: none; font-size: 1.5rem; cursor: pointer; color: white;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-content" style="padding: 2rem; width: 100%; border-radius: 0 0 16px 16px;">
+                <div id="loadingDetalhes" style="text-align: center; padding: 2rem; display: none;">
+                    <div class="spin-icon" style="font-size: 2rem; color: #3b82f6; margin-bottom: 1rem;"><i
+                            class="bi bi-arrow-repeat"></i></div>
+                    <p style="color: #64748b;">Carregando informações do cliente...</p>
+                </div>
+
+                <div id="conteudoDetalhes">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                        <div
+                            style="width: 64px; height: 64px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; color: #3b82f6; font-weight: 700;">
+                            <span id="viewAvatar">JS</span>
+                        </div>
+                        <div>
+                            <h2 id="viewNome" style="margin: 0; font-size: 1.5rem; color: #1e293b;">João da Silva</h2>
+                            <span id="viewTipo" class="status-badge-large info" style="margin-top: 0.5rem;">Ação
+                                Acidentária</span>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">CPF
+                                / CNPJ</label>
+                            <div id="viewCpf" style="font-size: 1rem; color: #334155; font-weight: 500;">-</div>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Contato</label>
+                            <div style="font-size: 1rem; color: #334155;">
+                                <div><i class="bi bi-telephone" style="margin-right: 6px; color: #94a3b8;"></i> <span
+                                        id="viewTelefone">-</span></div>
+                                <div style="margin-top: 4px;"><i class="bi bi-envelope"
+                                        style="margin-right: 6px; color: #94a3b8;"></i> <span id="viewEmail">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label
+                            style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Endereço</label>
+                        <div id="viewEndereco"
+                            style="font-size: 1rem; color: #334155; padding: 0.75rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            -</div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <label
+                            style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase;">Observações</label>
+                        <div id="viewObs"
+                            style="font-size: 0.95rem; color: #475569; padding: 0.75rem; background: #fffbeb; border-radius: 8px; border: 1px solid #fef3c7; min-height: 60px;">
+                            -</div>
+                    </div>
+                </div>
+
+                <div
+                    style="display: flex; justify-content: flex-end; padding-top: 1rem; border-top: 1px solid #f1f5f9;">
+                    <button class="btn btn-secondary" onclick="fecharModalVisualizarCliente()">Fechar</button>
+                    <!-- Futuro: Botão Editar -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Cliente -->
+    <div id="modalNovoCliente" class="modal-backdrop" onclick="fecharModalNovoCliente(event)">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 500px; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); max-height: 95vh; display: flex; flex-direction: column;">
+            <div class="modal-header" style="border-bottom: 1px solid #f1f5f9; padding: 1rem; flex-shrink: 0;">
+                <h3 style="margin: 0; font-size: 1.25rem;">Novo Cliente</h3>
+                <button class="modal-close" onclick="fecharModalNovoCliente()"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-content" style="padding: 1rem; width: 100%; overflow-y: auto;">
+                <form id="formNovoCliente" onsubmit="salvarNovoCliente(event)">
+                    <!-- Grid 2 Colunas para campos curtos -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">Nome
+                                do Cliente *</label>
+                            <input type="text" id="inputNomeCliente" required placeholder="Ex: João da Silva"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b;">
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">CPF
+                                / CNPJ</label>
+                            <input type="text" id="inputCpfCliente" placeholder="000.000.000-00"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b;">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">Telefone</label>
+                            <input type="text" id="inputTelefoneCliente" placeholder="(00) 00000-0000"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b;">
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">E-mail</label>
+                            <input type="email" id="inputEmailCliente" placeholder="cliente@email.com"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b;">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 0.75rem;">
+                        <label
+                            style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">Tipo
+                            de Ação *</label>
+                        <select id="selectTipoAcao" required
+                            style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; background: white; color: #1e293b;">
+                            <option value="" disabled selected>Selecione o tipo...</option>
+                            <option value="ACAO_ACIDENTARIA">Ação Acidentária</option>
+                            <option value="DIFERENCAS_CONTRATUAIS">Diferenças Contratuais</option>
+                            <option value="RECONHECIMENTO_VINCULO">Reconhecimento de Vínculo</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 0.75rem;">
+                        <label
+                            style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">Endereço
+                            Completo</label>
+                        <input type="text" id="inputEnderecoCliente" placeholder="Rua, Número, Bairro, Cidade - UF"
+                            style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b;">
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label
+                            style="display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.85rem; color: #334155;">Observações</label>
+                        <textarea id="inputObsCliente" rows="2" placeholder="Informações adicionais..."
+                            style="width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b; resize: vertical;"></textarea>
+                    </div>
+
+                    <div
+                        style="display: flex; gap: 1rem; justify-content: flex-end; padding-top: 1rem; border-top: 1px solid #f1f5f9; margin-top: auto;">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="fecharModalNovoCliente()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnSalvarCliente">
+                            <span>💾</span> Criar Cliente
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Modal Styles Refined Premium */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 90%;
+            max-width: 750px;
+            max-height: 90vh;
+            border-radius: 24px;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.35), 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .modal-backdrop.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.25rem 2.5rem;
+            border-bottom: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .modal-title-group h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-subtitle {
+            display: none;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.25rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+            background: rgba(239, 68, 68, 0.9);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: rotate(90deg) scale(1.05);
+        }
+
+        .modal-body {
+            padding: 0;
+            /* Remove padding global */
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        /* Stats Row - Layout Simétrico com Gradiente */
+        .modal-stats-row {
+            padding: 1.75rem 2.5rem;
+            background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-stat-card {
+            background: #fff;
+            padding: 1.5rem 1rem;
+            border-radius: 0;
+            border: none;
+            border-right: 1px solid #e2e8f0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 110px;
+        }
+
+        .modal-stat-card:last-child {
+            border-right: none;
+        }
+
+        .stat-label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 0.875rem;
+        }
+
+        .status-badge-large {
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-badge-large.critical {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .status-badge-large.warning {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-badge-large.info {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .status-badge-large.success {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .priority-badge-large {
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .priority-badge-large.critical {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .priority-badge-large.warning {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .priority-badge-large.success {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .score-display {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .score-value {
+            font-size: 2.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .score-total {
+            color: #94a3b8;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 4px;
+            margin-left: 2px;
+        }
+
+        /* Modal Section - Documentos com Background Cinza */
+        .modal-section {
+            padding: 1.75rem 2.5rem;
+            background: #f1f5f9;
+        }
+
+        .modal-section h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .modal-section h3 i {
+            color: #3b82f6;
+            font-size: 1.1rem;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .docs-column {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s;
+        }
+
+        .docs-column:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .docs-column h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .docs-column h4 i {
+            font-size: 1.1rem;
+        }
+
+        /* Containers de Badges */
+        .docs-badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0;
+        }
+
+        /* Badge Individual - Estilo Pill */
+        .doc-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+            cursor: default;
+            white-space: nowrap;
+        }
+
+        .doc-badge i {
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* Success (Entregues) - Verde */
+        .docs-badges-container.success .doc-badge {
+            background: #22c55e;
+            color: #ffffff;
+            border: 1px solid #16a34a;
+        }
+
+        .docs-badges-container.success .doc-badge:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(34, 197, 94, 0.3);
+        }
+
+        /* Danger (Faltantes Críticos) - Vermelho */
+        .docs-badges-container.danger .doc-badge {
+            background: #ef4444;
+            color: #ffffff;
+            border: 1px solid #dc2626;
+        }
+
+        .docs-badges-container.danger .doc-badge:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Warning (Média/Baixa) - Laranja */
+        .docs-badges-container.warning .doc-badge {
+            background: #f97316;
+            color: #ffffff;
+            border: 1px solid #ea580c;
+        }
+
+        .docs-badges-container.warning .doc-badge:hover {
+            background: #ea580c;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(249, 115, 22, 0.3);
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2.5rem;
+            border-top: 1px solid #f1f5f9;
+            background: #fff;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            color: #334155;
+            border-color: #cbd5e1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.5);
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem;
+        }
+
+        .text-success {
+            color: #22c55e;
+        }
+
+        .text-danger {
+            color: #ef4444;
+        }
+
+        .text-warning {
+            color: #f59e0b;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin-icon {
+            animation: spin 2s linear infinite;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #64748b;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .step-item.completed {
+            color: #22c55e;
+        }
+
+        .step-item i {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .view-section {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+
+    <!-- Modal Upload Arquivo -->
+    <div id="modalUpload" class="modal-backdrop" onclick="fecharModalUpload(event)" style="display:none;">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 500px; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+            <div class="modal-header" style="border-bottom: 1px solid #f1f5f9; padding: 1rem;">
+                <h3 style="margin: 0; font-size: 1.25rem;">📤 Upload de Arquivo</h3>
+                <button class="modal-close" onclick="fecharModalUpload()"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-content" style="padding: 1.5rem; width: 100%;">
+                <form id="formUpload" onsubmit="uploadArquivo(event)">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: #334155;">
+                            Selecione o arquivo
+                        </label>
+                        <input type="file" id="inputArquivo" required
+                            style="width: 100%; padding: 0.75rem; border: 2px dashed #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b; cursor: pointer;"
+                            onchange="mostrarNomeArquivo(this)">
+                        <p id="nomeArquivoSelecionado" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
+                        </p>
+                    </div>
+
+                    <div id="progressContainer" style="display: none; margin-bottom: 1.5rem;">
+                        <div style="background: #f1f5f9; border-radius: 8px; height: 8px; overflow: hidden;">
+                            <div id="progressBar"
+                                style="background: linear-gradient(90deg, #3b82f6, #2563eb); height: 100%; width: 0%; transition: width 0.3s;">
+                            </div>
+                        </div>
+                        <p id="progressText"
+                            style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b; text-align: center;">
+                            Preparando upload...</p>
+                    </div>
+
+                    <div
+                        style="display: flex; gap: 1rem; justify-content: flex-end; padding-top: 1rem; border-top: 1px solid #f1f5f9;">
+                        <button type="button" class="btn btn-secondary" onclick="fecharModalUpload()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="btnUpload">
+                            <i class="bi bi-upload"></i> Fazer Upload
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmação de Exclusão -->
+    <div id="modalConfirmarExclusao" class="modal-backdrop" onclick="fecharModalConfirmarExclusao(event)"
+        style="display:none;">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 450px; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+            <div class="modal-header"
+                style="border-bottom: 1px solid #f1f5f9; padding: 1.5rem; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                <h3 style="margin: 0; font-size: 1.25rem; color: white;">⚠️ Confirmar Exclusão</h3>
+                <button class="modal-close" onclick="fecharModalConfirmarExclusao()"
+                    style="background: rgba(255,255,255,0.2); border: none; font-size: 1.5rem; cursor: pointer; color: white;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-content" style="padding: 2rem; width: 100%;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <i class="bi bi-exclamation-triangle"
+                        style="font-size: 3rem; color: #f59e0b; margin-bottom: 1rem; display: block;"></i>
+                    <p style="font-size: 1.1rem; color: #1e293b; margin-bottom: 0.5rem; font-weight: 600;">Tem certeza
+                        que deseja excluir este arquivo?</p>
+                    <p id="nomeArquivoExcluir" style="font-size: 0.95rem; color: #64748b; font-style: italic;"></p>
+                    <p style="font-size: 0.85rem; color: #ef4444; margin-top: 1rem; font-weight: 500;">Esta ação não
+                        pode ser desfeita!</p>
+                </div>
+
+                <div
+                    style="display: flex; gap: 1rem; justify-content: center; padding-top: 1rem; border-top: 1px solid #f1f5f9;">
+                    <button class="btn btn-secondary" onclick="fecharModalConfirmarExclusao()"
+                        style="min-width: 120px;">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </button>
+                    <button class="btn" onclick="executarExclusao()"
+                        style="min-width: 120px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none;">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFolderId = null; // ID da pasta atual para upload
+
+        function abrirModalUpload() {
+            const modal = document.getElementById('modalUpload');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+            document.getElementById('formUpload').reset();
+            document.getElementById('nomeArquivoSelecionado').textContent = '';
+            document.getElementById('progressContainer').style.display = 'none';
+        }
+
+        function fecharModalUpload(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+            const modal = document.getElementById('modalUpload');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function mostrarNomeArquivo(input) {
+            const p = document.getElementById('nomeArquivoSelecionado');
+            if (input.files && input.files[0]) {
+                const size = (input.files[0].size / 1024).toFixed(1);
+                p.textContent = `📎 ${input.files[0].name} (${size} KB)`;
+            } else {
+                p.textContent = '';
+            }
+        }
+
+        async function uploadArquivo(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById('inputArquivo');
+            const file = fileInput.files[0];
+
+            if (!file || !currentFolderId) {
+                alert('Selecione um arquivo e navegue até uma pasta');
+                return;
+            }
+
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const btnUpload = document.getElementById('btnUpload');
+
+            // Mostrar progresso
+            progressContainer.style.display = 'block';
+            btnUpload.disabled = true;
+            progressBar.style.width = '30%';
+            progressText.textContent = 'Enviando arquivo...';
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('folderId', currentFolderId);
+
+                progressBar.style.width = '60%';
+
+                const response = await fetch(`${API_BASE}/drive/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'Upload concluído!';
+                    progressText.style.color = '#10b981';
+
+                    setTimeout(() => {
+                        fecharModalUpload();
+                        // Recarregar lista de documentos
+                        const lastFolder = navigationStack[navigationStack.length - 1];
+                        if (lastFolder) {
+                            navegarPasta(lastFolder.id, lastFolder.name);
+                        }
+                    }, 1000);
+                } else {
+                    throw new Error(data.error || 'Erro no upload');
+                }
+            } catch (error) {
+                console.error('Erro no upload:', error);
+                progressText.textContent = 'Erro no upload: ' + error.message;
+                progressText.style.color = '#ef4444';
+                btnUpload.disabled = false;
+            }
+        }
+
+        // --- Exclusão de Arquivos ---
+
+        let arquivoParaExcluir = { id: null, name: null };
+
+        function confirmarExclusao(fileId, fileName) {
+            arquivoParaExcluir = { id: fileId, name: fileName };
+            document.getElementById('nomeArquivoExcluir').textContent = fileName;
+
+            const modal = document.getElementById('modalConfirmarExclusao');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function fecharModalConfirmarExclusao(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+
+            const modal = document.getElementById('modalConfirmarExclusao');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                arquivoParaExcluir = { id: null, name: null };
+            }, 300);
+        }
+
+        function executarExclusao() {
+            if (arquivoParaExcluir.id) {
+                excluirArquivo(arquivoParaExcluir.id, arquivoParaExcluir.name);
+                fecharModalConfirmarExclusao();
+            }
+        }
+
+        async function excluirArquivo(fileId, fileName) {
+            try {
+                console.log(`🗑️ Excluindo arquivo: ${fileName}`);
+
+                const response = await fetch(`${API_BASE}/drive/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fileId: fileId })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    console.log('✅ Arquivo excluído com sucesso');
+
+                    // Recarregar lista de documentos
+                    const lastFolder = navigationStack[navigationStack.length - 1];
+                    if (lastFolder) {
+                        navegarPasta(lastFolder.id, lastFolder.name);
+                    } else {
+                        navegarPasta(null, 'Google Drive');
+                    }
+                } else {
+                    alert('Erro ao excluir arquivo: ' + (data.error || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                console.error('Erro ao excluir arquivo:', error);
+                alert('Erro ao excluir arquivo: ' + error.message);
+            }
+        }
+
+        // ============================================================================
+        // TRANSCRIÇÃO DE VÍDEOS
+        // ============================================================================
+
+        async function transcreverVideo(clienteNome, videoId, videoNome, pastaClienteId) {
+            console.log('🎥 Iniciando transcrição de vídeo...');
+            console.log(`Cliente: ${clienteNome}, Vídeo: ${videoNome}`);
+
+            // Criar modal de progresso
+            const modalHtml = `
+                <div id="modalTranscricao" class="modal-backdrop" style="display: flex; align-items: center; justify-content: center; z-index: 2000;">
+                    <div class="modal-container" style="background: white; width: 500px; padding: 2rem; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                                🎥
+                            </div>
+                            <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; color: #1e293b;">Transcrevendo Vídeo</h3>
+                            <p style="color: #64748b; margin: 0; font-size: 0.95rem;">${videoNome}</p>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="spinner" style="width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top-color: #8b5cf6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                        </div>
+                        
+                        <p id="statusTranscricao" style="color: #475569; font-size: 0.9rem; margin: 0;">
+                            Processando vídeo... Isso pode levar alguns minutos.
+                        </p>
+                    </div>
+                </div>
+                <style>
+                    @keyframes spin {
+                        to { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            try {
+                const response = await fetch(`${API_BASE}/transcrever-video`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cliente_nome: clienteNome,
+                        video_id: videoId,
+                        video_nome: videoNome,
+                        pasta_cliente_id: pastaClienteId
+                    })
+                });
+
+                const data = await response.json();
+
+                // Remover modal de progresso
+                const modal = document.getElementById('modalTranscricao');
+                if (modal) modal.remove();
+
+                if (data.success) {
+                    // Mostrar resultado
+                    alert(`✅ Transcrição concluída com sucesso!
+
+📄 Arquivo: ${data.transcricao_nome}
+📊 Tamanho: ${data.tamanho_caracteres} caracteres
+
+Preview:
+${data.texto_preview}
+
+A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
+
+                    // Recarregar lista de arquivos
+                    const lastFolder = navigationStack[navigationStack.length - 1];
+                    if (lastFolder) {
+                        navegarPasta(lastFolder.id, lastFolder.name);
+                    }
+                } else {
+                    alert(`❌ Erro ao transcrever vídeo:\n\n${data.error}`);
+                }
+            } catch (error) {
+                // Remover modal de progresso
+                const modal = document.getElementById('modalTranscricao');
+                if (modal) modal.remove();
+
+                console.error('Erro ao transcrever vídeo:', error);
+                alert(`❌ Erro ao transcrever vídeo:\n\n${error.message}`);
+            }
+        }
+
+        function isVideoFile(fileName) {
+            const extensoesVideo = ['.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.m4v', '.mpeg', '.mpg'];
+            return extensoesVideo.some(ext => fileName.toLowerCase().endsWith(ext));
+        }
+
+        // --- Confirmação de Geração com Pendências ---
+
+        function verificarEIniciarGeracao() {
+            // Coletar documentos faltantes das listas de badges
+            const faltantesAlta = document.getElementById('modalDocsFaltantesAlta');
+            const faltantesOutros = document.getElementById('modalDocsFaltantesOutros');
+
+            let listaDocs = [];
+
+            // Verifica críticos
+            if (faltantesAlta) {
+                // Pega os textos diretos dos badges .doc-badge
+                const badges = faltantesAlta.querySelectorAll('.doc-badge');
+                badges.forEach(b => {
+                    // Limpa o texto (remove ícone se tiver, mas innerText pega tudo)
+                    // Como o ícone é <i>, o innerText pega só o texto visível + ícone unicode se houver
+                    // Melhor pegar o textContent e trimar
+                    listaDocs.push({ nome: b.innerText.trim(), critico: true });
+                });
+            }
+
+            // Verifica outros
+            if (faltantesOutros) {
+                const badges = faltantesOutros.querySelectorAll('.doc-badge');
+                badges.forEach(b => {
+                    listaDocs.push({ nome: b.innerText.trim(), critico: false });
+                });
+            }
+
+            if (listaDocs.length > 0) {
+                // Tem pendências, abrir modal
+                const container = document.getElementById('listaFaltantesModal');
+                container.innerHTML = listaDocs.map(d => `
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: ${d.critico ? '#dc2626' : '#d97706'}; font-weight: 600; font-size: 0.9rem;">
+                        <i class="bi ${d.critico ? 'bi-exclamation-circle-fill' : 'bi-exclamation-triangle-fill'}"></i>
+                        <span>${d.nome}</span>
+                        ${d.critico ? '<span style="font-size:0.75rem; background:#fef2f2; border:1px solid #fee2e2; padding:0 4px; border-radius:4px; margin-left:auto; color:#ef4444;">CRÍTICO</span>' : ''}
+                    </div>
+                `).join('');
+
+                const modal = document.getElementById('modalConfirmarGeracao');
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            } else {
+                // Sem pendências, prossegue
+                iniciarGeracao();
+            }
+        }
+
+        function fecharModalConfirmarGeracao(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+            const modal = document.getElementById('modalConfirmarGeracao');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function confirmarGeracaoMesmoAssim() {
+            fecharModalConfirmarGeracao();
+            iniciarGeracao();
+        }
+    </script>
+
+    <!-- Modal Confirmar Geração com Faltantes -->
+    <div id="modalConfirmarGeracao" class="modal-backdrop" onclick="fecharModalConfirmarGeracao(event)"
+        style="display:none; z-index: 1060;">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 500px; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+            <div class="modal-header"
+                style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 1.5rem; border-bottom: none;">
+                <h3
+                    style="margin: 0; font-size: 1.25rem; color: white; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="bi bi-exclamation-triangle-fill"></i> Documentos Faltantes
+                </h3>
+                <button class="modal-close" onclick="fecharModalConfirmarGeracao()"
+                    style="background: rgba(255,255,255,0.2); border: none; font-size: 1.5rem; cursor: pointer; color: white;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+            <div class="modal-content" style="padding: 2rem;">
+                <p style="color: #475569; margin-bottom: 1rem; font-size: 1rem;">
+                    Identificamos que os seguintes documentos importantes ainda não estão presentes na pasta:
+                </p>
+
+                <div id="listaFaltantesModal"
+                    style="margin-bottom: 2rem; background: #fffbeb; padding: 1rem; border-radius: 8px; border: 1px solid #fcd34d; max-height: 200px; overflow-y: auto;">
+                    <!-- Preenchido via JS -->
+                </div>
+
+                <p style="color: #1e293b; font-size: 0.95rem; margin-bottom: 0; font-weight: 600; text-align: center;">
+                    Deseja prosseguir com a geração da petição mesmo assim?
+                </p>
+            </div>
+            <div class="modal-footer"
+                style="padding: 1.5rem; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="btn btn-secondary" onclick="fecharModalConfirmarGeracao()">
+                    Cancelar
+                </button>
+                <button class="btn"
+                    style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; border: none; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.4);"
+                    onclick="confirmarGeracaoMesmoAssim()">
+                    <span>Gerar Mesmo Assim</span> <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes do Cliente com Botões de Ação -->
+    <div id="modalDetalhesV2" class="modal-backdrop" onclick="fecharDetalhes(event)" style="display:none;">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 750px; max-width: 90%; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); max-height: 90vh; display: flex; flex-direction: column;">
+
+            <!-- Modal Header -->
+            <div class="modal-header"
+                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem 2.5rem; border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 id="modalClienteNome" style="margin: 0; font-size: 1.5rem; color: white; font-weight: 700;">
+                        Cliente Rodrigo Diogo</h3>
+                    <p id="modalClienteId"
+                        style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: rgba(255,255,255,0.8);">#12345</p>
+                </div>
+                <button class="modal-close" onclick="fecharDetalhes()"
+                    style="background: rgba(255,255,255,0.2); border: none; font-size: 1.5rem; cursor: pointer; color: white; width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body" style="padding: 2rem 2.5rem; overflow-y: auto; flex: 1;">
+                <!-- Análise de Documentos -->
+                <div style="margin-bottom: 2rem;">
+                    <h4
+                        style="font-size: 1rem; font-weight: 700; color: #1e293b; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="bi bi-file-earmark-text" style="color: #6366f1;"></i> Análise de Documentos
+                    </h4>
+
+                    <!-- Grid de Documentos -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <!-- Entregues -->
+                        <div class="docs-column">
+                            <h4 style="color: #22c55e;"><i class="bi bi-check-circle"></i> Entregues</h4>
+                            <div id="modalDocsEntregues" class="docs-badges-container success">
+                                <div style="color: #94a3b8; font-style: italic; text-align: center; padding: 2rem;">
+                                    Nenhum documento listado</div>
+                            </div>
+                        </div>
+
+                        <!-- Faltantes (Crítico) -->
+                        <div class="docs-column">
+                            <h4 style="color: #ef4444;"><i class="bi bi-exclamation-triangle"></i> Faltantes (Crítico)
+                            </h4>
+                            <div id="modalDocsFaltantesAlta" class="docs-badges-container danger">
+                                <div style="color: #94a3b8; font-style: italic; text-align: center; padding: 2rem;">
+                                    Nenhum documento listado</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outros Faltantes (Opcional) -->
+                    <div id="docsOutrosContainer" class="docs-column" style="margin-top: 1.5rem; display: none;">
+                        <h4 style="color: #f59e0b;"><i class="bi bi-dash-circle"></i> Outros Faltantes</h4>
+                        <div id="modalDocsFaltantesOutros" class="docs-badges-container warning"></div>
+                    </div>
+                </div>
+
+                <!-- Seção Dinâmica (pode ser substituída via JS) -->
+                <div class="modal-section">
+                    <!-- Conteúdo dinâmico inserido via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Modal Footer com Botões de Ação -->
+            <div class="modal-footer"
+                style="padding: 1.5rem 2.5rem; border-top: 1px solid #f1f5f9; background: #fff; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="btn btn-secondary" onclick="fecharDetalhes()">Fechar</button>
+
+                <button class="btn" onclick="gerarCronologiaAtual()"
+                    style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; border: none; box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.4);">
+                    <i class="bi bi-clock-history"></i> Gerar Cronologia dos Fatos
+                </button>
+
+                <button class="btn" onclick="gerarTranscricaoVideo()"
+                    style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; border: none; box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.4);">
+                    <i class="bi bi-camera-video"></i> Gerar Transcrição de Vídeo
+                </button>
+
+                <button id="btnGerarPeticaoModal" class="btn btn-primary" onclick="verificarEIniciarGeracao()">
+                    <i class="bi bi-pen"></i> Gerar Petição Agora
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

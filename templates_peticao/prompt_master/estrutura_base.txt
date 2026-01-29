@@ -1,0 +1,278 @@
+## ESTRUTURA DETALHADA DA PETIÇÃO - PROMPT MASTER
+
+### CABEÇALHO (0,5 página)
+
+EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) DE DIREITO DA [NÚMERO]ª VARA [ESPECIALIZAÇÃO] DA COMARCA DE [CIDADE] - [UF]
+
+[Quebra de linha dupla]
+
+[NOME COMPLETO DO AUTOR], [nacionalidade], [estado civil], [profissão], portador(a) do RG nº [número] e inscrito(a) no CPF sob o nº [número], residente e domiciliado(a) na [endereço completo], CEP [número], vem à presença de Vossa Excelência, por intermédio de seu(sua) advogado(a) que esta subscreve, conforme instrumento de mandato anexo (doc. 01), propor a presente
+
+[Quebra de linha dupla]
+
+[TIPO DA AÇÃO - NEGRITO E CENTRALIZADO]
+
+[Quebra de linha dupla]
+
+em face de
+
+[Quebra de linha dupla]
+
+[NOME COMPLETO DO RÉU], [qualificação completa], [endereço completo], pelos fundamentos de fato e de direito a seguir expostos.
+
+[Quebra de linha tripla]
+
+### I. PRELIMINARES (2-3 páginas máximo)
+
+Analisar e incluir APENAS se aplicável ao caso:
+
+#### 1. DA COMPETÊNCIA
+[Quebra de linha dupla]
+
+1. [Fundamentação da competência territorial, funcional ou hierárquica]
+
+[Quebra de linha simples]
+
+2. [Base legal: citar artigo de lei específico]
+
+[Quebra de linha simples]
+
+3. [Justificativa aplicada ao caso concreto - máximo 2 parágrafos]
+
+[Quebra de linha dupla]
+
+#### 2. DO PROCEDIMENTO [se aplicável - Juízo 100% Digital, Sumaríssimo, etc]
+[Quebra de linha dupla]
+
+4. [Pedido de procedimento especial]
+
+[Quebra de linha simples]
+
+5. [Fundamentação legal]
+
+[Quebra de linha simples]
+
+6. [Justificativa - máximo 2 parágrafos]
+
+[Quebra de linha dupla]
+
+#### 3. DA GRATUIDADE DA JUSTIÇA [se aplicável]
+[Quebra de linha dupla]
+
+7. [Declaração de hipossuficiência]
+
+[Quebra de linha simples]
+
+8. [Base legal: art. 98 CPC ou art. 790, §3º CLT]
+
+[Quebra de linha dupla]
+
+#### 4. DA TUTELA DE URGÊNCIA [se aplicável]
+[Quebra de linha dupla]
+
+9. [Demonstração do fumus boni iuris - máximo 3 parágrafos]
+
+[Quebra de linha simples]
+
+10. [Demonstração do periculum in mora - máximo 3 parágrafos]
+
+[Quebra de linha simples]
+
+11. [Pedido específico de tutela]
+
+[Quebra de linha tripla]
+
+### II. DOS FATOS (3-4 páginas, máximo 30 parágrafos)
+
+REGRAS OBRIGATÓRIAS:
+- Ordem cronológica OU temática (nunca misturar)
+- Parágrafos de 3-5 linhas
+- Objetividade: fatos, não opiniões
+- Adjetivos apenas quando juridicamente relevantes
+- Mencionar provas documentais (doc. XX)
+- Indicar provas a serem juntadas posteriormente
+
+ESTRUTURA DOS FATOS:
+
+12. [Contextualização inicial - como as partes se conheceram/iniciaram relação]
+
+[Quebra de linha simples]
+
+13. [Desenvolvimento cronológico dos eventos]
+
+[Quebra de linha simples]
+
+14. [Continuação cronológica]
+
+[Quebra de linha simples]
+
+[Continuar numeração sequencial até máximo parágrafo 41]
+
+[Quebra de linha simples]
+
+[Último parágrafo dos fatos] [Situação atual que motiva a ação]
+
+[Quebra de linha tripla]
+
+### III. DO DIREITO (MÉRITO) (6-8 páginas)
+
+PARA CADA PEDIDO PRINCIPAL, SEGUIR ESTA ESTRUTURA:
+
+#### III.1 - [TÍTULO DO PRIMEIRO PEDIDO - MAIÚSCULAS]
+[Quebra de linha dupla]
+
+##### A) Fundamentação Legal
+[Quebra de linha dupla]
+
+[Número]. [Artigo de lei aplicável ao caso]
+
+[Quebra de linha simples]
+
+[Número]. [Explicação do dispositivo legal - 1 parágrafo]
+
+[Quebra de linha simples]
+
+[Número]. [Súmula, se houver - citação direta]
+
+[Quebra de linha dupla]
+
+##### B) Jurisprudência [MÁXIMO 1-2 PRECEDENTES POR PEDIDO]
+[Quebra de linha dupla]
+
+[Número]. [Introdução: "A jurisprudência do [Tribunal] é pacífica/consolidada no sentido de que..."]
+
+[Quebra de linha simples]
+
+FORMATO OBRIGATÓRIO:
+"No julgamento do [Tipo de Recurso]: [Número simplificado], Rel. [Nome do Relator], o [Tribunal] decidiu que [tese jurídica em 2-3 linhas]."
+
+[Quebra de linha simples]
+
+[Número]. [Aplicação do precedente ao caso concreto - 1 parágrafo]
+
+[Quebra de linha dupla]
+
+##### C) Doutrina [OPCIONAL - usar apenas se agregar valor substantivo]
+[Quebra de linha dupla]
+
+[Número]. [Citação doutrinária resumida - máximo 1 parágrafo]
+
+[Quebra de linha dupla]
+
+##### D) Aplicação ao Caso Concreto
+[Quebra de linha dupla]
+
+[Número]. [Conexão entre os fatos narrados e o direito invocado]
+
+[Quebra de linha simples]
+
+[Número]. [Demonstração do preenchimento dos requisitos legais]
+
+[Quebra de linha simples]
+
+[Número]. [Conclusão parcial do pedido - 1 parágrafo]
+
+[Quebra de linha tripla]
+
+[REPETIR ESTRUTURA ACIMA PARA CADA PEDIDO PRINCIPAL]
+[EXTENSÃO POR PEDIDO: 1 a 1,5 páginas]
+
+[Quebra de linha tripla]
+
+### IV. DOS PEDIDOS (2-3 páginas)
+
+[Número]. Diante de todo o exposto, requer o(a) autor(a) que Vossa Excelência se digne a:
+
+[Quebra de linha dupla]
+
+#### PEDIDOS LIMINARES/TUTELA DE URGÊNCIA [se aplicável]
+[Quebra de linha dupla]
+
+1. Conceder tutela de urgência para [pedido específico], nos termos do art. 300 do CPC, pelos fundamentos expostos no item [número] desta inicial;
+
+[Quebra de linha dupla]
+
+#### PEDIDOS PRINCIPAIS
+[Quebra de linha dupla]
+
+2. [Pedido declaratório/constitutivo, se houver];
+
+[Quebra de linha dupla]
+
+3. Condenar a parte requerida ao pagamento de:
+
+[Quebra de linha simples]
+
+   a) [Primeira verba/direito]: R$ [valor arredondado] ([valor por extenso]) - estimado;
+   
+[Quebra de linha simples]
+
+   b) [Segunda verba/direito]: R$ [valor arredondado] ([valor por extenso]) - estimado;
+   
+[Quebra de linha simples]
+
+   c) [Continuar discriminação de verbas]
+   
+[Quebra de linha simples]
+
+   d) Reflexos das verbas acima sobre: [discriminar: DSR, férias, 13º, FGTS, etc];
+
+[Quebra de linha dupla]
+
+4. [Pedido específico adicional];
+
+[Quebra de linha dupla]
+
+#### PEDIDOS ACESSÓRIOS
+[Quebra de linha dupla]
+
+5. Condenar a parte requerida ao pagamento de juros de mora e correção monetária sobre todas as verbas deferidas;
+
+[Quebra de linha dupla]
+
+6. Condenar a parte requerida ao pagamento de honorários advocatícios sucumbenciais;
+
+[Quebra de linha dupla]
+
+7. Condenar a parte requerida ao pagamento das custas processuais;
+
+[Quebra de linha dupla]
+
+#### PROVAS
+[Quebra de linha dupla]
+
+8. Protesta provar o alegado por todos os meios de prova em direito admitidos;
+
+[Quebra de linha dupla]
+
+#### NOTIFICAÇÃO E ENDEREÇO
+[Quebra de linha dupla]
+
+9. Requer a citação da parte requerida no endereço indicado;
+
+[Quebra de linha dupla]
+
+10. Requer que todas as intimações sejam realizadas exclusivamente em nome do(a) advogado(a);
+
+[Quebra de linha dupla]
+
+#### VALOR DA CAUSA
+[Quebra de linha dupla]
+
+11. Atribui à causa o valor de R$ [valor total arredondado] ([valor por extenso]).
+
+[Quebra de linha tripla]
+
+Termos em que,
+[Quebra de linha simples]
+Pede deferimento.
+
+[Quebra de linha tripla]
+
+[Cidade] - [UF], [dia] de [mês] de [ano].
+
+[Quebra de linha tripla]
+
+________________________________________
+[NOME COMPLETO DO ADVOGADO]
+OAB/[UF] nº [número]

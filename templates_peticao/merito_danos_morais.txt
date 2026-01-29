@@ -1,0 +1,21 @@
+DOS DANOS MORAIS
+
+{PARAGRAFO_INICIAL}. O reclamante sofreu danos morais em decorrência de {DESCRICAO_DANO}, o que configura violação aos direitos da personalidade previstos nos arts. 5º, X, da Constituição Federal e 186 e 927 do Código Civil.
+
+{PARAGRAFO_SITUACAO}. {DETALHAMENTO_SITUACAO_DANOSA}
+
+{PARAGRAFO_DIGNIDADE}. A conduta da reclamada atentou contra a dignidade da pessoa humana do trabalhador, princípio fundamental consagrado no art. 1º, III, da Constituição Federal, causando-lhe sofrimento, constrangimento e abalo psicológico.
+
+{PARAGRAFO_FUNDAMENTO_LEGAL}. O art. 186 do Código Civil estabelece que aquele que, por ação ou omissão voluntária, negligência ou imprudência, violar direito e causar dano a outrem, ainda que exclusivamente moral, comete ato ilícito. Por sua vez, o art. 927 do mesmo diploma legal determina que aquele que, por ato ilícito, causar dano a outrem, fica obrigado a repará-lo.
+
+{PARAGRAFO_RESPONSABILIDADE}. A responsabilidade civil do empregador pelos danos causados ao empregado no ambiente de trabalho é objetiva, nos termos do art. 927, parágrafo único, do Código Civil, bastando a comprovação do dano e do nexo causal.
+
+{PARAGRAFO_JURISPRUDENCIA}. A jurisprudência trabalhista é pacífica quanto ao cabimento de indenização por danos morais em situações como a presente:
+
+{JURISPRUDENCIA}
+
+{PARAGRAFO_QUANTUM}. Para a fixação do quantum indenizatório, devem ser observados os princípios da razoabilidade e proporcionalidade, considerando-se a gravidade do dano, a capacidade econômica do ofensor e o caráter pedagógico da condenação.
+
+{PARAGRAFO_VALOR}. Considerando as circunstâncias do caso concreto, o grau de culpa da reclamada e a extensão do dano sofrido pelo reclamante, estima-se como justa e adequada a indenização no valor de {VALOR_DANO_MORAL}, a ser apurado em liquidação de sentença.
+
+{PARAGRAFO_PEDIDO}. Diante do exposto, requer-se a condenação da reclamada ao pagamento de indenização por danos morais no valor acima indicado, devidamente corrigido e acrescido de juros legais.

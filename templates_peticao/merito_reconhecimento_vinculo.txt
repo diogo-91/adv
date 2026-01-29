@@ -1,0 +1,19 @@
+DO RECONHECIMENTO DO VÍNCULO EMPREGATÍCIO
+
+{PARAGRAFO_INICIAL}. O vínculo empregatício entre o reclamante e a empresa reclamada é inequívoco, estando presentes todos os requisitos previstos nos arts. 2º e 3º da Consolidação das Leis do Trabalho.
+
+{PARAGRAFO_PESSOALIDADE}. A pessoalidade restou caracterizada pelo fato de que o reclamante prestava serviços de forma pessoal e intransferível, não podendo se fazer substituir por terceiros.
+
+{PARAGRAFO_HABITUALIDADE}. A habitualidade se evidencia pela prestação de serviços de forma contínua e não eventual, {DETALHES_JORNADA}.
+
+{PARAGRAFO_SUBORDINACAO}. A subordinação jurídica é manifesta, uma vez que o reclamante estava sujeito ao poder diretivo da reclamada, {DETALHES_SUBORDINACAO}.
+
+{PARAGRAFO_ONEROSIDADE}. A onerosidade é inconteste, tendo em vista que o reclamante recebia contraprestação pecuniária pelos serviços prestados, no valor de {VALOR_SALARIO}.
+
+{PARAGRAFO_ALTERIDADE}. Por fim, a alteridade se configura pelo fato de que o reclamante não assumia os riscos da atividade econômica, os quais eram de exclusiva responsabilidade da reclamada.
+
+{PARAGRAFO_JURISPRUDENCIA}. Nesse sentido, a jurisprudência é pacífica:
+
+{JURISPRUDENCIA}
+
+{PARAGRAFO_PEDIDO}. Diante do exposto, requer-se o reconhecimento judicial do vínculo empregatício entre as partes, com a consequente anotação na CTPS do reclamante, desde {DATA_ADMISSAO} até {DATA_RESCISAO}, no cargo de {CARGO}.

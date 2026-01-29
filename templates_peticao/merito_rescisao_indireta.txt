@@ -1,0 +1,26 @@
+DA RESCISÃO INDIRETA DO CONTRATO DE TRABALHO
+
+{PARAGRAFO_INICIAL}. O reclamante se viu obrigado a rescindir indiretamente o contrato de trabalho em razão de falta grave cometida pela reclamada, nos termos do art. 483 da Consolidação das Leis do Trabalho.
+
+{PARAGRAFO_FALTA_GRAVE}. A falta grave do empregador restou caracterizada por {DESCRICAO_FALTA_GRAVE}, o que configura hipótese prevista no art. 483, alínea "{ALINEA_APLICAVEL}", da CLT.
+
+{PARAGRAFO_DETALHAMENTO}. {DETALHAMENTO_SITUACAO}
+
+{PARAGRAFO_FUNDAMENTO_LEGAL}. O art. 483 da CLT estabelece que o empregado poderá considerar rescindido o contrato e pleitear a devida indenização quando o empregador não cumprir as obrigações do contrato, entre outras hipóteses ali previstas.
+
+{PARAGRAFO_IMPOSSIBILIDADE}. A situação tornou-se insustentável para o reclamante, que não tinha outra alternativa senão considerar rescindido o contrato de trabalho por culpa exclusiva da reclamada.
+
+{PARAGRAFO_JURISPRUDENCIA}. A jurisprudência trabalhista é firme no sentido de reconhecer a rescisão indireta nessas circunstâncias:
+
+{JURISPRUDENCIA}
+
+{PARAGRAFO_CONSEQUENCIAS}. Reconhecida a rescisão indireta, o reclamante faz jus a todas as verbas rescisórias como se tivesse sido dispensado sem justa causa, incluindo:
+
+• Aviso prévio indenizado
+• Saldo de salário
+• 13º salário proporcional
+• Férias vencidas e proporcionais acrescidas de 1/3 constitucional
+• FGTS com multa de 40%
+• Guias para saque do seguro-desemprego
+
+{PARAGRAFO_PEDIDO}. Diante do exposto, requer-se o reconhecimento da rescisão indireta do contrato de trabalho, com a condenação da reclamada ao pagamento de todas as verbas rescisórias devidas.

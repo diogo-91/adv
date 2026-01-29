@@ -1,0 +1,205 @@
+{
+    "area": "trabalhista",
+    "categorias": {
+        "vinculo_empregaticio": {
+            "titulo": "VÍNCULO EMPREGATÍCIO",
+            "requisitos": [
+                "Pessoalidade",
+                "Habitualidade",
+                "Subordinação",
+                "Onerosidade",
+                "Alteridade"
+            ]
+        },
+        "verbas_principais": {
+            "titulo": "VERBAS PRINCIPAIS",
+            "itens": [
+                {
+                    "nome": "Reconhecimento de vínculo",
+                    "aplicavel_quando": "trabalho informal",
+                    "critico": true
+                },
+                {
+                    "nome": "Anotação em CTPS",
+                    "aplicavel_quando": "vínculo não registrado",
+                    "critico": true
+                },
+                {
+                    "nome": "Salário",
+                    "base_calculo": "clara e documentada",
+                    "critico": true
+                },
+                {
+                    "nome": "Horas extras",
+                    "adicional": "50% ou 100%",
+                    "reflexos_obrigatorios": [
+                        "DSR",
+                        "Férias + 1/3",
+                        "13º salário",
+                        "FGTS",
+                        "Aviso prévio"
+                    ]
+                },
+                {
+                    "nome": "Adicional noturno",
+                    "horario": "22h às 5h",
+                    "percentual": "20% mínimo"
+                },
+                {
+                    "nome": "Intervalo intrajornada",
+                    "base_legal": "art. 71 CLT"
+                },
+                {
+                    "nome": "Intervalo interjornada",
+                    "base_legal": "art. 66 CLT"
+                },
+                {
+                    "nome": "Insalubridade",
+                    "graus": [
+                        "mínimo 10%",
+                        "médio 20%",
+                        "máximo 40%"
+                    ],
+                    "requer_pericia": true
+                },
+                {
+                    "nome": "Periculosidade",
+                    "percentual": "30%"
+                },
+                {
+                    "nome": "Descanso semanal remunerado",
+                    "obrigatorio": true
+                },
+                {
+                    "nome": "Férias vencidas + 1/3",
+                    "discriminar": "períodos aquisitivos"
+                },
+                {
+                    "nome": "Férias proporcionais + 1/3",
+                    "calcular": "meses trabalhados"
+                },
+                {
+                    "nome": "13º salário",
+                    "tipos": [
+                        "vencido",
+                        "proporcional"
+                    ]
+                },
+                {
+                    "nome": "FGTS",
+                    "periodo": "todo o contrato",
+                    "multa": "40%"
+                },
+                {
+                    "nome": "Aviso prévio",
+                    "tipos": [
+                        "indenizado",
+                        "trabalhado"
+                    ]
+                },
+                {
+                    "nome": "Multa art. 477 CLT",
+                    "quando": "atraso pagamento rescisão",
+                    "valor": "1 salário"
+                },
+                {
+                    "nome": "Multa art. 467 CLT",
+                    "quando": "verbas incontroversas não pagas em audiência",
+                    "percentual": "50%"
+                }
+            ]
+        },
+        "rescisao": {
+            "titulo": "RESCISÃO",
+            "tipos": [
+                {
+                    "nome": "Rescisão indireta",
+                    "base_legal": "art. 483 CLT",
+                    "especificar_alineas": true,
+                    "verbas_devidas": "todas as verbas rescisórias"
+                },
+                {
+                    "nome": "Dispensa sem justa causa",
+                    "verbas_completas": true
+                }
+            ]
+        },
+        "danos": {
+            "titulo": "DANOS",
+            "tipos": [
+                {
+                    "nome": "Dano moral",
+                    "valor_sugerido": "5x a 50x último salário",
+                    "fundamentacao_obrigatoria": true
+                },
+                {
+                    "nome": "Dano material",
+                    "discriminar_prejuizos": true,
+                    "comprovar": true
+                },
+                {
+                    "nome": "Dano existencial",
+                    "quando": "privação de convívio social/familiar"
+                }
+            ]
+        },
+        "estabilidades": {
+            "titulo": "ESTABILIDADES",
+            "tipos": [
+                "Gestante (5 meses após parto)",
+                "Acidentário (12 meses após alta)",
+                "CIPA (até 1 ano após mandato)",
+                "Pré-aposentadoria (conforme CCT)"
+            ]
+        },
+        "encargos": {
+            "titulo": "ENCARGOS",
+            "itens": [
+                {
+                    "nome": "Juros",
+                    "taxa": "SELIC (no que exceder IPCA)"
+                },
+                {
+                    "nome": "Correção monetária",
+                    "indice": "IPCA (Lei 14.905/24)"
+                },
+                {
+                    "nome": "Honorários advocatícios",
+                    "percentual": "15% sobre condenação",
+                    "base_legal": "art. 791-A CLT"
+                },
+                {
+                    "nome": "Honorários periciais",
+                    "onus": "parte vencida/reclamada"
+                }
+            ]
+        }
+    },
+    "documentos_essenciais": {
+        "alta_prioridade": [
+            "CTPS",
+            "Comprovantes de pagamento",
+            "Documento pessoal (RG/CPF)",
+            "Transcrição/Resumo"
+        ],
+        "media_prioridade": [
+            "Comprovante de residência",
+            "Fotos trabalhando",
+            "TRCT"
+        ],
+        "baixa_prioridade": [
+            "Conversas WhatsApp",
+            "Contrato"
+        ]
+    },
+    "jurisprudencia_temas": [
+        "reconhecimento_vinculo",
+        "horas_extras",
+        "rescisao_indireta",
+        "danos_morais",
+        "multa_477",
+        "multa_467",
+        "adicional_noturno",
+        "insalubridade"
+    ]
+}
