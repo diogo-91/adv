@@ -30,14 +30,6 @@ def add_header(response):
     response.headers['Expires'] = '0'
     return response
 
-@app.route('/health')
-def health_check():
-    """Health check endpoint - não depende de Google Drive"""
-    return jsonify({
-        'status': 'healthy',
-        'service': 'peticoes-automatizadas',
-        'timestamp': datetime.now().isoformat()
-    })
 
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
