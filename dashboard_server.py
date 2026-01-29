@@ -1354,7 +1354,16 @@ def list_drive_folders():
     """Lista pastas e arquivos do Google Drive"""
     try:
         folder_id = request.args.get('folderId')
+        print(f"📂 [DEBUG] Listando pastas. FolderID: {folder_id if folder_id else 'RAIZ'}")
+        
         service = autenticar_google_drive()
+        
+        # Se não autenticar, tentar retornar erro específico
+        if not service:
+             print("❌ [DEBUG] Falha na autenticação dentro de list_drive_folders")
+             # Se for raiz, permitir retornar pastas configuradas mesmo sem serviço (só ID)
+             if folder_id:
+                 return jsonify({'success': False, 'error': 'Erro de autenticação Google Drive'}), 401
         
         # Se não especificar folder, listar as pastas raiz (tipos de ação)
         if not folder_id:
