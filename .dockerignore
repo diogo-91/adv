@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+.installed.cfg
+*.egg
+venv/
+.venv/
+ENV/
+env/
+
+# Arquivos sensíveis (NÃO incluir no container)
+.env
+credentials.json
+token.json
+
+# Logs e dados locais (serão montados via volumes)
+logs_auditoria/
+logs_prints/
+historico_peticoes.json
+historico_peticoes_backup*.json
+estatisticas_escritorio.json
+jurisprudencias.json
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Documentação de desenvolvimento
+README.md
+DEPLOY*.md
+*.md
+
+# Arquivos temporários
+*.log
+*.tmp
+*.bak

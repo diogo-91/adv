@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # Servidor principal - Processamento em background
+  main:
+    build: .
+    container_name: peticoes-main
+    command: python main_v10_fase3.py
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - PASTA_01_CASOS_NOVOS=${PASTA_01_CASOS_NOVOS}
+      - PASTA_RECONHECIMENTO_VINCULO=${PASTA_RECONHECIMENTO_VINCULO}
+      - PASTA_ACAO_ACIDENTARIA=${PASTA_ACAO_ACIDENTARIA}
+      - PASTA_DIFERENCAS_CONTRATUAIS=${PASTA_DIFERENCAS_CONTRATUAIS}
+      - PASTA_02_PETICOES_GERADAS=${PASTA_02_PETICOES_GERADAS}
+      - PASTA_03_APROVADAS=${PASTA_03_APROVADAS}
+      - PASTA_04_REJEITADAS=${PASTA_04_REJEITADAS}
+      - PASTA_06_MODELOS=${PASTA_06_MODELOS}
+      - MODELO_VINCULO_ID=${MODELO_VINCULO_ID}
+      - MODELO_ACIDENTARIA_ID=${MODELO_ACIDENTARIA_ID}
+      - MODELO_DIFERENCAS_ID=${MODELO_DIFERENCAS_ID}
+      - INTERVALO_MINUTOS=${INTERVALO_MINUTOS:-1}
+    volumes:
+      # Persistir logs
+      - ./data/logs_auditoria:/app/logs_auditoria
+      - ./data/logs_prints:/app/logs_prints
+      # Persistir dados
+      - ./data/historico_peticoes.json:/app/historico_peticoes.json
+      - ./data/estatisticas_escritorio.json:/app/estatisticas_escritorio.json
+      - ./data/jurisprudencias.json:/app/jurisprudencias.json
+      # Credenciais Google (se usar)
+      - ./credentials.json:/app/credentials.json:ro
+      - ./data/token.json:/app/token.json
+    restart: unless-stopped
+    networks:
+      - peticoes-network
+
+  # Dashboard Web
+  dashboard:
+    build: .
+    container_name: peticoes-dashboard
+    command: python dashboard_server.py
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - PASTA_01_CASOS_NOVOS=${PASTA_01_CASOS_NOVOS}
+      - PASTA_RECONHECIMENTO_VINCULO=${PASTA_RECONHECIMENTO_VINCULO}
+      - PASTA_ACAO_ACIDENTARIA=${PASTA_ACAO_ACIDENTARIA}
+      - PASTA_DIFERENCAS_CONTRATUAIS=${PASTA_DIFERENCAS_CONTRATUAIS}
+      - PASTA_02_PETICOES_GERADAS=${PASTA_02_PETICOES_GERADAS}
+      - PASTA_03_APROVADAS=${PASTA_03_APROVADAS}
+      - PASTA_04_REJEITADAS=${PASTA_04_REJEITADAS}
+      - PASTA_06_MODELOS=${PASTA_06_MODELOS}
+      - MODELO_VINCULO_ID=${MODELO_VINCULO_ID}
+      - MODELO_ACIDENTARIA_ID=${MODELO_ACIDENTARIA_ID}
+      - MODELO_DIFERENCAS_ID=${MODELO_DIFERENCAS_ID}
+    ports:
+      - "5000:5000"
+    volumes:
+      # Compartilhar os mesmos dados com o main
+      - ./data/logs_auditoria:/app/logs_auditoria
+      - ./data/logs_prints:/app/logs_prints
+      - ./data/historico_peticoes.json:/app/historico_peticoes.json
+      - ./data/estatisticas_escritorio.json:/app/estatisticas_escritorio.json
+      - ./data/jurisprudencias.json:/app/jurisprudencias.json
+      # Credenciais Google (se usar)
+      - ./credentials.json:/app/credentials.json:ro
+      - ./data/token.json:/app/token.json
+    restart: unless-stopped
+    depends_on:
+      - main
+    networks:
+      - peticoes-network
+
+networks:
+  peticoes-network:
+    driver: bridge
+
+volumes:
+  data:
