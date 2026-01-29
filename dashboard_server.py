@@ -881,6 +881,35 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
+@app.route('/api/debug-auth')
+def debug_auth():
+    """Endpoint para diagnosticar problemas de autenticação"""
+    try:
+        env_var_exists = bool(os.getenv('GOOGLE_DRIVE_TOKEN_JSON'))
+        token_file_exists = os.path.exists('token.json')
+        
+        # Tentar ler conteúdo do token (parcialmente) se existir
+        token_content_preview = "N/A"
+        if token_file_exists:
+            with open('token.json', 'r') as f:
+                content = f.read()
+                token_content_preview = content[:20] + "..." if content else "Empty"
+
+        # Tentar autenticar
+        service = autenticar_google_drive()
+        auth_status = "Sucesso" if service else "Falha"
+        
+        return jsonify({
+            'env_var_GOOGLE_DRIVE_TOKEN_JSON_exists': env_var_exists,
+            'token_file_exists': token_file_exists,
+            'token_file_preview': token_content_preview,
+            'authentication_status': auth_status,
+            'cwd': os.getcwd(),
+            'files_in_cwd': os.listdir('.')
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
 @app.route('/api/gerar-peticao-manual', methods=['POST'])
 def gerar_peticao_manual():
     """
