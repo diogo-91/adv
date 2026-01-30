@@ -1371,8 +1371,8 @@
             const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
 
             const html = `
-                <div id="custom-modal-overlay" class="custom-modal-overlay">
-                    <div class="custom-modal">
+                <div id="custom-modal-overlay" class="custom-modal-overlay" onclick="if(event.target === this) this.remove()">
+                    <div class="custom-modal" onclick="event.stopPropagation()">
                         <div class="custom-modal-icon">${icon}</div>
                         <div class="custom-modal-title">${title}</div>
                         <div class="custom-modal-message">${message.replace(/\n/g, '<br>')}</div>
@@ -1400,8 +1400,8 @@
             const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
 
             const html = `
-                <div id="custom-modal-overlay" class="custom-modal-overlay">
-                    <div class="custom-modal">
+                <div id="custom-modal-overlay" class="custom-modal-overlay" onclick="if(event.target === this) this.remove()">
+                    <div class="custom-modal" onclick="event.stopPropagation()">
                         <div class="custom-modal-icon">${icon}</div>
                         <div class="custom-modal-title">${title}</div>
                         <div class="custom-modal-message">${message.replace(/\n/g, '<br>')}</div>
