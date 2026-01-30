@@ -35,5 +35,5 @@ RUN mkdir -p logs_auditoria logs_prints flags
 # Expor a porta do dashboard
 EXPOSE 5000
 
-# Comando padrão: rodar ambos os serviços
-CMD ["python", "start.py"]
+# Comando padrão: listar arquivos e rodar
+CMD ["sh", "-c", "ls -la /app && python /app/start.py"]
