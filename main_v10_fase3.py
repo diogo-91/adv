@@ -289,7 +289,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
                 raise Exception("Falha no processamento do vídeo pelo Gemini")
             
             # Criar modelo e transcrever
-            model = genai.GenerativeModel(model_name="gemini-2.0-flash-exp")
+            model = genai.GenerativeModel(model_name="gemini-2.5-flash")
             
             prompt = f"""
             Você é um assistente paralegal especializado em análise de vídeos e entrevistas com clientes.
