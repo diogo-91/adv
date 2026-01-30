@@ -32,7 +32,6 @@ RUN mkdir -p logs_auditoria logs_prints flags
 # Expor a porta do dashboard
 EXPOSE 5000
 
-# Comando padrão: worker (pode ser sobrescrito no EasyPanel)
-# Para dashboard: python entrypoint_dashboard.py
-# Para worker: python entrypoint_worker.py
-CMD ["python", "entrypoint_worker.py"]
+# Comando padrão: entrypoint unificado
+# Controle via variável SERVICE_TYPE (dashboard ou worker)
+CMD ["python", "entrypoint.py"]
