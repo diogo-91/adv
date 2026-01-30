@@ -32,6 +32,5 @@ RUN mkdir -p logs_auditoria logs_prints flags
 # Expor a porta do dashboard
 EXPOSE 5000
 
-# Comando padrão: entrypoint unificado
-# Controle via variável SERVICE_TYPE (dashboard ou worker)
-CMD ["python", "entrypoint.py"]
+# Comando padrão: sistema unificado (igual localhost)
+CMD ["python", "main_v10_fase3.py"]
