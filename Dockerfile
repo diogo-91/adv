@@ -23,9 +23,6 @@ COPY requirements.txt .
 # Instalar dependências Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar script de inicialização ANTES de copiar todo o resto
-COPY start.py /app/start.py
-
 # Copiar todo o código da aplicação
 COPY . .
 
@@ -35,5 +32,5 @@ RUN mkdir -p logs_auditoria logs_prints flags
 # Expor a porta do dashboard
 EXPOSE 5000
 
-# Comando padrão: listar arquivos e rodar
-CMD ["sh", "-c", "ls -la /app && python /app/start.py"]
+# Comando padrão: sistema unificado
+CMD ["python", "main_v10_fase3.py"]

@@ -3923,9 +3923,40 @@ def main():
         time.sleep(30)
 
 if __name__ == "__main__":
+    import subprocess
+    import time
+    import os
+    
+    print("="*50)
+    print("  INICIALIZANDO SISTEMA UNIFICADO")
+    print("="*50)
+    
+    # Criar diretório de flags
+    if not os.path.exists('flags'):
+        os.makedirs('flags')
+        
+    # Iniciar Dashboard em background
+    print("\n[MAIN] Iniciando Dashboard (dashboard_server.py)...")
+    dashboard_process = subprocess.Popen(
+        ["python", "dashboard_server.py"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+        # Não usamos wait() aqui para não bloquear
+    )
+    print(f"[MAIN] Dashboard iniciado com PID: {dashboard_process.pid}")
+    
     try:
+        # Iniciar loop principal do Worker
+        print("[MAIN] Iniciando Worker...")
         main()
     except KeyboardInterrupt:
-        print("\n\n" + "="*70)
-        print("  Sistema encerrado")
-        print("="*70 + "\n")
+        print("\n[MAIN] Encerrando sistema...")
+    finally:
+        print("[MAIN] Matando processo do Dashboard...")
+        dashboard_process.terminate()
+        try:
+            dashboard_process.wait(timeout=5)
+        except:
+            dashboard_process.kill()
+        print("[MAIN] Sistema encerrado.")
