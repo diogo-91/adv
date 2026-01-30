@@ -1362,6 +1362,64 @@
             document.getElementById('badge-finalizadas').textContent = counts['FINALIZADAS'];
         }
 
+        // Helper para mostrar modal customizado
+        function showCustomModal(type, title, message) {
+            // Remover modal anterior se existir
+            const oldModal = document.getElementById('custom-modal-overlay');
+            if (oldModal) oldModal.remove();
+
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+
+            const html = `
+                <div id="custom-modal-overlay" class="custom-modal-overlay">
+                    <div class="custom-modal">
+                        <div class="custom-modal-icon">${icon}</div>
+                        <div class="custom-modal-title">${title}</div>
+                        <div class="custom-modal-message">${message.replace(/\n/g, '<br>')}</div>
+                        <div class="custom-modal-actions">
+                            <button class="btn-modal btn-modal-primary" onclick="this.closest('.custom-modal-overlay').remove()">OK</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', html);
+
+            // Forçar reflow para animação
+            setTimeout(() => {
+                document.getElementById('custom-modal-overlay').classList.add('active');
+            }, 10);
+        }
+
+        // Helper para mostrar modal customizado
+        function showCustomModal(type, title, message) {
+            // Remover modal anterior se existir
+            const oldModal = document.getElementById('custom-modal-overlay');
+            if (oldModal) oldModal.remove();
+
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+
+            const html = `
+                <div id="custom-modal-overlay" class="custom-modal-overlay">
+                    <div class="custom-modal">
+                        <div class="custom-modal-icon">${icon}</div>
+                        <div class="custom-modal-title">${title}</div>
+                        <div class="custom-modal-message">${message.replace(/\n/g, '<br>')}</div>
+                        <div class="custom-modal-actions">
+                            <button class="btn-modal btn-modal-primary" onclick="this.closest('.custom-modal-overlay').remove()">OK</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', html);
+
+            // Forçar reflow para animação
+            setTimeout(() => {
+                document.getElementById('custom-modal-overlay').classList.add('active');
+            }, 10);
+        }
+
         function renderizarTabela() {
             const tbody = document.getElementById('tableBody');
             const clientesFiltrados = todosClientes.filter(c => c.categoria === categoriaAtual);
@@ -3665,18 +3723,14 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
                 if (modal) modal.remove();
 
                 if (data.success) {
-                    alert(`✅ Solicitação de transcrição (RESUMO) enviada com sucesso!
-
-👤 Cliente: ${clienteNome}
-
-O sistema irá buscar e processar os vídeos automaticamente.
-Acompanhe o progresso no terminal ou nos logs do sistema.
-
-O resumo será salvo na pasta do cliente quando concluída.`);
+                    showCustomModal('success', 'Solicitação Recebida!',
+                        `A transcrição do vídeo para <strong>${clienteNome}</strong> foi iniciada com sucesso.\n\n` +
+                        `O sistema irá processar o arquivo em segundo plano.\n` +
+                        `Assim que concluído, o arquivo será salvo automaticamente na pasta do cliente.`);
 
                     console.log('✅ Transcrição solicitada com sucesso');
                 } else {
-                    alert(`❌ Erro ao solicitar transcrição:\n\n${data.error}`);
+                    showCustomModal('error', 'Ops! Algo deu errado', `Não foi possível iniciar a transcrição:\n${data.error}`);
                     console.error('❌ Erro:', data.error);
                 }
             } catch (error) {
