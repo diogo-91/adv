@@ -3602,20 +3602,29 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
 
         async function gerarTranscricaoVideo() {
             try {
-                // Obter nome do cliente do modal
-                const clienteNomeElement = document.getElementById('modalClienteNome');
-                if (!clienteNomeElement) {
-                    alert('❌ Erro: Não foi possível identificar o cliente.');
-                    return;
+                // Tenta obter nome da variável global primeiro (mais seguro)
+                let clienteNome;
+
+                if (typeof clienteSelecionado !== 'undefined' && clienteSelecionado && (clienteSelecionado.nome || clienteSelecionado.cliente)) {
+                    clienteNome = clienteSelecionado.nome || clienteSelecionado.cliente;
+                } else {
+                    // Fallback para DOM (buscando especificamente no modal V2)
+                    const modalV2 = document.getElementById('modalDetalhesV2');
+                    const nomeElement = modalV2 ? modalV2.querySelector('#modalClienteNome') : document.getElementById('modalClienteNome');
+                    clienteNome = nomeElement ? nomeElement.textContent.trim().replace(/^Cliente\s+/i, '') : null;
                 }
 
-                const clienteNome = clienteNomeElement.textContent.trim();
+                if (!clienteNome || clienteNome === 'Nome do Cliente' || clienteNome.includes('Rodrigo Diogo')) {
+                    alert('❌ Erro: Não foi possível identificar o cliente selecionado.\nTente fechar e abrir o modal novamente.');
+                    console.error('Falha ao identificar cliente. clienteSelecionado:', clienteSelecionado);
+                    return;
+                }
 
                 console.log('🎥 Solicitando transcrição de vídeo para:', clienteNome);
 
                 // Criar modal de progresso
                 const modalHtml = `
-                    <div id="modalTranscricaoProgress" class="modal-backdrop" style="display: flex; align-items: center; justify-content: center; z-index: 2000;">
+                    <div id="modalTranscricaoProgress" class="modal-backdrop active" style="display: flex; align-items: center; justify-content: center; z-index: 2000;">
                         <div class="modal-container" style="background: white; width: 500px; padding: 2rem; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;">
                             <div style="margin-bottom: 1.5rem;">
                                 <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
@@ -3656,14 +3665,14 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
                 if (modal) modal.remove();
 
                 if (data.success) {
-                    alert(`✅ Solicitação de transcrição enviada com sucesso!
+                    alert(`✅ Solicitação de transcrição (RESUMO) enviada com sucesso!
 
 👤 Cliente: ${clienteNome}
 
 O sistema irá buscar e processar os vídeos automaticamente.
 Acompanhe o progresso no terminal ou nos logs do sistema.
 
-A transcrição será salva na pasta do cliente quando concluída.`);
+O resumo será salvo na pasta do cliente quando concluída.`);
 
                     console.log('✅ Transcrição solicitada com sucesso');
                 } else {
@@ -3686,20 +3695,28 @@ A transcrição será salva na pasta do cliente quando concluída.`);
 
         async function gerarCronologiaAtual() {
             try {
-                // Obter nome do cliente do modal
-                const clienteNomeElement = document.getElementById('modalClienteNome');
-                if (!clienteNomeElement) {
-                    alert('❌ Erro: Não foi possível identificar o cliente.');
-                    return;
+                // Tenta obter nome da variável global primeiro
+                let clienteNome;
+
+                if (typeof clienteSelecionado !== 'undefined' && clienteSelecionado && (clienteSelecionado.nome || clienteSelecionado.cliente)) {
+                    clienteNome = clienteSelecionado.nome || clienteSelecionado.cliente;
+                } else {
+                    // Fallback para DOM (buscando especificamente no modal V2)
+                    const modalV2 = document.getElementById('modalDetalhesV2');
+                    const nomeElement = modalV2 ? modalV2.querySelector('#modalClienteNome') : document.getElementById('modalClienteNome');
+                    clienteNome = nomeElement ? nomeElement.textContent.trim().replace(/^Cliente\s+/i, '') : null;
                 }
 
-                const clienteNome = clienteNomeElement.textContent.trim();
+                if (!clienteNome || clienteNome === 'Nome do Cliente' || clienteNome.includes('Rodrigo Diogo')) {
+                    alert('❌ Erro: Não foi possível identificar o cliente selecionado.');
+                    return;
+                }
 
                 console.log('📅 Solicitando geração de cronologia para:', clienteNome);
 
                 // Criar modal de progresso
                 const modalHtml = `
-                    <div id="modalCronologiaProgress" class="modal-backdrop" style="display: flex; align-items: center; justify-content: center; z-index: 2000;">
+                    <div id="modalCronologiaProgress" class="modal-backdrop active" style="display: flex; align-items: center; justify-content: center; z-index: 2000;">
                         <div class="modal-container" style="background: white; width: 500px; padding: 2rem; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); text-align: center;">
                             <div style="margin-bottom: 1.5rem;">
                                 <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
