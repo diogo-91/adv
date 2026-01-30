@@ -1123,11 +1123,11 @@ JUSTIFICATIVA DO SCORE
 QUALIDADE EXTRA (Bônus de Pontos)
 {'='*80}
 
-{f"""✨ Jurisprudência TST: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_tst') else '❌ Ausente (0pts)'}
-✨ Jurisprudência TRT: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_trt') else '❌ Ausente (0pts)'}
-✨ Cálculos Detalhados: {'✅ Tabela/Planilha (+5pts)' if resultado.get('qualidade_extra', {}).get('calculos_detalhados') else '❌ Ausente (0pts)'}
-✨ Narrativa Persuasiva: {'✅ Emocional (+3pts)' if resultado.get('qualidade_extra', {}).get('narrativa_persuasiva') else '❌ Genérica (0pts)'}
-✨ Fundamentação Doutrinária: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('fundamentacao_doutrinaria') else '❌ Ausente (0pts)'}
+{f"""- Jurisprudência TST: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_tst') else '❌ Ausente (0pts)'}
+- Jurisprudência TRT: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_trt') else '❌ Ausente (0pts)'}
+- Cálculos Detalhados: {'✅ Tabela/Planilha (+5pts)' if resultado.get('qualidade_extra', {}).get('calculos_detalhados') else '❌ Ausente (0pts)'}
+- Narrativa Persuasiva: {'✅ Emocional (+3pts)' if resultado.get('qualidade_extra', {}).get('narrativa_persuasiva') else '❌ Genérica (0pts)'}
+- Fundamentação Doutrinária: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('fundamentacao_doutrinaria') else '❌ Ausente (0pts)'}
 
 💰 Total Bônus: +{resultado.get('qualidade_extra', {}).get('bonus_pontos', 0)} pontos
 """ if resultado.get('qualidade_extra') else 'Não avaliada'}
