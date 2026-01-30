@@ -323,19 +323,37 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
             
             print(f"         Gerando resumo...")
             try:
+                # Usar configurações de segurança mais permissivas para não bloquear o resumo
+                # Usando strings diretas que são compatíveis com a versão mais recente
+                safety_settings = [
+                    {
+                        "category": "HARM_CATEGORY_HARASSMENT",
+                        "threshold": "BLOCK_NONE"
+                    },
+                    {
+                        "category": "HARM_CATEGORY_HATE_SPEECH",
+                        "threshold": "BLOCK_NONE"
+                    },
+                    {
+                        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                        "threshold": "BLOCK_NONE"
+                    },
+                    {
+                        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                        "threshold": "BLOCK_NONE"
+                    }
+                ]
+
                 response = model.generate_content(
                     [video_file, prompt],
-                    safety_settings={
-                        'HARASSMENT': 'block_none',
-                        'HATE_SPEECH': 'block_none',
-                        'SEXUALLY_EXPLICIT': 'block_none',
-                        'DANGEROUS_CONTENT': 'block_none'
-                    }
+                    safety_settings=safety_settings
                 )
                 texto_transcricao = response.text
             except Exception as api_error:
                 print(f"         ERRO na API Gemini: {api_error}")
                 print(f"         Tipo do erro: {type(api_error).__name__}")
+                import traceback
+                traceback.print_exc()
                 raise
             
             print(f"         Resumo gerado! ({len(texto_transcricao)} caracteres)")
