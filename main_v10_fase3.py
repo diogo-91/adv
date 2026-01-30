@@ -33,7 +33,7 @@ try:
     PROMPT_MASTER_DISPONIVEL = True
 except ImportError:
     PROMPT_MASTER_DISPONIVEL = False
-    print("⚠️ Módulo Prompt Master não disponível")
+    print(" Módulo Prompt Master não disponível")
 
 load_dotenv()
 
@@ -111,7 +111,7 @@ def agente_cronologia(texto_transcricao, cliente_nome):
         )
         return message.content[0].text
     except Exception as e:
-        print(f"        ❌ Erro na cronologia: {e}")
+        print(f"         Erro na cronologia: {e}")
         return None
 
 def salvar_cronologia_docx(service, texto_cronologia, cliente_nome, pasta_id):
@@ -148,7 +148,7 @@ def salvar_cronologia_docx(service, texto_cronologia, cliente_nome, pasta_id):
                 fields='id'
             ).execute()
             
-            print(f"        ✅ Cronologia salva! ID: {arquivo.get('id')}")
+            print(f"         Cronologia salva! ID: {arquivo.get('id')}")
             
         finally:
             # Tentar fechar o media se possível (algumas implementações exigem)
@@ -161,11 +161,11 @@ def salvar_cronologia_docx(service, texto_cronologia, cliente_nome, pasta_id):
         try:
             os.remove(temp_path)
         except Exception as e:
-            print(f"        ⚠️ Aviso: Não foi possível remover arquivo temporário {temp_path}: {e}")
+            print(f"         Aviso: Não foi possível remover arquivo temporário {temp_path}: {e}")
             
         return True
     except Exception as e:
-        print(f"        ❌ Erro ao salvar cronologia: {e}")
+        print(f"         Erro ao salvar cronologia: {e}")
         return False
 
 # ============================================================================
@@ -181,7 +181,7 @@ def buscar_ou_criar_pasta(service, nome_pasta, pasta_pai_id):
         items = results.get('files', [])
         
         if items:
-            print(f"        📁 Pasta '{nome_pasta}' encontrada: {items[0]['id']}")
+            print(f"         Pasta '{nome_pasta}' encontrada: {items[0]['id']}")
             return items[0]['id']
         
         # Criar nova pasta
@@ -191,11 +191,11 @@ def buscar_ou_criar_pasta(service, nome_pasta, pasta_pai_id):
             'parents': [pasta_pai_id]
         }
         folder = service.files().create(body=file_metadata, fields='id').execute()
-        print(f"        ✅ Pasta '{nome_pasta}' criada: {folder.get('id')}")
+        print(f"         Pasta '{nome_pasta}' criada: {folder.get('id')}")
         return folder.get('id')
         
     except Exception as e:
-        print(f"        ❌ Erro ao buscar/criar pasta: {e}")
+        print(f"         Erro ao buscar/criar pasta: {e}")
         return None
 
 def baixar_arquivo(service, file_id):
@@ -212,7 +212,7 @@ def baixar_arquivo(service, file_id):
         file_stream.seek(0)
         return file_stream.read()
     except Exception as e:
-        print(f"        ❌ Erro ao baixar arquivo: {e}")
+        print(f"         Erro ao baixar arquivo: {e}")
         return None
 
 def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_cliente_id):
@@ -229,7 +229,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
     Returns:
         dict com status, transcricao_id, texto, etc.
     """
-    print(f"\n    🎥 [AGENTE RESUMO] Iniciando resumo de vídeo...")
+    print(f"\n     [AGENTE RESUMO] Iniciando resumo de vídeo...")
     print(f"        Cliente: {cliente_nome}")
     print(f"        Vídeo: {video_nome}")
     
@@ -243,7 +243,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         
         # 2. Buscar ou criar pasta "Transcrições de Vídeo"
         # Mantendo o nome da pasta para compatibilidade
-        print(f"        📁 Criando/buscando pasta de transcrições...")
+        print(f"         Criando/buscando pasta de transcrições...")
         pasta_transcricoes_id = buscar_ou_criar_pasta(service, "Transcrições de Vídeo", pasta_cliente_id)
         
         if not pasta_transcricoes_id:
@@ -253,7 +253,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
             }
         
         # 3. Baixar vídeo do Drive
-        print(f"        ⬇️ Baixando vídeo do Drive...")
+        print(f"        ⬇ Baixando vídeo do Drive...")
         video_bytes = baixar_arquivo(service, video_id)
         
         if not video_bytes:
@@ -269,18 +269,18 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         with open(temp_video_path, 'wb') as f:
             f.write(video_bytes)
         
-        print(f"        💾 Vídeo salvo: {temp_video_path} ({len(video_bytes) / (1024*1024):.2f} MB)")
+        print(f"         Vídeo salvo: {temp_video_path} ({len(video_bytes) / (1024*1024):.2f} MB)")
         
         # 5. Upload para Gemini e transcrever
-        print(f"        🤖 Enviando para Gemini API...")
+        print(f"         Enviando para Gemini API...")
         
         try:
             # Upload do vídeo para Gemini
             video_file = genai.upload_file(path=temp_video_path)
-            print(f"        ✅ Vídeo enviado: {video_file.name}")
+            print(f"         Vídeo enviado: {video_file.name}")
             
             # Aguardar processamento
-            print(f"        ⏳ Aguardando processamento...")
+            print(f"         Aguardando processamento...")
             while video_file.state.name == "PROCESSING":
                 time.sleep(2)
                 video_file = genai.get_file(video_file.name)
@@ -321,11 +321,11 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
             Gere o resumo agora:
             """
             
-            print(f"        🎯 Gerando resumo...")
+            print(f"         Gerando resumo...")
             response = model.generate_content([video_file, prompt])
             texto_transcricao = response.text
             
-            print(f"        ✅ Resumo gerado! ({len(texto_transcricao)} caracteres)")
+            print(f"         Resumo gerado! ({len(texto_transcricao)} caracteres)")
             
         finally:
             # Limpar arquivo temporário
@@ -335,7 +335,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
                 pass
         
         # 6. Salvar transcrição como DOCX
-        print(f"        💾 Salvando RESUMO como DOCX...")
+        print(f"         Salvando RESUMO como DOCX...")
         
         doc = Document()
         doc.add_heading(f'Resumo de Vídeo - {cliente_nome}', 0)
@@ -378,9 +378,9 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         except:
             pass
         
-        print(f"        ✅ Resumo salvo no Drive!")
-        print(f"        📄 Arquivo: {arquivo.get('name')}")
-        print(f"        🔗 ID: {arquivo.get('id')}")
+        print(f"         Resumo salvo no Drive!")
+        print(f"         Arquivo: {arquivo.get('name')}")
+        print(f"         ID: {arquivo.get('id')}")
         
         return {
             'success': True,
@@ -393,7 +393,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         }
         
     except Exception as e:
-        print(f"        ❌ Erro na transcrição: {e}")
+        print(f"         Erro na transcrição: {e}")
         import traceback
         traceback.print_exc()
         return {
@@ -404,9 +404,9 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
 
 # PONTUAÇÃO POR PRIORIDADE - CHECKLIST V4.0
 PONTOS_PRIORIDADE = {
-    'ALTA': -10,    # 🔴 BLOQUEIA - Crítico
-    'MEDIA': -5,    # ⚠️ ALERTA - Importante
-    'BAIXA': -2     # 🟢 SUGERE - Desejável
+    'ALTA': -10,    #  BLOQUEIA - Crítico
+    'MEDIA': -5,    #  ALERTA - Importante
+    'BAIXA': -2     #  SUGERE - Desejável
 }
 
 # SCORES MÉDIOS POR TIPO - BASE DE 100 PETIÇÕES (CHECKLIST V4.0)
@@ -633,11 +633,11 @@ def calcular_ranking(score, tipo_processo):
         percentil = (posicao / len(scores_sorted)) * 100
         
         if percentil <= 10:
-            return "Top 10% 🏆"
+            return "Top 10% "
         elif percentil <= 25:
-            return "Top 25% 🥇"
+            return "Top 25% "
         elif percentil <= 50:
-            return "Top 50% 🥈"
+            return "Top 50% "
         else:
             return f"Top {int(percentil)}%"
     except:
@@ -707,13 +707,13 @@ def encontrar_arquivo_correspondente(nome_print, arquivos_pasta):
                     if any(padrao in arquivo_lower for padrao in padroes):
                         return arquivo_name
             else:
-                print(f"⚠️ AVISO: arquivo em formato inesperado: {type(arquivo)}")
+                print(f" AVISO: arquivo em formato inesperado: {type(arquivo)}")
                 continue
         
         return None
         
     except Exception as e:
-        print(f"🔴 ERRO em encontrar_arquivo_correspondente: {e}")
+        print(f" ERRO em encontrar_arquivo_correspondente: {e}")
         return None
 
 def inserir_marcadores_prints(texto_peticao, tipo_acao, arquivos_cliente):
@@ -731,23 +731,23 @@ def inserir_marcadores_prints(texto_peticao, tipo_acao, arquivos_cliente):
             
             # PROTEÇÃO: Verificar se prints_prioridade é lista
             if not isinstance(prints_prioridade, list):
-                print(f"⚠️ AVISO: prints_prioridade não é lista para {prioridade}")
+                print(f" AVISO: prints_prioridade não é lista para {prioridade}")
                 continue
             
             for print_info in prints_prioridade:
                 # PROTEÇÃO: Verificar se print_info é dicionário
                 if not isinstance(print_info, dict):
-                    print(f"⚠️ AVISO: print_info não é dicionário: {print_info}")
+                    print(f" AVISO: print_info não é dicionário: {print_info}")
                     continue
                 
                 # PROTEÇÃO: Verificar se 'nome' existe
                 if 'nome' not in print_info:
-                    print(f"⚠️ AVISO: print_info sem 'nome': {print_info}")
+                    print(f" AVISO: print_info sem 'nome': {print_info}")
                     continue
                 
                 # PROTEÇÃO: Verificar se 'gatilhos' existe
                 if 'gatilhos' not in print_info:
-                    print(f"⚠️ AVISO: print_info sem 'gatilhos': {print_info}")
+                    print(f" AVISO: print_info sem 'gatilhos': {print_info}")
                     continue
                 
                 nome_print = print_info['nome']
@@ -773,7 +773,7 @@ def inserir_marcadores_prints(texto_peticao, tipo_acao, arquivos_cliente):
                         marcador = f"\n\n[INSERIR PRINT: {nome_print} - Arquivo: {arquivo_encontrado} - Status: {status}]\n\n"
                     else:
                         if critico:
-                            status = "FALTANTE - 🔴 CRÍTICO"
+                            status = "FALTANTE -  CRÍTICO"
                             prints_faltantes[prioridade].append(nome_print)
                         else:
                             status = "FALTANTE"
@@ -811,13 +811,13 @@ def inserir_marcadores_prints(texto_peticao, tipo_acao, arquivos_cliente):
                 if any(g.lower() in texto_peticao.lower() for g in print_info.get('gatilhos', []))
             )
         except Exception as e:
-            print(f"⚠️ ERRO ao verificar críticos: {e}")
+            print(f" ERRO ao verificar críticos: {e}")
             tem_criticos_faltantes = False
         
         return texto_modificado, marcadores_inseridos, prints_faltantes, tem_criticos_faltantes
         
     except Exception as e:
-        print(f"🔴 ERRO CRÍTICO em inserir_marcadores_prints: {e}")
+        print(f" ERRO CRÍTICO em inserir_marcadores_prints: {e}")
         import traceback
         traceback.print_exc()
         # Retornar valores seguros
@@ -846,9 +846,9 @@ RESUMO
 
 Total de marcadores inseridos: {len(marcadores_inseridos)}
 
-🔴 Prints CRÍTICOS faltantes: {len(prints_faltantes['ALTA'])}
-⚠️ Prints IMPORTANTES faltantes: {len(prints_faltantes['MEDIA'])}
-🟢 Prints DESEJÁVEIS faltantes: {len(prints_faltantes['BAIXA'])}
+ Prints CRÍTICOS faltantes: {len(prints_faltantes['ALTA'])}
+ Prints IMPORTANTES faltantes: {len(prints_faltantes['MEDIA'])}
+ Prints DESEJÁVEIS faltantes: {len(prints_faltantes['BAIXA'])}
 
 {'='*80}
 MARCADORES INSERIDOS NA PETIÇÃO
@@ -858,7 +858,7 @@ MARCADORES INSERIDOS NA PETIÇÃO
     
     # Separar por prioridade
     for prioridade in ['ALTA', 'MEDIA', 'BAIXA']:
-        emoji = {'ALTA': '🔴', 'MEDIA': '⚠️', 'BAIXA': '🟢'}[prioridade]
+        emoji = {'ALTA': '', 'MEDIA': '', 'BAIXA': ''}[prioridade]
         marcadores_prioridade = [m for m in marcadores_inseridos if m['prioridade'] == prioridade]
         
         if marcadores_prioridade:
@@ -869,7 +869,7 @@ MARCADORES INSERIDOS NA PETIÇÃO
                 conteudo += f"   Arquivo: {marcador['arquivo'] if marcador['arquivo'] else 'FALTANTE'}\n"
                 conteudo += f"   Status: {marcador['status']}\n"
                 if marcador.get('critico'):
-                    conteudo += f"   ⚠️ CRÍTICO: Bloqueia aprovação se ausente\n"
+                    conteudo += f"    CRÍTICO: Bloqueia aprovação se ausente\n"
                 conteudo += "\n"
     
     conteudo += f"""
@@ -880,19 +880,19 @@ PRINTS FALTANTES POR PRIORIDADE
 """
     
     if prints_faltantes['ALTA']:
-        conteudo += "🔴 PRIORIDADE ALTA - Bloqueiam aprovação:\n"
+        conteudo += " PRIORIDADE ALTA - Bloqueiam aprovação:\n"
         for print_nome in prints_faltantes['ALTA']:
             conteudo += f"   • {print_nome}\n"
         conteudo += "\n"
     
     if prints_faltantes['MEDIA']:
-        conteudo += "⚠️ PRIORIDADE MÉDIA - Alertam:\n"
+        conteudo += " PRIORIDADE MÉDIA - Alertam:\n"
         for print_nome in prints_faltantes['MEDIA']:
             conteudo += f"   • {print_nome}\n"
         conteudo += "\n"
     
     if prints_faltantes['BAIXA']:
-        conteudo += "🟢 PRIORIDADE BAIXA - Sugerem:\n"
+        conteudo += " PRIORIDADE BAIXA - Sugerem:\n"
         for print_nome in prints_faltantes['BAIXA']:
             conteudo += f"   • {print_nome}\n"
         conteudo += "\n"
@@ -905,7 +905,7 @@ DECISÃO FINAL
 """
     
     if tem_criticos_faltantes:
-        conteudo += """⛔ BLOQUEADO - Prints críticos faltantes
+        conteudo += """ BLOQUEADO - Prints críticos faltantes
 
 Ação necessária:
 Solicitar ao cliente os documentos críticos marcados acima antes de aprovar a petição.
@@ -913,7 +913,7 @@ Os marcadores foram inseridos no documento para facilitar a inserção manual po
 
 """
     else:
-        conteudo += """✅ APROVADO PARA INSERÇÃO MANUAL
+        conteudo += """ APROVADO PARA INSERÇÃO MANUAL
 
 Todos os prints críticos estão disponíveis.
 Os marcadores foram inseridos no documento indicando onde cada print deve ser adicionado.
@@ -1022,7 +1022,7 @@ def atualizar_status_historico(arquivo_id, status, score=None, erros=None, relat
                         entrada['ranking'] = "PRECISA MELHORAR"
                     
                     # DEBUG: Verificar ranking calculado
-                    print(f"  📝 Histórico atualizado: Status={status}, Score={score}, Ranking={entrada['ranking']}")
+                    print(f"   Histórico atualizado: Status={status}, Score={score}, Ranking={entrada['ranking']}")
                     
                 if erros:
                     entrada['erros'] = erros
@@ -1088,7 +1088,7 @@ def log_auditoria(cliente_nome, tipo_processo, resultado, peticao_nome):
         
         # Score médio do tipo
         score_medio = SCORES_MEDIOS.get(tipo_processo, 0)
-        comparacao = "ACIMA DA MÉDIA ⬆️" if resultado['score'] > score_medio else "ABAIXO DA MÉDIA ⬇️" if resultado['score'] < score_medio else "NA MÉDIA ➡️"
+        comparacao = "ACIMA DA MÉDIA ⬆" if resultado['score'] > score_medio else "ABAIXO DA MÉDIA ⬇" if resultado['score'] < score_medio else "NA MÉDIA "
         
         conteudo = f"""
 {'='*80}
@@ -1105,13 +1105,13 @@ Petição: {peticao_nome}
 RESULTADO FINAL
 {'='*80}
 
-Status: {'✅ APROVADA' if resultado['aprovada'] else '❌ REJEITADA'}
+Status: {' APROVADA' if resultado['aprovada'] else ' REJEITADA'}
 Score Final: {resultado['score']}/100
 
-📊 Score Médio do Tipo (Base 100 petições): {score_medio}/100
-📊 Score Médio Escritório: {resultado.get('comparacao_escritorio', score_medio):.1f}/100
-📈 Comparação: {comparacao}
-🏆 Ranking: {resultado.get('ranking', 'N/A')}
+ Score Médio do Tipo (Base 100 petições): {score_medio}/100
+ Score Médio Escritório: {resultado.get('comparacao_escritorio', score_medio):.1f}/100
+ Comparação: {comparacao}
+ Ranking: {resultado.get('ranking', 'N/A')}
 
 {'='*80}
 JUSTIFICATIVA DO SCORE
@@ -1123,27 +1123,27 @@ JUSTIFICATIVA DO SCORE
 QUALIDADE EXTRA (Bônus de Pontos)
 {'='*80}
 
-{f"""- Jurisprudência TST: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_tst') else '❌ Ausente (0pts)'}
-- Jurisprudência TRT: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_trt') else '❌ Ausente (0pts)'}
-- Cálculos Detalhados: {'✅ Tabela/Planilha (+5pts)' if resultado.get('qualidade_extra', {}).get('calculos_detalhados') else '❌ Ausente (0pts)'}
-- Narrativa Persuasiva: {'✅ Emocional (+3pts)' if resultado.get('qualidade_extra', {}).get('narrativa_persuasiva') else '❌ Genérica (0pts)'}
-- Fundamentação Doutrinária: {'✅ Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('fundamentacao_doutrinaria') else '❌ Ausente (0pts)'}
+{f"""- Jurisprudência TST: {' Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_tst') else ' Ausente (0pts)'}
+- Jurisprudência TRT: {' Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('jurisprudencia_trt') else ' Ausente (0pts)'}
+- Cálculos Detalhados: {' Tabela/Planilha (+5pts)' if resultado.get('qualidade_extra', {}).get('calculos_detalhados') else ' Ausente (0pts)'}
+- Narrativa Persuasiva: {' Emocional (+3pts)' if resultado.get('qualidade_extra', {}).get('narrativa_persuasiva') else ' Genérica (0pts)'}
+- Fundamentação Doutrinária: {' Presente (+3pts)' if resultado.get('qualidade_extra', {}).get('fundamentacao_doutrinaria') else ' Ausente (0pts)'}
 
-💰 Total Bônus: +{resultado.get('qualidade_extra', {}).get('bonus_pontos', 0)} pontos
+ Total Bônus: +{resultado.get('qualidade_extra', {}).get('bonus_pontos', 0)} pontos
 """ if resultado.get('qualidade_extra') else 'Não avaliada'}
 
 {'='*80}
 VALIDAÇÃO DE DOCUMENTOS (Sistema 3 Prioridades)
 {'='*80}
 
-🔴 PRIORIDADE ALTA - CRÍTICO (Bloqueia -10pts cada):
-{chr(10).join(['   ❌ ' + d for d in resultado.get('docs_alta_faltantes', [])]) if resultado.get('docs_alta_faltantes') else '   ✅ Todos os documentos ALTA presentes'}
+ PRIORIDADE ALTA - CRÍTICO (Bloqueia -10pts cada):
+{chr(10).join(['    ' + d for d in resultado.get('docs_alta_faltantes', [])]) if resultado.get('docs_alta_faltantes') else '    Todos os documentos ALTA presentes'}
 
-⚠️ PRIORIDADE MÉDIA - IMPORTANTE (Alerta -5pts cada):
-{chr(10).join(['   ⚠️ ' + d for d in resultado.get('docs_media_faltantes', [])]) if resultado.get('docs_media_faltantes') else '   ✅ Todos os documentos MÉDIA presentes'}
+ PRIORIDADE MÉDIA - IMPORTANTE (Alerta -5pts cada):
+{chr(10).join(['    ' + d for d in resultado.get('docs_media_faltantes', [])]) if resultado.get('docs_media_faltantes') else '    Todos os documentos MÉDIA presentes'}
 
-🟢 PRIORIDADE BAIXA - DESEJÁVEL (Sugere -2pts cada):
-{chr(10).join(['   💡 ' + d for d in resultado.get('docs_baixa_faltantes', [])]) if resultado.get('docs_baixa_faltantes') else '   ✅ Todos os documentos BAIXA presentes'}
+ PRIORIDADE BAIXA - DESEJÁVEL (Sugere -2pts cada):
+{chr(10).join(['    ' + d for d in resultado.get('docs_baixa_faltantes', [])]) if resultado.get('docs_baixa_faltantes') else '    Todos os documentos BAIXA presentes'}
 
 Penalização Total por Documentos: {resultado.get('score_penalty_docs', 0)} pontos
 
@@ -1151,49 +1151,49 @@ Penalização Total por Documentos: {resultado.get('score_penalty_docs', 0)} pon
 ERROS CRÍTICOS ({len(resultado.get('erros_criticos', []))})
 {'='*80}
 
-{chr(10).join(['❌ ' + e for e in resultado.get('erros_criticos', [])]) if resultado.get('erros_criticos') else '✅ Nenhum erro crítico encontrado'}
+{chr(10).join([' ' + e for e in resultado.get('erros_criticos', [])]) if resultado.get('erros_criticos') else ' Nenhum erro crítico encontrado'}
 
 {'='*80}
 VALIDAÇÃO DOS 10 PEDIDOS MAIS COMUNS
 {'='*80}
 
-{chr(10).join([f"{'✅' if 'check' in p.get('validacao', '').lower() or '✅' in p.get('validacao', '') else '⚠️'} {p.get('pedido', 'N/A')}: {p.get('validacao', 'N/A')}" for p in resultado.get('pedidos_validacao', [])]) if resultado.get('pedidos_validacao') else 'Nenhum pedido validado'}
+{chr(10).join([f"{'' if 'check' in p.get('validacao', '').lower() or '' in p.get('validacao', '') else ''} {p.get('pedido', 'N/A')}: {p.get('validacao', 'N/A')}" for p in resultado.get('pedidos_validacao', [])]) if resultado.get('pedidos_validacao') else 'Nenhum pedido validado'}
 
 {'='*80}
 ESTRUTURA OBRIGATÓRIA (11 Elementos)
 {'='*80}
 
-{chr(10).join([f"{'✅' if v else '❌'} {k.replace('_', ' ').title()}" for k, v in resultado.get('estrutura_validacao', {}).items()]) if resultado.get('estrutura_validacao') else 'Não validada'}
+{chr(10).join([f"{'' if v else ''} {k.replace('_', ' ').title()}" for k, v in resultado.get('estrutura_validacao', {}).items()]) if resultado.get('estrutura_validacao') else 'Não validada'}
 
 {'='*80}
 REFLEXOS DE HORAS EXTRAS DETALHADOS (7 Reflexos)
 {'='*80}
 
-{chr(10).join([f"{'✅' if r.get('presente') == True else '❌' if r.get('presente') == False else '➖'} {r.get('reflexo', 'N/A')}" for r in resultado.get('reflexos_he_detalhados', [])]) if resultado.get('reflexos_he_detalhados') else 'Não aplicável (não pediu HE)'}
+{chr(10).join([f"{'' if r.get('presente') == True else '' if r.get('presente') == False else ''} {r.get('reflexo', 'N/A')}" for r in resultado.get('reflexos_he_detalhados', [])]) if resultado.get('reflexos_he_detalhados') else 'Não aplicável (não pediu HE)'}
 
-{f"⚠️ REFLEXOS FALTANTES: {', '.join(resultado.get('reflexos_he_faltantes', []))}" if resultado.get('reflexos_he_faltantes') else ''}
+{f" REFLEXOS FALTANTES: {', '.join(resultado.get('reflexos_he_faltantes', []))}" if resultado.get('reflexos_he_faltantes') else ''}
 
 {'='*80}
 ALERTAS E SUGESTÕES
 {'='*80}
 
-⚠️ ALERTAS ({len(resultado.get('alertas', []))}):
+ ALERTAS ({len(resultado.get('alertas', []))}):
 {chr(10).join(['   ' + a for a in resultado.get('alertas', [])]) if resultado.get('alertas') else '   Nenhum alerta'}
 
-💡 SUGESTÕES DE MELHORIA ({len(resultado.get('sugestoes', []))}):
-{chr(10).join(['   ' + s for s in resultado.get('sugestoes', [])]) if resultado.get('sugestoes') else '✅ Nenhuma sugestão'}
+ SUGESTÕES DE MELHORIA ({len(resultado.get('sugestoes', []))}):
+{chr(10).join(['   ' + s for s in resultado.get('sugestoes', [])]) if resultado.get('sugestoes') else ' Nenhuma sugestão'}
 
 {'='*80}
 PONTOS POSITIVOS
 {'='*80}
 
-{chr(10).join(['✅ ' + p for p in resultado.get('pontos_positivos', [])]) if resultado.get('pontos_positivos') else 'Não especificados'}
+{chr(10).join([' ' + p for p in resultado.get('pontos_positivos', [])]) if resultado.get('pontos_positivos') else 'Não especificados'}
 
 {'='*80}
 COMO CHEGAR A 100/100
 {'='*80}
 
-{chr(10).join(['🎯 ' + m for m in resultado.get('melhorias_100', [])]) if resultado.get('melhorias_100') else 'Petição já está excelente!'}
+{chr(10).join([' ' + m for m in resultado.get('melhorias_100', [])]) if resultado.get('melhorias_100') else 'Petição já está excelente!'}
 
 {'='*80}
 RESUMO EXECUTIVO
@@ -1205,8 +1205,8 @@ RESUMO EXECUTIVO
 DETALHES TÉCNICOS
 {'='*80}
 
-Reflexos de HE OK: {'✅ Sim' if resultado.get('reflexos_he_ok') else '❌ Não'}
-Estrutura Completa: {'✅ Sim' if resultado.get('estrutura_completa') else '❌ Não'}
+Reflexos de HE OK: {' Sim' if resultado.get('reflexos_he_ok') else ' Não'}
+Estrutura Completa: {' Sim' if resultado.get('estrutura_completa') else ' Não'}
 
 {'='*80}
 FIM DO RELATÓRIO - CHECKLIST V4.0 FASE 3 PERFEITA
@@ -1217,7 +1217,7 @@ Validação Completa + Qualidade Extra + Comparações Estatísticas
         with open(arquivo_log, 'w', encoding='utf-8') as f:
             f.write(conteudo)
         
-        print(f"        📄 Relatório Checklist v4.0 Fase 3 PERFEITA salvo")
+        print(f"         Relatório Checklist v4.0 Fase 3 PERFEITA salvo")
         return arquivo_log
         
     except Exception as e:
@@ -1267,10 +1267,10 @@ def aplicar_formatacao_master(doc):
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
         
-        print(f"        ✅ Formatação aplicada (Verdana 10pt, margens 3-1-3.25-2.5, SEM recuo, espaçamento cabeçalho/rodapé)")
+        print(f"         Formatação aplicada (Verdana 10pt, margens 3-1-3.25-2.5, SEM recuo, espaçamento cabeçalho/rodapé)")
         return doc
     except Exception as e:
-        print(f"        ⚠️ Erro ao aplicar formatação: {e}")
+        print(f"         Erro ao aplicar formatação: {e}")
         return doc
 
 def aplicar_formatacoes_especiais_word(doc):
@@ -1407,11 +1407,11 @@ def aplicar_formatacoes_especiais_word(doc):
                 run_resto.font.name = 'Verdana'
                 run_resto.font.size = Pt(10)
 
-        print(f"        ✅ Formatações especiais ROBUSTAS aplicadas (incluindo sublinhado e espaçamento)")
+        print(f"         Formatações especiais ROBUSTAS aplicadas (incluindo sublinhado e espaçamento)")
         return doc
         
     except Exception as e:
-        print(f"        ⚠️ Erro ao aplicar formatações especiais: {e}")
+        print(f"         Erro ao aplicar formatações especiais: {e}")
         import traceback
         traceback.print_exc()
         return doc
@@ -1501,7 +1501,7 @@ def listar_arquivos_recursivo(service, pasta_id, _nivel=0, _max_nivel=3):
         return arquivos_totais
         
     except Exception as e:
-        print(f"        ⚠️ Erro ao listar recursivamente: {e}")
+        print(f"         Erro ao listar recursivamente: {e}")
         return []
 
 def verificar_cliente_ja_processado(service, pasta_cliente_id):
@@ -1734,7 +1734,7 @@ def verificar_documentacao_completa_v10(documentos_cliente, tipo_processo):
         'completo': False
     }
     
-    # Verificar ALTA (🔴 CRÍTICO - BLOQUEIA)
+    # Verificar ALTA ( CRÍTICO - BLOQUEIA)
     for doc in docs_config.get('ALTA', []):
         if doc not in tipos_presentes:
             resultado['alta_faltantes'].append(doc)
@@ -1743,7 +1743,7 @@ def verificar_documentacao_completa_v10(documentos_cliente, tipo_processo):
         else:
             resultado['alta_presentes'].append(doc)
     
-    # Verificar MÉDIA (⚠️ IMPORTANTE - ALERTA)
+    # Verificar MÉDIA ( IMPORTANTE - ALERTA)
     for doc in docs_config.get('MEDIA', []):
         if doc not in tipos_presentes:
             resultado['media_faltantes'].append(doc)
@@ -1751,7 +1751,7 @@ def verificar_documentacao_completa_v10(documentos_cliente, tipo_processo):
         else:
             resultado['media_presentes'].append(doc)
     
-    # Verificar BAIXA (🟢 DESEJÁVEL - SUGERE)
+    # Verificar BAIXA ( DESEJÁVEL - SUGERE)
     for doc in docs_config.get('BAIXA', []):
         if doc not in tipos_presentes:
             resultado['baixa_faltantes'].append(doc)
@@ -1847,7 +1847,7 @@ para evitar BLOQUEIO ou REJEIÇÃO.
 0. FORMATAÇÃO PROFISSIONAL - PADRÃO ADVOGADO EXPERIENTE
 ═══════════════════════════════════════════════════════════════════════════
 
-🎯 FORMATAÇÃO ESPECIAL OBRIGATÓRIA (USE MARCADORES):
+ FORMATAÇÃO ESPECIAL OBRIGATÓRIA (USE MARCADORES):
 
 **VOCATIVO (Primeira linha após cabeçalho):**
    - Formato: EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DO TRABALHO DA VARA DO TRABALHO DE [CIDADE] - [UF]
@@ -1878,19 +1878,19 @@ para evitar BLOQUEIO ou REJEIÇÃO.
    - Subseções: 1. DA COMPETÊNCIA TERRITORIAL, 2. DO JUÍZO 100% DIGITAL
    - Formato: **NEGRITO E MAIÚSCULAS** (use **)
 
-🔢 NUMERAÇÃO SEQUENCIAL DE PARÁGRAFOS:
+ NUMERAÇÃO SEQUENCIAL DE PARÁGRAFOS:
    - TODOS os parágrafos do corpo da petição devem ser numerados: 1. 2. 3. ... até o fim
    - NÃO reiniciar numeração em novos capítulos
    - Formato: "X. [texto do parágrafo]"
    - Apenas o NÚMERO fica em negrito automaticamente (não use **)
    - Exceções (NÃO numerar): Vocativo inicial, títulos de seções (DOS FATOS, DO MÉRITO, etc.), assinatura final
 
-⚠️ IMPORTANTE - SEM RECUO DE PARÁGRAFO:
+ IMPORTANTE - SEM RECUO DE PARÁGRAFO:
    - TODO o texto deve estar alinhado à margem esquerda
    - NÃO use tabulações ou espaços no início das linhas
    - NÃO use recuo de primeira linha
 
-📋 ESTRUTURA COMPLETA OBRIGATÓRIA:
+ ESTRUTURA COMPLETA OBRIGATÓRIA:
 
    I. PRELIMINAR (SEMPRE incluir quando aplicável):
       - Da Competência Territorial (fundamentar foro escolhido)
@@ -1920,7 +1920,7 @@ para evitar BLOQUEIO ou REJEIÇÃO.
       - Lista numerada e específica
       - Valores discriminados quando aplicável
 
-⚖️ FUNDAMENTAÇÃO OBRIGATÓRIA POR CAPÍTULO DO MÉRITO:
+ FUNDAMENTAÇÃO OBRIGATÓRIA POR CAPÍTULO DO MÉRITO:
    Para CADA pedido, incluir OBRIGATORIAMENTE:
    
    1. Descrição fática específica do pedido
@@ -1929,7 +1929,7 @@ para evitar BLOQUEIO ou REJEIÇÃO.
    4. Cálculo discriminado (quando aplicável)
    5. Pedido específico com valor
 
-📚 FORMATO DE JURISPRUDÊNCIA:
+ FORMATO DE JURISPRUDÊNCIA:
    Use o seguinte formato OBRIGATÓRIO:
    
    (TRIBUNAL - TIPO: NÚMERO, Relator: NOME COMPLETO, Data: DD/MM/AAAA, Turma: NOME DA TURMA)
@@ -1939,14 +1939,14 @@ para evitar BLOQUEIO ou REJEIÇÃO.
    (TST - RR: 1072-40.2013.5.03.0053, Relator: Mauricio Godinho Delgado, Data: 18/05/2016, Turma: 3ª Turma)
    "VÍNCULO DE EMPREGO. REQUISITOS. PRESENÇA. A relação de emprego caracteriza-se pela prestação de trabalho não eventual, subordinado, oneroso e pessoal. Presentes tais requisitos, impõe-se o reconhecimento do vínculo empregatício, nos termos dos arts. 2º e 3º da CLT."
 
-💰 CÁLCULOS DETALHADOS:
+ CÁLCULOS DETALHADOS:
    - Discriminar CADA verba item por item
    - Incluir fórmula de cálculo quando relevante
    - Apresentar valor em R$ X.XXX,XX (valor por extenso)
    - Incluir TODOS os reflexos aplicáveis
    - Exemplo: "13º salário proporcional: R$ 2.500,00 ÷ 12 × 8 meses = R$ 1.666,67 (um mil, seiscentos e sessenta e seis reais e sessenta e sete centavos)"
 
-🎯 CAPÍTULOS OBRIGATÓRIOS (quando aplicável ao caso):
+ CAPÍTULOS OBRIGATÓRIOS (quando aplicável ao caso):
    - Se houver rescisão: incluir capítulo "DAS MULTAS DOS ARTIGOS 477 E 467 DA CLT"
    - Se houver horas extras: incluir capítulo específico com TODOS os 7 reflexos
    - Se houver danos: incluir capítulo "DOS DANOS MORAIS" com fundamentação robusta
@@ -1955,25 +1955,25 @@ para evitar BLOQUEIO ou REJEIÇÃO.
 1. ESTRUTURA OBRIGATÓRIA (10 ELEMENTOS - NÃO PODE FALTAR NENHUM)
 ═══════════════════════════════════════════════════════════════════════════
 
-✅ 1. Vocativo formal: "EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DA VARA DO TRABALHO DE [CIDADE]"
-✅ 2. Qualificação COMPLETA do Reclamante:
+ 1. Vocativo formal: "EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DA VARA DO TRABALHO DE [CIDADE]"
+ 2. Qualificação COMPLETA do Reclamante:
    - Nome completo (sem abreviações)
    - RG: formato XX.XXX.XXX-X
    - CPF: formato XXX.XXX.XXX-XX
    - Endereço: Rua/Av [nome], nº [número], Bairro [bairro], [Cidade]-[UF], CEP XX.XXX-XXX
 
-✅ 3. Qualificação COMPLETA da Reclamada:
+ 3. Qualificação COMPLETA da Reclamada:
    - Razão social completa
    - CNPJ: formato XX.XXX.XXX/XXXX-XX
    - Endereço completo com CEP
 
-✅ 4. Fórmula processual: "vem à presença de Vossa Excelência, fazendo-o pelas razões de fato e de direito a seguir aduzidas"
+ 4. Fórmula processual: "vem à presença de Vossa Excelência, fazendo-o pelas razões de fato e de direito a seguir aduzidas"
 
-✅ 5. Seção DOS FATOS (narrativa cronológica detalhada)
-✅ 6. Seção DO MÉRITO (argumentação jurídica fundamentada)
-✅ 7. Seção DOS PEDIDOS (lista específica e clara)
+ 5. Seção DOS FATOS (narrativa cronológica detalhada)
+ 6. Seção DO MÉRITO (argumentação jurídica fundamentada)
+ 7. Seção DOS PEDIDOS (lista específica e clara)
 
-✅ 8. Fórmula de encerramento COMPLETA:
+ 8. Fórmula de encerramento COMPLETA:
    "Termos em que,
    Pede deferimento.
    
@@ -1983,100 +1983,100 @@ para evitar BLOQUEIO ou REJEIÇÃO.
    [Nome do Advogado]
    OAB/[Estado] [Número]"
 
-✅ 9. Data e local
-✅ 10. Assinatura e OAB
+ 9. Data e local
+ 10. Assinatura e OAB
 
 ═══════════════════════════════════════════════════════════════════════════
 2. OS 10 ERROS CRÍTICOS - EVITE A TODO CUSTO (BLOQUEIO AUTOMÁTICO)
 ═══════════════════════════════════════════════════════════════════════════
 
-🔴 1. INÉPCIA - Pedido impossível de julgar ou sem objeto definido
-🔴 2. PEDIDOS GENÉRICOS - "Pagar tudo que for devido" → BLOQUEIA
-🔴 3. SEM FUNDAMENTAÇÃO LEGAL - Mencionar artigos da CLT, CF/88
-🔴 4. QUALIFICAÇÃO INCOMPLETA - Faltando RG, CPF ou endereço
-🔴 5. SEM DOCUMENTOS CRÍTICOS - Verificado pelo sistema
-🔴 6. CONTRADIÇÃO - Fatos não sustentam pedidos
-🔴 7. SEM COMPETÊNCIA - Fundamentar foro/competência territorial
-🔴 8. REFLEXOS HE FALTANDO - Se pede HE, DEVE pedir TODOS reflexos
-🔴 9. SEM ENCERRAMENTO - Fórmula "Termos em que, pede deferimento" obrigatória
+ 1. INÉPCIA - Pedido impossível de julgar ou sem objeto definido
+ 2. PEDIDOS GENÉRICOS - "Pagar tudo que for devido"  BLOQUEIA
+ 3. SEM FUNDAMENTAÇÃO LEGAL - Mencionar artigos da CLT, CF/88
+ 4. QUALIFICAÇÃO INCOMPLETA - Faltando RG, CPF ou endereço
+ 5. SEM DOCUMENTOS CRÍTICOS - Verificado pelo sistema
+ 6. CONTRADIÇÃO - Fatos não sustentam pedidos
+ 7. SEM COMPETÊNCIA - Fundamentar foro/competência territorial
+ 8. REFLEXOS HE FALTANDO - Se pede HE, DEVE pedir TODOS reflexos
+ 9. SEM ENCERRAMENTO - Fórmula "Termos em que, pede deferimento" obrigatória
 
 ═══════════════════════════════════════════════════════════════════════════
 3. EXTRAÇÃO DE DADOS (OBRIGATÓRIO - PROCURE NOS DOCUMENTOS)
 ═══════════════════════════════════════════════════════════════════════════
 
-📄 RG: Procure em RG, CNH ou documentos pessoais → formato XX.XXX.XXX-X
-📄 CPF: Procure em CPF, CNH, CTPS → formato XXX.XXX.XXX-XX
-📄 Endereço: Extraia do comprovante de residência → completo com CEP
-📄 Nome: Use nome COMPLETO sem abreviações
-📄 Empresa: Nome, CNPJ, endereço completo
-📄 Período: Datas de admissão e demissão da CTPS
-📄 Cargo: Função exercida
-📄 Salário: Valor mensal
+ RG: Procure em RG, CNH ou documentos pessoais  formato XX.XXX.XXX-X
+ CPF: Procure em CPF, CNH, CTPS  formato XXX.XXX.XXX-XX
+ Endereço: Extraia do comprovante de residência  completo com CEP
+ Nome: Use nome COMPLETO sem abreviações
+ Empresa: Nome, CNPJ, endereço completo
+ Período: Datas de admissão e demissão da CTPS
+ Cargo: Função exercida
+ Salário: Valor mensal
 
-❌ NÃO deixe campos vazios ou com "[...]"
-❌ NÃO use placeholders como "{{{{NOME}}}}"
-✅ Se NÃO encontrar, use "não informado nos autos"
+ NÃO deixe campos vazios ou com "[...]"
+ NÃO use placeholders como "{{{{NOME}}}}"
+ Se NÃO encontrar, use "não informado nos autos"
 
 ═══════════════════════════════════════════════════════════════════════════
 4. VALIDAÇÃO DE PEDIDOS COMUNS (TOP 10)
 ═══════════════════════════════════════════════════════════════════════════
 
 Se pedir FGTS:
-✅ Mencionar depósitos não realizados
-✅ Mencionar multa de 40% sobre saldo
+ Mencionar depósitos não realizados
+ Mencionar multa de 40% sobre saldo
 
 Se pedir 13º Salário:
-✅ Especificar parcelas (integral/proporcional)
-✅ Quantificar períodos devidos
+ Especificar parcelas (integral/proporcional)
+ Quantificar períodos devidos
 
 Se pedir Férias:
-✅ Diferenciar vencidas e proporcionais
-✅ SEMPRE mencionar terço constitucional (1/3)
+ Diferenciar vencidas e proporcionais
+ SEMPRE mencionar terço constitucional (1/3)
 
 Se pedir Dano Moral:
-✅ Especificar valor em reais
-✅ Classificar grau: leve, médio, grave ou gravíssimo
+ Especificar valor em reais
+ Classificar grau: leve, médio, grave ou gravíssimo
 
 Se pedir Verbas Rescisórias:
-✅ Detalhar: aviso prévio, saldo salário, férias proporcionais, 13º proporcional, FGTS+40%
+ Detalhar: aviso prévio, saldo salário, férias proporcionais, 13º proporcional, FGTS+40%
 
 Se pedir Horas Extras:
-✅ Quantificar (horas por mês/semana)
-✅ Especificar período (datas início e fim)
-✅ Mencionar adicional (mínimo 50% ou conforme CCT)
+ Quantificar (horas por mês/semana)
+ Especificar período (datas início e fim)
+ Mencionar adicional (mínimo 50% ou conforme CCT)
 
 Se pedir Rescisão Indireta:
-✅ Fundamentar falta grave do empregador
-✅ Citar expressamente art. 483 da CLT
+ Fundamentar falta grave do empregador
+ Citar expressamente art. 483 da CLT
 
 Se pedir Adicional de Insalubridade:
-✅ Mencionar grau (mínimo, médio ou máximo)
-✅ Citar NR-15
+ Mencionar grau (mínimo, médio ou máximo)
+ Citar NR-15
 
 Se pedir Adicional Noturno:
-✅ Especificar horário (22h às 5h)
-✅ Mencionar percentual mínimo de 20%
+ Especificar horário (22h às 5h)
+ Mencionar percentual mínimo de 20%
 
 Se pedir Estabilidade:
-✅ Especificar tipo (gestante/acidentária/CIPA)
-✅ Fundamentar período de estabilidade
+ Especificar tipo (gestante/acidentária/CIPA)
+ Fundamentar período de estabilidade
 
 ═══════════════════════════════════════════════════════════════════════════
 5. REFLEXOS OBRIGATÓRIOS DE HORAS EXTRAS
 ═══════════════════════════════════════════════════════════════════════════
 
-🚨 CRÍTICO: Se pedir HORAS EXTRAS, DEVE incluir TODOS os 7 reflexos:
+ CRÍTICO: Se pedir HORAS EXTRAS, DEVE incluir TODOS os 7 reflexos:
 
-✅ 1. Adicional de Horas Extras (mínimo 50% ou conforme CCT)
-✅ 2. DSR - Descanso Semanal Remunerado sobre as horas extras
-✅ 3. Reflexos em 13º Salário
-✅ 4. Reflexos em Férias + 1/3 constitucional
-✅ 5. Reflexos em FGTS + multa de 40%
-✅ 6. Reflexos em Aviso Prévio (quando aplicável)
-✅ 7. Reflexo em Adicional Noturno (se HE em horário noturno)
+ 1. Adicional de Horas Extras (mínimo 50% ou conforme CCT)
+ 2. DSR - Descanso Semanal Remunerado sobre as horas extras
+ 3. Reflexos em 13º Salário
+ 4. Reflexos em Férias + 1/3 constitucional
+ 5. Reflexos em FGTS + multa de 40%
+ 6. Reflexos em Aviso Prévio (quando aplicável)
+ 7. Reflexo em Adicional Noturno (se HE em horário noturno)
 
 
-❌ FALTA DE REFLEXOS = BLOQUEIO AUTOMÁTICO NA AUDITORIA
+ FALTA DE REFLEXOS = BLOQUEIO AUTOMÁTICO NA AUDITORIA
 
 ═══════════════════════════════════════════════════════════════════════════
 6. TIPO DE AÇÃO - {tipo_processo}
@@ -2102,20 +2102,20 @@ Se pedir Estabilidade:
 
 Antes de retornar, VERIFIQUE:
 
-☐ Vocativo formal presente
-☐ Qualificação completa (nome, RG, CPF, endereço com CEP)
-☐ Seção DOS FATOS narrativa e cronológica
-☐ Seção DO MÉRITO com fundamentação legal (CLT, CF/88)
-☐ Seção DOS PEDIDOS específica e quantificada
-☐ Fórmula encerramento COMPLETA: "Termos em que, pede deferimento."
-☐ Data e local presentes
-☐ Assinatura e OAB
-☐ Se pediu HE → TODOS os 7 reflexos presentes
-☐ Pedidos específicos (não genéricos)
-☐ Fundamentação legal adequada
+ Vocativo formal presente
+ Qualificação completa (nome, RG, CPF, endereço com CEP)
+ Seção DOS FATOS narrativa e cronológica
+ Seção DO MÉRITO com fundamentação legal (CLT, CF/88)
+ Seção DOS PEDIDOS específica e quantificada
+ Fórmula encerramento COMPLETA: "Termos em que, pede deferimento."
+ Data e local presentes
+ Assinatura e OAB
+ Se pediu HE  TODOS os 7 reflexos presentes
+ Pedidos específicos (não genéricos)
+ Fundamentação legal adequada
 
 ═══════════════════════════════════════════════════════════════════════════
-⚠️ LEMBRETE FINAL
+ LEMBRETE FINAL
 ═══════════════════════════════════════════════════════════════════════════
 
 Esta petição será AUDITADA automaticamente pelo CHECKLIST IA AUDITORA V4.0.
@@ -2131,7 +2131,7 @@ RETORNE APENAS A PETIÇÃO COMPLETA, PERFEITA E PRONTA PARA PROTOCOLO.
         
         # NOVO: Lógica condicional para Prompt Master
         if usar_prompt_master and PROMPT_MASTER_DISPONIVEL:
-            print(f"        ✨ Usando PROMPT MASTER para petição de alto nível (12-18 páginas)")
+            print(f"         Usando PROMPT MASTER para petição de alto nível (12-18 páginas)")
             
             # Gerar prompt master completo
             prompt_master_instrucoes = gerar_prompt_master(
@@ -2151,7 +2151,7 @@ RETORNE APENAS A PETIÇÃO COMPLETA, PERFEITA E PRONTA PARA PROTOCOLO.
         else:
             # Modo padrão: usar instruções existentes
             if usar_prompt_master and not PROMPT_MASTER_DISPONIVEL:
-                print(f"        ⚠️ Prompt Master solicitado mas não disponível, usando modo padrão")
+                print(f"         Prompt Master solicitado mas não disponível, usando modo padrão")
             
             # Adicionar instruções ao system prompt
             system_prompt += "\n\n" + instrucoes
@@ -2177,7 +2177,7 @@ RETORNE APENAS A PETIÇÃO COMPLETA, PERFEITA E PRONTA PARA PROTOCOLO.
             print(f"        - Score Prompt Master: {relatorio_master['score']}/100 ({relatorio_master['status']})")
             
             if relatorio_master['problemas']:
-                print(f"        - ⚠️ {len(relatorio_master['problemas'])} problema(s) encontrado(s)")
+                print(f"        -  {len(relatorio_master['problemas'])} problema(s) encontrado(s)")
             
             # Armazenar relatório para uso posterior
             peticao_validacao_master = relatorio_master
@@ -2395,7 +2395,7 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
             
             print(f"        - Marcadores inseridos: {len(marcadores)}")
             if criticos_faltantes:
-                print(f"        - ⛔ PRINTS CRÍTICOS FALTANTES!")
+                print(f"        -  PRINTS CRÍTICOS FALTANTES!")
         
         # NOVO: Usar modelo como base para preservar cabeçalho/rodapé
         tipo_processo = cliente_info['tipo_processo']
@@ -2451,23 +2451,23 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                     except:
                         pass
                     
-                    print(f"        ✅ Cabeçalho e rodapé preservados do modelo")
-                    print(f"        ✅ Tabelas do modelo removidas")
-                    print(f"        ✅ Formatação aplicada")
+                    print(f"         Cabeçalho e rodapé preservados do modelo")
+                    print(f"         Tabelas do modelo removidas")
+                    print(f"         Formatação aplicada")
                 else:
-                    print(f"        ⚠️ Não foi possível baixar modelo, criando documento vazio")
+                    print(f"         Não foi possível baixar modelo, criando documento vazio")
                     doc = Document()
                     for p in texto_final.split('\n'):
                         if p.strip():
                             doc.add_paragraph(p)
             except Exception as e:
-                print(f"        ⚠️ Erro ao usar modelo: {e}, criando documento vazio")
+                print(f"         Erro ao usar modelo: {e}, criando documento vazio")
                 doc = Document()
                 for p in texto_final.split('\n'):
                     if p.strip():
                         doc.add_paragraph(p)
         else:
-            print(f"        ⚠️ Modelo não configurado para {tipo_processo}, criando documento vazio")
+            print(f"         Modelo não configurado para {tipo_processo}, criando documento vazio")
             doc = Document()
             for p in texto_final.split('\n'):
                 if p.strip():
@@ -2514,19 +2514,19 @@ def gerar_relatorio_score(resultado, score_medio_tipo, score_medio_escritorio):
         # Determinar ranking
         if score >= 90:
             ranking = "EXCELENTE"
-            emoji = "🏆"
+            emoji = ""
         elif score >= 80:
             ranking = "MUITO BOM"
-            emoji = "⭐"
+            emoji = ""
         elif score >= 70:
             ranking = "BOM"
-            emoji = "✅"
+            emoji = ""
         elif score >= 60:
             ranking = "SATISFATÓRIO"
-            emoji = "👍"
+            emoji = ""
         else:
             ranking = "PRECISA MELHORAR"
-            emoji = "📝"
+            emoji = ""
         
         relatorio = {
             'score': score,
@@ -2573,24 +2573,24 @@ def gerar_relatorio_score(resultado, score_medio_tipo, score_medio_escritorio):
         erros_criticos = resultado.get('erros_criticos', [])
         if erros_criticos:
             for erro in erros_criticos[:3]:
-                relatorio['pontos_melhoria'].append(f'❗ {erro}')
+                relatorio['pontos_melhoria'].append(f' {erro}')
         
         # Comparações
         if score > score_medio_tipo:
             diff = score - score_medio_tipo
-            relatorio['comparacoes'].append(f'⬆️ {diff:.1f} pontos acima da média do tipo')
+            relatorio['comparacoes'].append(f'⬆ {diff:.1f} pontos acima da média do tipo')
         elif score < score_medio_tipo:
             diff = score_medio_tipo - score
-            relatorio['comparacoes'].append(f'⬇️ {diff:.1f} pontos abaixo da média do tipo')
+            relatorio['comparacoes'].append(f'⬇ {diff:.1f} pontos abaixo da média do tipo')
         else:
-            relatorio['comparacoes'].append(f'➡️ Na média do tipo ({score_medio_tipo:.1f})')
+            relatorio['comparacoes'].append(f' Na média do tipo ({score_medio_tipo:.1f})')
         
         if score > score_medio_escritorio:
             diff = score - score_medio_escritorio
-            relatorio['comparacoes'].append(f'⬆️ {diff:.1f} pontos acima da média geral')
+            relatorio['comparacoes'].append(f'⬆ {diff:.1f} pontos acima da média geral')
         elif score < score_medio_escritorio:
             diff = score_medio_escritorio - score
-            relatorio['comparacoes'].append(f'⬇️ {diff:.1f} pontos abaixo da média geral')
+            relatorio['comparacoes'].append(f'⬇ {diff:.1f} pontos abaixo da média geral')
         
         # Análise geral
         if score >= 90:
@@ -2611,7 +2611,7 @@ def gerar_relatorio_score(resultado, score_medio_tipo, score_medio_escritorio):
         return {
             'score': resultado.get('score', 0),
             'ranking': 'N/A',
-            'emoji': '📝',
+            'emoji': '',
             'analise': ['Erro ao gerar relatório'],
             'pontos_fortes': [],
             'pontos_melhoria': [],
@@ -2668,10 +2668,10 @@ PARTE 4 - REFLEXOS HE (7 obrigatórios):
 5.Reflexos FGTS+40% 6.Reflexos Aviso 7.Noturno(se aplicável)
 
 PARTE 5 - QUALIDADE EXTRA (+bônus):
-✨ Jurisprudência TST/TRT (+3pts cada, máx 9pts)
-✨ Cálculos detalhados tabela/planilha (+5pts)
-✨ Narrativa persuasiva e emocional (+3pts)
-✨ Fundamentação doutrinária (+3pts)
+ Jurisprudência TST/TRT (+3pts cada, máx 9pts)
+ Cálculos detalhados tabela/planilha (+5pts)
+ Narrativa persuasiva e emocional (+3pts)
+ Fundamentação doutrinária (+3pts)
 
 RETORNE JSON:
 {{
@@ -2684,8 +2684,8 @@ RETORNE JSON:
   "estrutura_faltante": [],
   
   "pedidos_validacao": [
-    {{"pedido":"FGTS","validacao":"✅ Depósitos + multa 40%"}},
-    {{"pedido":"HE","validacao":"⚠️ Falta quantificar horas"}}
+    {{"pedido":"FGTS","validacao":" Depósitos + multa 40%"}},
+    {{"pedido":"HE","validacao":" Falta quantificar horas"}}
   ],
   
   "reflexos_he_detalhados": [
@@ -2733,7 +2733,7 @@ RETORNE JSON:
         score = resultado.get('score', 0)
         
         # Calcular comparações
-        comparacao_base = "⬆️" if score > score_medio else "⬇️" if score < score_medio else "➡️"
+        comparacao_base = "⬆" if score > score_medio else "⬇" if score < score_medio else ""
         ranking_percentil = calcular_ranking(score, tipo_processo)  # "Top 81%"
         
         # CALCULAR RANKING PARA O DASHBOARD (baseado no score)
@@ -2753,7 +2753,7 @@ RETORNE JSON:
         
         print(f"        - Score: {score}/100 (base: {score_medio}, escritório: {score_medio_escritorio:.1f}) {comparacao_base}")
         print(f"        - Ranking: {ranking_percentil}")
-        print(f"        - APROVADA ✅")
+        print(f"        - APROVADA ")
         print(f"        - Classificação: {ranking_dashboard}")
         
         # Qualidade extra
@@ -2776,8 +2776,8 @@ RETORNE JSON:
         relatorio_detalhado = gerar_relatorio_score(resultado, score_medio, score_medio_escritorio)
         
         # Adicionar informações extras ao resultado
-        resultado['ranking'] = ranking_dashboard  # ← USAR RANKING DO DASHBOARD
-        resultado['ranking_percentil'] = ranking_percentil  # ← Guardar o percentil também
+        resultado['ranking'] = ranking_dashboard  #  USAR RANKING DO DASHBOARD
+        resultado['ranking_percentil'] = ranking_percentil  #  Guardar o percentil também
         resultado['comparacao_base'] = score_medio
         resultado['comparacao_escritorio'] = score_medio_escritorio
         resultado['relatorio_detalhado'] = relatorio_detalhado
@@ -2856,18 +2856,18 @@ def agente_gerador():
                 
                 # DEBUG: Mostrar documentos reconhecidos
                 print(f"\n     [CLIENTE: {pasta_cliente['name']}]")
-                print(f"     📁 Arquivos na pasta ({len(arquivos)}):")
+                print(f"      Arquivos na pasta ({len(arquivos)}):")
                 for doc in docs:
-                    emoji = "🔴" if doc['prioridade'] == 'ALTA' else "⚠️" if doc['prioridade'] == 'MEDIA' else "🟢"
+                    emoji = "" if doc['prioridade'] == 'ALTA' else "" if doc['prioridade'] == 'MEDIA' else ""
                     print(f"        {emoji} {doc['tipo']}: {doc['nome']}")
                 
                 # Usar nova função com 3 prioridades
                 verif = verificar_documentacao_completa_v10(docs, tipo)
                 
-                print(f"\n     📊 Validação:")
-                print(f"        🔴 ALTA: {len(verif['alta_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo]['ALTA'])}")
-                print(f"        ⚠️ MÉDIA: {len(verif['media_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo]['MEDIA'])}")
-                print(f"        🟢 BAIXA: {len(verif['baixa_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo]['BAIXA'])}")
+                print(f"\n      Validação:")
+                print(f"         ALTA: {len(verif['alta_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo]['ALTA'])}")
+                print(f"         MÉDIA: {len(verif['media_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo]['MEDIA'])}")
+                print(f"         BAIXA: {len(verif['baixa_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo]['BAIXA'])}")
                 
                 # REGRA CRÍTICA: Bloquear se faltar QUALQUER documento
                 tem_faltantes = (len(verif['alta_faltantes']) > 0 or 
@@ -2875,27 +2875,27 @@ def agente_gerador():
                                 len(verif['baixa_faltantes']) > 0)
                 
                 if tem_faltantes:
-                    print(f"\n        ❌ BLOQUEADO - Documentação Incompleta:")
+                    print(f"\n         BLOQUEADO - Documentação Incompleta:")
                     
                     if verif['alta_faltantes']:
-                        print(f"        🔴 FALTAM ALTA (Crítico):")
+                        print(f"         FALTAM ALTA (Crítico):")
                         for doc in verif['alta_faltantes']:
                             print(f"           • {doc}")
                     
                     if verif['media_faltantes']:
-                        print(f"        ⚠️ FALTAM MÉDIA (Importante):")
+                        print(f"         FALTAM MÉDIA (Importante):")
                         for doc in verif['media_faltantes']:
                             print(f"           • {doc}")
                     
                     if verif['baixa_faltantes']:
-                        print(f"        🟢 FALTAM BAIXA (Desejável):")
+                        print(f"         FALTAM BAIXA (Desejável):")
                         for doc in verif['baixa_faltantes']:
                             print(f"           • {doc}")
                     
-                    print(f"        💡 Adicione os documentos e reprocesse")
+                    print(f"         Adicione os documentos e reprocesse")
                     continue
                 
-                print(f"        ✅ Documentação COMPLETA - Gerando petição...")
+                print(f"         Documentação COMPLETA - Gerando petição...")
                 print(f"        >> GERANDO PETICAO <<")
                 
                 docs_completos = []
@@ -2926,7 +2926,7 @@ def agente_gerador():
                                 info_prints['criticos_faltantes'],
                                 pasta_cliente['name']
                             )
-                            print(f"        📄 Relatório de prints: {relatorio_prints}")
+                            print(f"         Relatório de prints: {relatorio_prints}")
                         
                         # Salvar no histórico
                         salvar_no_historico(
@@ -2941,7 +2941,7 @@ def agente_gerador():
                             'link': arquivo['webViewLink']
                         })
                         total_geradas += 1
-                        print(f"        ✅ PETIÇÃO GERADA E REGISTRADA!")
+                        print(f"         PETIÇÃO GERADA E REGISTRADA!")
         
         print(f"\n{'='*70}")
         print(f"  GERADOR: {total_geradas} petição(ões)")
@@ -3023,17 +3023,17 @@ def agente_auditor():
                     total_aprovadas += 1
                     
                     # Mostrar resultado
-                    print(f"        ✅ APROVADA! Score: {score}/100")
-                    print(f"        🏆 Ranking: {ranking}")
+                    print(f"         APROVADA! Score: {score}/100")
+                    print(f"         Ranking: {ranking}")
                     
                     # Mostrar pontos de melhoria se score < 90
                     if score < 90 and resultado.get('pontos_melhoria'):
-                        print(f"        💡 Pontos de melhoria:")
+                        print(f"         Pontos de melhoria:")
                         for ponto in resultado['pontos_melhoria'][:2]:
                             print(f"           • {ponto}")
         
         print(f"\n{'='*70}")
-        print(f"  AUDITOR: {total_auditadas} auditadas | {total_aprovadas} ✅ aprovadas")
+        print(f"  AUDITOR: {total_auditadas} auditadas | {total_aprovadas}  aprovadas")
         print(f"{'='*70}")
         
     except Exception as e:
@@ -3061,7 +3061,7 @@ def verificar_flags_manuais():
         return
     
     print(f"\n{'='*70}")
-    print(f"  🎯 PROCESSANDO SOLICITAÇÕES MANUAIS ({total_flags})")
+    print(f"   PROCESSANDO SOLICITAÇÕES MANUAIS ({total_flags})")
     print(f"{'='*70}\n")
     
     # Processar flags de petição
@@ -3075,24 +3075,24 @@ def verificar_flags_manuais():
             tipo_acao = dados.get('tipo_acao', 'RECONHECIMENTO_VINCULO')
             forcar_geracao = dados.get('forcar_geracao', False)
             
-            print(f"  📋 Processando: {cliente_nome}")
-            print(f"  📂 Tipo: {tipo_acao}")
-            print(f"  ⚡ Forçar: {forcar_geracao}")
+            print(f"   Processando: {cliente_nome}")
+            print(f"   Tipo: {tipo_acao}")
+            print(f"   Forçar: {forcar_geracao}")
             
             # Processar geração
             sucesso = processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao)
             
             # Remover flag após processar (sucesso ou não)
             os.remove(flag_file)
-            print(f"  🗑️ Flag removida: {flag_file}\n")
+            print(f"   Flag removida: {flag_file}\n")
             
             if sucesso:
-                print(f"  ✅ Petição gerada com sucesso para {cliente_nome}\n")
+                print(f"   Petição gerada com sucesso para {cliente_nome}\n")
             else:
-                print(f"  ❌ Erro ao gerar petição para {cliente_nome}\n")
+                print(f"   Erro ao gerar petição para {cliente_nome}\n")
                 
         except Exception as e:
-            print(f"  ❌ Erro ao processar flag {flag_file}: {e}")
+            print(f"   Erro ao processar flag {flag_file}: {e}")
             # Remover flag com erro para não ficar travado
             try:
                 os.remove(flag_file)
@@ -3108,22 +3108,22 @@ def verificar_flags_manuais():
             
             cliente_nome = dados.get('cliente_nome')
             
-            print(f"  📅 Gerando cronologia para: {cliente_nome}")
+            print(f"   Gerando cronologia para: {cliente_nome}")
             
             # Processar geração de cronologia
             sucesso = processar_cronologia_manual(cliente_nome)
             
             # Remover flag após processar
             os.remove(flag_file)
-            print(f"  🗑️ Flag removida: {flag_file}\n")
+            print(f"   Flag removida: {flag_file}\n")
             
             if sucesso:
-                print(f"  ✅ Cronologia gerada com sucesso para {cliente_nome}\n")
+                print(f"   Cronologia gerada com sucesso para {cliente_nome}\n")
             else:
-                print(f"  ❌ Erro ao gerar cronologia para {cliente_nome}\n")
+                print(f"   Erro ao gerar cronologia para {cliente_nome}\n")
                 
         except Exception as e:
-            print(f"  ❌ Erro ao processar flag de cronologia {flag_file}: {e}")
+            print(f"   Erro ao processar flag de cronologia {flag_file}: {e}")
             try:
                 os.remove(flag_file)
             except:
@@ -3138,22 +3138,22 @@ def verificar_flags_manuais():
             
             cliente_nome = dados.get('cliente_nome')
             
-            print(f"  🎬 Processando vídeos para: {cliente_nome}")
+            print(f"   Processando vídeos para: {cliente_nome}")
             
             # Processar transcrição de vídeo
             sucesso = processar_transcricao_manual(cliente_nome)
             
             # Remover flag após processar
             os.remove(flag_file)
-            print(f"  🗑️ Flag removida: {flag_file}\n")
+            print(f"   Flag removida: {flag_file}\n")
             
             if sucesso:
-                print(f"  ✅ Transcrição concluída para {cliente_nome}\n")
+                print(f"   Transcrição concluída para {cliente_nome}\n")
             else:
-                print(f"  ❌ Erro ao transcrever vídeo para {cliente_nome}\n")
+                print(f"   Erro ao transcrever vídeo para {cliente_nome}\n")
                 
         except Exception as e:
-            print(f"  ❌ Erro ao processar flag de transcrição {flag_file}: {e}")
+            print(f"   Erro ao processar flag de transcrição {flag_file}: {e}")
             try:
                 os.remove(flag_file)
             except:
@@ -3166,8 +3166,8 @@ def processar_transcricao_manual(cliente_nome):
     """
     try:
         print(f"\n{'='*70}")
-        print(f"  🎥 TRANSCRIÇÃO DE VÍDEO AUTOMÁTICA")
-        print(f"  👤 Cliente: {cliente_nome}")
+        print(f"   TRANSCRIÇÃO DE VÍDEO AUTOMÁTICA")
+        print(f"   Cliente: {cliente_nome}")
         print(f"{'='*70}\n")
         
         service = autenticar_google_drive()
@@ -3188,10 +3188,10 @@ def processar_transcricao_manual(cliente_nome):
             if pasta_cliente: break
             
         if not pasta_cliente:
-            print(f"  ❌ Pasta do cliente não encontrada")
+            print(f"   Pasta do cliente não encontrada")
             return False
             
-        print(f"  📂 Pasta encontrada: {pasta_cliente['name']} ({pasta_cliente['id']})")
+        print(f"   Pasta encontrada: {pasta_cliente['name']} ({pasta_cliente['id']})")
         
         # 2. MUDANÇA: Listar arquivos recursivamente (incluindo subpastas como "Vídeos")
         arquivos = listar_arquivos_recursivo(service, pasta_cliente['id'])
@@ -3203,20 +3203,20 @@ def processar_transcricao_manual(cliente_nome):
                 videos.append(arq)
                 
         if not videos:
-            print(f"  ❌ Nenhum vídeo encontrado na pasta do cliente")
-            print(f"  💡 Formatos aceitos: {extensoes_video}")
+            print(f"   Nenhum vídeo encontrado na pasta do cliente")
+            print(f"   Formatos aceitos: {extensoes_video}")
             return False
             
-        print(f"  📹 {len(videos)} vídeo(s) encontrado(s)")
+        print(f"   {len(videos)} vídeo(s) encontrado(s)")
         
         # 3. Transcrever TODOS os vídeos
-        print(f"  🚀 Iniciando processamento de {len(videos)} vídeo(s)...")
+        print(f"   Iniciando processamento de {len(videos)} vídeo(s)...")
         
         sucesso_geral = False
         videos_processados = 0
         
         for video_alvo in videos:
-            print(f"\n  🎥 Analisando vídeo: {video_alvo['name']}")
+            print(f"\n   Analisando vídeo: {video_alvo['name']}")
             
             # Verificar se já existe Resumo ou Transcrição
             nome_base = os.path.splitext(video_alvo['name'])[0]
@@ -3229,10 +3229,10 @@ def processar_transcricao_manual(cliente_nome):
                     break
             
             if existe:
-                print(f"     ✅ Já processado (Arquivo existente). Pulando.")
+                print(f"      Já processado (Arquivo existente). Pulando.")
                 continue
             
-            print(f"     ⚡ Iniciando geração de resumo...")
+            print(f"      Iniciando geração de resumo...")
             resultado = agente_transcricao_video(
                 service=service,
                 video_id=video_alvo['id'],
@@ -3245,13 +3245,13 @@ def processar_transcricao_manual(cliente_nome):
                 sucesso_geral = True
                 videos_processados += 1
             else:
-                print(f"     ❌ Falha ao processar {video_alvo['name']}")
+                print(f"      Falha ao processar {video_alvo['name']}")
         
-        print(f"\n  📊 Processamento concluído: {videos_processados}/{len(videos)} vídeos processados.")
+        print(f"\n   Processamento concluído: {videos_processados}/{len(videos)} vídeos processados.")
         return True # Retorna True pois completou o ciclo (mesmo que tenha pulado todos)
         
     except Exception as e:
-        print(f"  ❌ Erro crítico na transcrição manual: {e}")
+        print(f"   Erro crítico na transcrição manual: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -3269,8 +3269,8 @@ def processar_cronologia_manual(cliente_nome):
     """
     try:
         print(f"\n{'='*70}")
-        print(f"  📅 GERAÇÃO MANUAL DE CRONOLOGIA")
-        print(f"  👤 Cliente: {cliente_nome}")
+        print(f"   GERAÇÃO MANUAL DE CRONOLOGIA")
+        print(f"   Cliente: {cliente_nome}")
         print(f"{'='*70}\n")
         
         # Autenticar Google Drive
@@ -3293,22 +3293,22 @@ def processar_cronologia_manual(cliente_nome):
                 if pasta['name'].lower() == cliente_nome.lower():
                     pasta_cliente = pasta
                     pasta_id_tipo = pasta_id
-                    print(f"  ✅ Cliente encontrado em: {tipo_acao}")
+                    print(f"   Cliente encontrado em: {tipo_acao}")
                     break
             
             if pasta_cliente:
                 break
         
         if not pasta_cliente:
-            print(f"  ❌ Cliente não encontrado: {cliente_nome}")
+            print(f"   Cliente não encontrado: {cliente_nome}")
             return False
         
-        print(f"  📂 ID da pasta: {pasta_cliente['id']}")
+        print(f"   ID da pasta: {pasta_cliente['id']}")
         
         # MUDANÇA: Listar arquivos recursivamente (incluindo subpastas)
         arquivos = listar_arquivos_recursivo(service, pasta_cliente['id'])
         if not arquivos:
-            print(f"  ❌ Nenhum arquivo encontrado na pasta")
+            print(f"   Nenhum arquivo encontrado na pasta")
             return False
         
         # Classificar documentos
@@ -3327,16 +3327,16 @@ def processar_cronologia_manual(cliente_nome):
         doc_transcricao = next((d for d in docs if d['tipo'] == 'TRANSCRICAO'), None)
         
         if not doc_transcricao:
-            print(f"  ❌ Nenhum documento de transcrição encontrado")
-            print(f"  💡 Adicione um arquivo com 'transcricao', 'entrevista' ou 'relato' no nome")
+            print(f"   Nenhum documento de transcrição encontrado")
+            print(f"   Adicione um arquivo com 'transcricao', 'entrevista' ou 'relato' no nome")
             return False
         
-        print(f"  📄 Transcrição encontrada: {doc_transcricao['nome']}")
+        print(f"   Transcrição encontrada: {doc_transcricao['nome']}")
         
         # Baixar documento de transcrição
         conteudo = baixar_arquivo(service, doc_transcricao['id'])
         if not conteudo:
-            print(f"  ❌ Erro ao baixar arquivo de transcrição")
+            print(f"   Erro ao baixar arquivo de transcrição")
             return False
         
         # Extrair texto
@@ -3353,7 +3353,7 @@ def processar_cronologia_manual(cliente_nome):
                 texto_transcricao = "\n".join([p.text for p in doc.paragraphs])
                 os.unlink(tmp_path)
             except Exception as e:
-                print(f"  ⚠️ Erro ao extrair texto do DOCX: {e}")
+                print(f"   Erro ao extrair texto do DOCX: {e}")
                 texto_transcricao = ""
         else:
             # Arquivo de texto puro
@@ -3363,34 +3363,34 @@ def processar_cronologia_manual(cliente_nome):
                 texto_transcricao = ""
         
         if not texto_transcricao or len(texto_transcricao) < 50:
-            print(f"  ❌ Transcrição muito curta ou vazia ({len(texto_transcricao)} caracteres)")
+            print(f"   Transcrição muito curta ou vazia ({len(texto_transcricao)} caracteres)")
             return False
         
-        print(f"  📝 Texto extraído: {len(texto_transcricao)} caracteres")
-        print(f"  ⏳ Gerando cronologia com IA...")
+        print(f"   Texto extraído: {len(texto_transcricao)} caracteres")
+        print(f"   Gerando cronologia com IA...")
         
         # Gerar cronologia
         cronologia_texto = agente_cronologia(texto_transcricao, pasta_cliente['name'])
         
         if not cronologia_texto:
-            print(f"  ❌ Erro ao gerar cronologia (API retornou None)")
+            print(f"   Erro ao gerar cronologia (API retornou None)")
             return False
         
-        print(f"  ✅ Cronologia gerada!")
-        print(f"  💾 Salvando no Google Drive...")
+        print(f"   Cronologia gerada!")
+        print(f"   Salvando no Google Drive...")
         
         # Salvar cronologia no Drive
         sucesso = salvar_cronologia_docx(service, cronologia_texto, pasta_cliente['name'], pasta_cliente['id'])
         
         if sucesso:
-            print(f"  ✅ Cronologia salva com sucesso na pasta do cliente!")
+            print(f"   Cronologia salva com sucesso na pasta do cliente!")
             return True
         else:
-            print(f"  ❌ Erro ao salvar cronologia")
+            print(f"   Erro ao salvar cronologia")
             return False
         
     except Exception as e:
-        print(f"  ❌ ERRO em processar_cronologia_manual: {e}")
+        print(f"   ERRO em processar_cronologia_manual: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -3409,7 +3409,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
     """
     try:
         # STATUS 1: Iniciando processamento
-        print(f"  📝 Criando entrada no histórico...")
+        print(f"   Criando entrada no histórico...")
         atualizar_status_processamento(cliente_nome, tipo_acao, "Iniciando processamento...")
         
         service = autenticar_google_drive()
@@ -3424,7 +3424,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
             pasta_id = os.getenv('PASTA_DIFERENCAS_CONTRATUAIS')
         
         if not pasta_id:
-            print(f"  ❌ Pasta não configurada para {tipo_acao}")
+            print(f"   Pasta não configurada para {tipo_acao}")
             return False
         
         # STATUS 2: Buscando cliente
@@ -3434,30 +3434,30 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         pastas_clientes = listar_pastas(service, pasta_id)
         pasta_cliente = None
         
-        print(f"  🔍 Buscando cliente: '{cliente_nome}'")
-        print(f"  📁 Pastas encontradas: {len(pastas_clientes)}")
+        print(f"   Buscando cliente: '{cliente_nome}'")
+        print(f"   Pastas encontradas: {len(pastas_clientes)}")
         
         for pasta in pastas_clientes:
             print(f"     - Comparando: '{pasta['name']}' com '{cliente_nome}'")
             if pasta['name'].lower() == cliente_nome.lower():
                 pasta_cliente = pasta
-                print(f"     ✅ MATCH ENCONTRADO!")
+                print(f"      MATCH ENCONTRADO!")
                 break
         
         if not pasta_cliente:
-            print(f"  ❌ Cliente não encontrado: {cliente_nome}")
-            print(f"  💡 Pastas disponíveis:")
+            print(f"   Cliente não encontrado: {cliente_nome}")
+            print(f"   Pastas disponíveis:")
             for pasta in pastas_clientes[:5]:
                 print(f"     - {pasta['name']}")
             return False
         
-        print(f"  ✅ Cliente encontrado: {pasta_cliente['name']}")
-        print(f"  📂 ID da pasta: {pasta_cliente['id']}")
+        print(f"   Cliente encontrado: {pasta_cliente['name']}")
+        print(f"   ID da pasta: {pasta_cliente['id']}")
         
         # Verificar se já foi processado
         if not forcar_geracao and verificar_cliente_ja_processado(service, pasta_cliente['id']):
-            print(f"  ⚠️ Cliente já processado anteriormente (arquivo _PROCESSADO.txt encontrado).")
-            print(f"  ❌ Abortando para evitar duplicação. Use forcar_geracao=True para ignorar.")
+            print(f"   Cliente já processado anteriormente (arquivo _PROCESSADO.txt encontrado).")
+            print(f"   Abortando para evitar duplicação. Use forcar_geracao=True para ignorar.")
             return False
 
         # STATUS 3: Listando documentos
@@ -3466,10 +3466,10 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         # MUDANÇA: Listar arquivos recursivamente (incluindo subpastas)
         arquivos = listar_arquivos_recursivo(service, pasta_cliente['id'])
         if not arquivos:
-            print(f"  ❌ Nenhum arquivo encontrado na pasta")
+            print(f"   Nenhum arquivo encontrado na pasta")
             return False
         
-        print(f"  📄 Arquivos encontrados: {len(arquivos)}")
+        print(f"   Arquivos encontrados: {len(arquivos)}")
         for arq in arquivos[:5]:  # Mostrar primeiros 5
             print(f"     - {arq['name']}")
         
@@ -3485,15 +3485,15 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                     'prioridade': classif['prioridade']
                 })
         
-        print(f"  📄 Documentos encontrados: {len(docs)}")
+        print(f"   Documentos encontrados: {len(docs)}")
         
         # Verificar documentação
         verif = verificar_documentacao_completa_v10(docs, tipo_acao)
         
-        print(f"  📊 Status dos documentos:")
-        print(f"     🔴 ALTA: {len(verif['alta_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo_acao]['ALTA'])}")
-        print(f"     ⚠️ MÉDIA: {len(verif['media_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo_acao]['MEDIA'])}")
-        print(f"     🟢 BAIXA: {len(verif['baixa_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo_acao]['BAIXA'])}")
+        print(f"   Status dos documentos:")
+        print(f"      ALTA: {len(verif['alta_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo_acao]['ALTA'])}")
+        print(f"      MÉDIA: {len(verif['media_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo_acao]['MEDIA'])}")
+        print(f"      BAIXA: {len(verif['baixa_presentes'])}/{len(DOCUMENTOS_POR_TIPO[tipo_acao]['BAIXA'])}")
         
         # Verificar se tem faltantes
         tem_faltantes = (len(verif['alta_faltantes']) > 0 or 
@@ -3501,25 +3501,25 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         len(verif['baixa_faltantes']) > 0)
         
         if tem_faltantes:
-            print(f"\n  ⚠️ DOCUMENTOS FALTANTES:")
+            print(f"\n   DOCUMENTOS FALTANTES:")
             if verif['alta_faltantes']:
-                print(f"     🔴 ALTA: {', '.join(verif['alta_faltantes'])}")
+                print(f"      ALTA: {', '.join(verif['alta_faltantes'])}")
             if verif['media_faltantes']:
-                print(f"     ⚠️ MÉDIA: {', '.join(verif['media_faltantes'])}")
+                print(f"      MÉDIA: {', '.join(verif['media_faltantes'])}")
             if verif['baixa_faltantes']:
-                print(f"     🟢 BAIXA: {', '.join(verif['baixa_faltantes'])}")
+                print(f"      BAIXA: {', '.join(verif['baixa_faltantes'])}")
             
             if not forcar_geracao:
-                print(f"\n  ❌ BLOQUEADO - Use forcar_geracao=True para gerar mesmo assim")
+                print(f"\n   BLOQUEADO - Use forcar_geracao=True para gerar mesmo assim")
                 return False
             else:
-                print(f"\n  ⚡ FORÇANDO GERAÇÃO mesmo com documentos faltantes...")
+                print(f"\n   FORÇANDO GERAÇÃO mesmo com documentos faltantes...")
         
         # STATUS 4: Baixando documentos
         atualizar_status_processamento(cliente_nome, tipo_acao, f"Baixando {len(docs)} documentos...")
         
         # Baixar documentos completos
-        print(f"\n  📥 Baixando documentos...")
+        print(f"\n   Baixando documentos...")
         docs_completos = []
         for doc in docs:
             cont = baixar_arquivo(service, doc['id'])
@@ -3532,7 +3532,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                     'texto': texto
                 })
         
-        print(f"  ✅ {len(docs_completos)} documentos baixados")
+        print(f"   {len(docs_completos)} documentos baixados")
         
         # ============================================================================
         # BUSCAR RESUMO DO VÍDEO E CRONOLOGIA DOS FATOS
@@ -3545,12 +3545,12 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         doc_resumo = next((d for d in docs_completos if d['tipo'] == 'RESUMO'), None)
         
         if doc_resumo:
-            print(f"\n  📹 Resumo do vídeo encontrado: {doc_resumo['nome']}")
+            print(f"\n   Resumo do vídeo encontrado: {doc_resumo['nome']}")
             resumo_texto = doc_resumo.get('texto', '').strip()
             
             # Fallback: se texto estiver vazio, tentar ler conteúdo bruto
             if not resumo_texto:
-                print(f"  ⚠️ Texto vazio, tentando extrair novamente...")
+                print(f"   Texto vazio, tentando extrair novamente...")
                 if doc_resumo['nome'].lower().endswith('.pdf'):
                     resumo_texto = extrair_texto_pdf(doc_resumo['conteudo'])
                 elif doc_resumo['nome'].lower().endswith('.docx'):
@@ -3566,7 +3566,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         resumo_texto = '\n'.join([p.text for p in doc.paragraphs])
                         os.unlink(tmp_path)
                     except Exception as e:
-                        print(f"  ⚠️ Erro ao ler DOCX: {e}")
+                        print(f"   Erro ao ler DOCX: {e}")
                 else:
                     # Se for TXT, tentar decodificar
                     try:
@@ -3575,23 +3575,23 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         pass
             
             if resumo_texto and len(resumo_texto) > 50:
-                print(f"  ✅ Resumo carregado ({len(resumo_texto)} caracteres)")
+                print(f"   Resumo carregado ({len(resumo_texto)} caracteres)")
             else:
-                print(f"  ⚠️ Resumo muito curto ou vazio")
+                print(f"   Resumo muito curto ou vazio")
                 resumo_texto = None
         else:
-            print(f"  ℹ️ Nenhum resumo de vídeo encontrado")
+            print(f"  ℹ Nenhum resumo de vídeo encontrado")
         
         # 2. BUSCAR CRONOLOGIA DOS FATOS
         doc_cronologia = next((d for d in docs_completos if d['tipo'] == 'CRONOLOGIA'), None)
         
         if doc_cronologia:
-            print(f"\n  📅 Cronologia dos fatos encontrada: {doc_cronologia['nome']}")
+            print(f"\n   Cronologia dos fatos encontrada: {doc_cronologia['nome']}")
             cronologia_texto = doc_cronologia.get('texto', '').strip()
             
             # Fallback: se texto estiver vazio, tentar ler conteúdo bruto
             if not cronologia_texto:
-                print(f"  ⚠️ Texto vazio, tentando extrair novamente...")
+                print(f"   Texto vazio, tentando extrair novamente...")
                 if doc_cronologia['nome'].lower().endswith('.pdf'):
                     cronologia_texto = extrair_texto_pdf(doc_cronologia['conteudo'])
                 elif doc_cronologia['nome'].lower().endswith('.docx'):
@@ -3607,7 +3607,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         cronologia_texto = '\n'.join([p.text for p in doc.paragraphs])
                         os.unlink(tmp_path)
                     except Exception as e:
-                        print(f"  ⚠️ Erro ao ler DOCX: {e}")
+                        print(f"   Erro ao ler DOCX: {e}")
                 else:
                     # Se for TXT, tentar decodificar
                     try:
@@ -3616,23 +3616,23 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         pass
             
             if cronologia_texto and len(cronologia_texto) > 50:
-                print(f"  ✅ Cronologia carregada ({len(cronologia_texto)} caracteres)")
+                print(f"   Cronologia carregada ({len(cronologia_texto)} caracteres)")
             else:
-                print(f"  ⚠️ Cronologia muito curta ou vazia")
+                print(f"   Cronologia muito curta ou vazia")
                 cronologia_texto = None
         else:
-            print(f"  ℹ️ Nenhuma cronologia encontrada")
+            print(f"  ℹ Nenhuma cronologia encontrada")
             
             # Se não tem cronologia mas tem transcrição, gerar cronologia
             doc_transcricao = next((d for d in docs_completos if d['tipo'] == 'TRANSCRICAO'), None)
             
             if doc_transcricao:
-                print(f"\n  📄 Documento de transcrição encontrado: {doc_transcricao['nome']}")
+                print(f"\n   Documento de transcrição encontrado: {doc_transcricao['nome']}")
                 texto_para_cronologia = doc_transcricao.get('texto', '').strip()
                 
                 # Fallback: se texto estiver vazio, tentar ler conteúdo bruto
                 if not texto_para_cronologia:
-                    print(f"  ⚠️ Texto vazio, tentando extrair novamente...")
+                    print(f"   Texto vazio, tentando extrair novamente...")
                     if doc_transcricao['nome'].lower().endswith('.pdf'):
                         texto_para_cronologia = extrair_texto_pdf(doc_transcricao['conteudo'])
                     else:
@@ -3643,32 +3643,32 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                             pass
                 
                 if texto_para_cronologia and len(texto_para_cronologia) > 50:
-                    print(f"  ⏳ Gerando Cronologia dos Fatos (IA)... ({len(texto_para_cronologia)} caracteres)")
+                    print(f"   Gerando Cronologia dos Fatos (IA)... ({len(texto_para_cronologia)} caracteres)")
                     atualizar_status_processamento(cliente_nome, tipo_acao, "Gerando cronologia dos fatos...")
                     
                     cronologia_texto = agente_cronologia(texto_para_cronologia, pasta_cliente['name'])
                     
                     if cronologia_texto:
-                        print(f"  ✅ Cronologia gerada com sucesso!")
+                        print(f"   Cronologia gerada com sucesso!")
                         salvar_cronologia_docx(service, cronologia_texto, pasta_cliente['name'], pasta_cliente['id'])
                     else:
-                        print(f"  ❌ Falha ao gerar cronologia (API retornou None)")
+                        print(f"   Falha ao gerar cronologia (API retornou None)")
                 else:
-                    print(f"  ⚠️ Transcrição muito curta ou vazia ({len(texto_para_cronologia)} chars). Pulando cronologia.")
+                    print(f"   Transcrição muito curta ou vazia ({len(texto_para_cronologia)} chars). Pulando cronologia.")
             else:
-                print(f"  ℹ️ Nenhum documento de transcrição encontrado. Pulando cronologia.")
+                print(f"  ℹ Nenhum documento de transcrição encontrado. Pulando cronologia.")
         
         # 3. BUSCAR PROCURAÇÃO (dados completos do cliente)
         procuracao_texto = None
         doc_procuracao = next((d for d in docs_completos if d['tipo'] == 'PROCURACAO'), None)
         
         if doc_procuracao:
-            print(f"\n  📄 Procuração encontrada: {doc_procuracao['nome']}")
+            print(f"\n   Procuração encontrada: {doc_procuracao['nome']}")
             procuracao_texto = doc_procuracao.get('texto', '').strip()
             
             # Fallback: se texto estiver vazio, tentar ler conteúdo bruto
             if not procuracao_texto:
-                print(f"  ⚠️ Texto vazio, tentando extrair novamente...")
+                print(f"   Texto vazio, tentando extrair novamente...")
                 if doc_procuracao['nome'].lower().endswith('.pdf'):
                     procuracao_texto = extrair_texto_pdf(doc_procuracao['conteudo'])
                 elif doc_procuracao['nome'].lower().endswith('.docx'):
@@ -3684,7 +3684,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         procuracao_texto = '\n'.join([p.text for p in doc.paragraphs])
                         os.unlink(tmp_path)
                     except Exception as e:
-                        print(f"  ⚠️ Erro ao ler DOCX: {e}")
+                        print(f"   Erro ao ler DOCX: {e}")
                 else:
                     # Se for TXT, tentar decodificar
                     try:
@@ -3693,13 +3693,13 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         pass
             
             if procuracao_texto and len(procuracao_texto) > 50:
-                print(f"  ✅ Procuração carregada ({len(procuracao_texto)} caracteres)")
-                print(f"  📋 Dados do cliente serão extraídos da procuração")
+                print(f"   Procuração carregada ({len(procuracao_texto)} caracteres)")
+                print(f"   Dados do cliente serão extraídos da procuração")
             else:
-                print(f"  ⚠️ Procuração muito curta ou vazia")
+                print(f"   Procuração muito curta ou vazia")
                 procuracao_texto = None
         else:
-            print(f"  ℹ️ Nenhuma procuração encontrada")
+            print(f"  ℹ Nenhuma procuração encontrada")
         
         # STATUS 5: Gerando petição
         atualizar_status_processamento(cliente_nome, tipo_acao, "Gerando petição com IA...")
@@ -3712,13 +3712,13 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         }
         
         # Gerar petição
-        print(f"\n  🤖 Gerando petição com Claude AI...")
+        print(f"\n   Gerando petição com Claude AI...")
         if procuracao_texto:
-            print(f"     📄 Usando dados da procuração")
+            print(f"      Usando dados da procuração")
         if resumo_texto:
-            print(f"     📹 Usando resumo do vídeo")
+            print(f"      Usando resumo do vídeo")
         if cronologia_texto:
-            print(f"     📅 Usando cronologia dos fatos")
+            print(f"      Usando cronologia dos fatos")
         
         peticao = gerar_peticao_com_claude(
             service, 
@@ -3728,48 +3728,48 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
             cronologia_fatos=cronologia_texto,
             resumo_video=resumo_texto,
             procuracao=procuracao_texto,
-            usar_prompt_master=True  # ✨ PROMPT MASTER ATIVADO POR PADRÃO
+            usar_prompt_master=True  #  PROMPT MASTER ATIVADO POR PADRÃO
         )
         
         if not peticao:
-            print(f"  ❌ Erro ao gerar petição")
+            print(f"   Erro ao gerar petição")
             return False
         
-        print(f"  ✅ Petição gerada ({len(peticao)} caracteres)")
+        print(f"   Petição gerada ({len(peticao)} caracteres)")
         
         # STATUS 6: Salvando
         atualizar_status_processamento(cliente_nome, tipo_acao, "Salvando petição no Drive...")
         
         # Salvar no Drive
-        print(f"\n  💾 Salvando no Google Drive...")
+        print(f"\n   Salvando no Google Drive...")
         arquivo = salvar_peticao_no_drive(service, peticao, cliente_info, arquivos_cliente=docs, usar_prompt_master=True)
         
         if not arquivo:
-            print(f"  ❌ Erro ao salvar no Drive")
+            print(f"   Erro ao salvar no Drive")
             return False
         
-        print(f"  ✅ Petição salva com sucesso!")
-        print(f"  📄 Arquivo: {arquivo.get('nome', 'N/A')}")
+        print(f"   Petição salva com sucesso!")
+        print(f"   Arquivo: {arquivo.get('nome', 'N/A')}")
         
         # Salvar no histórico
-        print(f"\n  💾 Salvando no histórico...")
+        print(f"\n   Salvando no histórico...")
         salvar_no_historico(
             pasta_cliente['name'],
             tipo_acao,
             arquivo
         )
-        print(f"  ✅ Entrada criada no histórico!")
+        print(f"   Entrada criada no histórico!")
         
         # STATUS 7: Marcando como processado
         atualizar_status_processamento(cliente_nome, tipo_acao, "Finalizando processamento...")
         
         # Marcar cliente como processado
-        print(f"\n  📌 Marcando cliente como processado...")
+        print(f"\n   Marcando cliente como processado...")
         marcar_cliente_como_processado(service, pasta_cliente['id'], {
             'nome_arquivo': arquivo.get('nome', 'N/A'),
             'link': arquivo.get('link', 'N/A')
         })
-        print(f"  ✅ Arquivo _PROCESSADO.txt criado!")
+        print(f"   Arquivo _PROCESSADO.txt criado!")
         
         # Gerar relatório de prints se necessário
         if arquivo.get('marcadores_prints'):
@@ -3782,10 +3782,10 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                 cliente_info['cliente_nome']
             )
             if relatorio_prints:
-                print(f"  📊 Relatório de prints: {relatorio_prints}")
+                print(f"   Relatório de prints: {relatorio_prints}")
         
-        print(f"\n  ✅ Petição gerada com sucesso para {cliente_nome}")
-        print(f"  🔍 Iniciando auditoria imediata...")
+        print(f"\n   Petição gerada com sucesso para {cliente_nome}")
+        print(f"   Iniciando auditoria imediata...")
         
         # Atualizar status para auditoria
         atualizar_status_processamento(cliente_nome, tipo_acao, "Auditando petição...")
@@ -3803,9 +3803,9 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                 )
                 
                 if resultado_auditoria:
-                    print(f"  ✅ Auditoria concluída!")
-                    print(f"  📊 Score: {resultado_auditoria.get('score', 0)}/100")
-                    print(f"  🏆 Ranking: {resultado_auditoria.get('ranking', 'N/A')}")
+                    print(f"   Auditoria concluída!")
+                    print(f"   Score: {resultado_auditoria.get('score', 0)}/100")
+                    print(f"   Ranking: {resultado_auditoria.get('ranking', 'N/A')}")
                     
                     # Salvar log de auditoria
                     log_auditoria(
@@ -3822,25 +3822,25 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         'aprovada',
                         resultado_auditoria.get('score'),
                         resultado_auditoria.get('erros_criticos', []),
-                        resultado_auditoria.get('relatorio_detalhado', {})  # ← Salva como 'relatorio_auditoria'
+                        resultado_auditoria.get('relatorio_detalhado', {})  #  Salva como 'relatorio_auditoria'
                     )
                     
                     # Mover para pasta de aprovadas
                     mover_peticao(service, arquivo_id, True)
-                    print(f"  ✅ Movida para pasta APROVADAS")
+                    print(f"   Movida para pasta APROVADAS")
                     
                 else:
-                    print(f"  ⚠️ Erro na auditoria")
+                    print(f"   Erro na auditoria")
                     
             except Exception as e:
-                print(f"  ⚠️ Erro na auditoria: {e}")
+                print(f"   Erro na auditoria: {e}")
                 import traceback
                 traceback.print_exc()
         
         return True
         
     except Exception as e:
-        print(f"  ❌ ERRO em processar_geracao_manual: {e}")
+        print(f"   ERRO em processar_geracao_manual: {e}")
         import traceback
         traceback.print_exc()
         return False
@@ -3848,9 +3848,9 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
 def main():
     print("\n" + "="*70)
     print("  SISTEMA V10.0 - PROMPT MASTER ATIVADO")
-    print("  ✨ Petições de Alto Nível (12-18 páginas)")
-    print("  📝 Times New Roman 12pt - Padrão Forense")
-    print("  🎓 Nível de Advogado Sênior")
+    print("   Petições de Alto Nível (12-18 páginas)")
+    print("   Times New Roman 12pt - Padrão Forense")
+    print("   Nível de Advogado Sênior")
     print("="*70 + "\n")
     
     agente_gerador()
@@ -3862,7 +3862,7 @@ def main():
     
     print("\n" + "="*70)
     print("  Rodando! Ctrl+C para parar.")
-    print("  👁️ Monitorando: Pastas + Flags Manuais")
+    print("   Monitorando: Pastas + Flags Manuais")
     print("="*70 + "\n")
     
     while True:
