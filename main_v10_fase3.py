@@ -3959,13 +3959,12 @@ if __name__ == "__main__":
     # Iniciar Dashboard em background
     print("\n[MAIN] Iniciando Dashboard (dashboard_server.py)...")
     dashboard_process = subprocess.Popen(
-        ["python", "dashboard_server.py"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-        # Não usamos wait() aqui para não bloquear
+        ["python", "dashboard_server.py"]
+        # Sem captura de stdout/stderr para ver os logs do Flask
     )
     print(f"[MAIN] Dashboard iniciado com PID: {dashboard_process.pid}")
+    time.sleep(2)  # Aguardar Flask iniciar
+
     
     try:
         # Iniciar loop principal do Worker
