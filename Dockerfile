@@ -27,10 +27,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Criar diretórios necessários para logs e dados
-RUN mkdir -p logs_auditoria logs_prints
+RUN mkdir -p logs_auditoria logs_prints flags
+
+# Copiar e tornar executável o script de inicialização
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 # Expor a porta do dashboard
 EXPOSE 5000
 
-# Comando padrão (pode ser sobrescrito no docker-compose)
-CMD ["python", "main_v10_fase3.py"]
+# Comando padrão: rodar ambos os serviços
+CMD ["/app/start.sh"]
