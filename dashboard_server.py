@@ -1002,8 +1002,13 @@ def gerar_cronologia():
             }), 400
         
         # Criar flag para geração de cronologia
-        flag_file = f"flag_cronologia_{cliente_nome.replace(' ', '_')}.json"
-        with open(flag_file, 'w') as f:
+        if not os.path.exists('flags'):
+            os.makedirs('flags')
+            
+        filename = f"flag_cronologia_{cliente_nome.replace(' ', '_')}.json"
+        flag_file = os.path.join("flags", filename)
+        
+        with open(flag_file, 'w', encoding='utf-8') as f:
             json.dump({
                 'cliente_nome': cliente_nome,
                 'tipo': 'cronologia',
@@ -1158,8 +1163,14 @@ def executar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao):
         
         # OPÇÃO 2: Executar como subprocess (RECOMENDADO)
         # Cria um arquivo temporário com flag de geração manual
-        flag_file = f"flag_manual_{cliente_nome.replace(' ', '_')}.json"
-        with open(flag_file, 'w') as f:
+        # IMPORTANTE: Salvar na pasta 'flags' pois o worker procura lá
+        if not os.path.exists('flags'):
+            os.makedirs('flags')
+            
+        filename = f"flag_manual_{cliente_nome.replace(' ', '_')}.json"
+        flag_file = os.path.join("flags", filename)
+        
+        with open(flag_file, 'w', encoding='utf-8') as f:
             json.dump({
                 'cliente_nome': cliente_nome,
                 'tipo_acao': tipo_acao,
