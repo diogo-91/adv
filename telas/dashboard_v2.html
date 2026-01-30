@@ -1457,8 +1457,48 @@
 
                         if (modalMessage) {
                             const percent = Math.round((status.etapa / status.total_etapas) * 100);
+
+                            // Lista de etapas
+                            const etapas = [
+                                'Baixando vídeo do Google Drive',
+                                'Enviando vídeo para análise da IA',
+                                'Gerando resumo detalhado dos fatos',
+                                'Salvando arquivo na pasta do cliente'
+                            ];
+
+                            // Gerar HTML das etapas
+                            const etapasHtml = etapas.map((etapa, index) => {
+                                const etapaNum = index + 1;
+                                const concluida = etapaNum < status.etapa;
+                                const atual = etapaNum === status.etapa;
+                                const pendente = etapaNum > status.etapa;
+
+                                let icon = '';
+                                let color = '';
+
+                                if (concluida) {
+                                    icon = '✓';
+                                    color = '#10B981';
+                                } else if (atual) {
+                                    icon = '→';
+                                    color = '#3B82F6';
+                                } else {
+                                    icon = '';
+                                    color = '#94A3B8';
+                                }
+
+                                return `
+                                    <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; color: ${color}; font-weight: ${atual ? '600' : '400'};">
+                                        <span style="font-size: 1.2rem; width: 20px;">${icon}</span>
+                                        <span style="flex: 1;">${etapa}</span>
+                                    </div>
+                                `;
+                            }).join('');
+
                             modalMessage.innerHTML = `
-                                <div style="margin-bottom: 1rem; font-weight: bold; color: #fff; text-align: center;">${status.mensagem}</div>
+                                <div style="margin-bottom: 1.5rem;">
+                                    ${etapasHtml}
+                                </div>
                                 <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px; width: 100%; overflow: hidden; margin-bottom: 0.5rem;">
                                     <div style="background: #10B981; height: 100%; width: ${percent}%; transition: width 0.5s ease;"></div>
                                 </div>
