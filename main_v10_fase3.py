@@ -232,6 +232,26 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
     print(f"\n     [AGENTE RESUMO] Iniciando resumo de vídeo...")
     print(f"        Cliente: {cliente_nome}")
     print(f"        Vídeo: {video_nome}")
+
+    # Helper para atualizar status
+    def atualizar_progresso(mensagem, etapa, total_etapas=4):
+        try:
+            filename = f"status_video_{re.sub(r'[^a-zA-Z0-9]', '_', cliente_nome)}.json"
+            filepath = os.path.join("flags", filename)
+            data = {
+                "cliente": cliente_nome,
+                "mensagem": mensagem,
+                "etapa": etapa,
+                "total_etapas": total_etapas,
+                "timestamp": time.time(),
+                "concluido": False
+            }
+            with open(filepath, 'w', encoding='utf-8') as f:
+                json.dump(data, f)
+        except Exception as e:
+            print(f"Erro ao salvar status: {e}")
+
+    atualizar_progresso("Iniciando processamento...", 1)
     
     try:
         # 1. Verificar se Gemini API está configurada
@@ -254,6 +274,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         
         # 3. Baixar vídeo do Drive
         print(f"        ⬇ Baixando vídeo do Drive...")
+        atualizar_progresso("Baixando vídeo do Google Drive...", 1)
         video_bytes = baixar_arquivo(service, video_id)
         
         if not video_bytes:
@@ -273,6 +294,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         
         # 5. Upload para Gemini e transcrever
         print(f"         Enviando para Gemini API...")
+        atualizar_progresso("Enviando vídeo para análise da IA...", 2)
         
         try:
             # Upload do vídeo para Gemini
@@ -322,6 +344,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
             """
             
             print(f"         Gerando resumo...")
+            atualizar_progresso("Gerando resumo detalhado dos fatos...", 3)
             try:
                 # Usar configurações de segurança mais permissivas para não bloquear o resumo
                 # Usando strings diretas que são compatíveis com a versão mais recente
@@ -367,6 +390,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         
         # 6. Salvar transcrição como DOCX
         print(f"         Salvando RESUMO como DOCX...")
+        atualizar_progresso("Salvando arquivo na pasta do cliente...", 4)
         
         doc = Document()
         doc.add_heading(f'Resumo de Vídeo - {cliente_nome}', 0)

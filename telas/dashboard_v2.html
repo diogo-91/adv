@@ -1418,6 +1418,71 @@
             setTimeout(() => {
                 document.getElementById('custom-modal-overlay').classList.add('active');
             }, 10);
+
+            return document.getElementById('custom-modal-overlay');
+        }
+
+        // Função para monitorar progresso
+        async function monitorarTranscricao(clienteNome) {
+            let tentativas = 0;
+            const maxTentativas = 600; // 20 minutos (600 * 2s)
+
+            // Mostrar modal inicial
+            showCustomModal('info', 'Iniciando...', 'Preparando ambiente...');
+
+            // Remover botão OK para evitar fechamento prematuro durante processamento
+            const btnOk = document.querySelector('.btn-modal-primary');
+            if (btnOk) btnOk.style.display = 'none';
+
+            const intervalId = setInterval(async () => {
+                tentativas++;
+
+                try {
+                    const response = await fetch('/api/status-transcricao', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cliente_nome: clienteNome })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success && data.status !== 'not_started' && data.status !== 'reading_error') {
+                        const status = data.status;
+
+                        // Atualizar modal
+                        const modalMessage = document.querySelector('.custom-modal-message');
+                        const modalTitle = document.querySelector('.custom-modal-title');
+
+                        if (modalTitle) modalTitle.textContent = 'Gerando Resumo...';
+
+                        if (modalMessage) {
+                            const percent = Math.round((status.etapa / status.total_etapas) * 100);
+                            modalMessage.innerHTML = `
+                                <div style="margin-bottom: 1rem; font-weight: bold; color: #fff; text-align: center;">${status.mensagem}</div>
+                                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; height: 8px; width: 100%; overflow: hidden; margin-bottom: 0.5rem;">
+                                    <div style="background: #10B981; height: 100%; width: ${percent}%; transition: width 0.5s ease;"></div>
+                                </div>
+                                <div style="text-align: right; font-size: 0.8rem; color: #94a3b8;">${percent}% Concluído</div>
+                            `;
+                        }
+
+                        // Se completou 100% (etapa 4)
+                        if (status.etapa >= 4) {
+                            clearInterval(intervalId);
+                            // Sucesso final - restaurar botão e mensagem
+                            showCustomModal('success', 'Concluído!', 'O resumo do vídeo foi gerado e salvo com sucesso na pasta do cliente.');
+                        }
+                    }
+
+                    if (tentativas >= maxTentativas) {
+                        clearInterval(intervalId);
+                        showCustomModal('error', 'Tempo Excedido', 'O processamento demorou muito. Verifique os logs.');
+                    }
+
+                } catch (e) {
+                    console.error("Erro no polling:", e);
+                }
+            }, 2000); // A cada 2 segundos
         }
 
         function renderizarTabela() {
@@ -3723,10 +3788,8 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
                 if (modal) modal.remove();
 
                 if (data.success) {
-                    showCustomModal('success', 'Solicitação Recebida!',
-                        `A transcrição do vídeo para <strong>${clienteNome}</strong> foi iniciada com sucesso.\n\n` +
-                        `O sistema irá processar o arquivo em segundo plano.\n` +
-                        `Assim que concluído, o arquivo será salvo automaticamente na pasta do cliente.`);
+                    // Iniciar monitoramento do progresso
+                    monitorarTranscricao(clienteNome);
 
                     console.log('✅ Transcrição solicitada com sucesso');
                 } else {

@@ -1591,6 +1591,33 @@ def criar_cliente():
         print(f"❌ Erro ao criar cliente: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/api/status-transcricao', methods=['POST'])
+def check_status_transcricao():
+    try:
+        data = request.json
+        cliente_nome = data.get('cliente_nome')
+        
+        if not cliente_nome:
+            return jsonify({'success': False, 'error': 'Nome do cliente não fornecido'})
+            
+        # Sanitizar nome para coincidir com o arquivo gerado no main...py
+        clean_name = re.sub(r'[^a-zA-Z0-9]', '_', cliente_nome)
+        filename = f"status_video_{clean_name}.json"
+        filepath = os.path.join("flags", filename)
+        
+        if os.path.exists(filepath):
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    status_data = json.load(f)
+                return jsonify({'success': True, 'status': status_data})
+            except:
+                return jsonify({'success': False, 'status': 'reading_error'})
+        else:
+            return jsonify({'success': False, 'status': 'not_started'})
+            
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
 if __name__ == '__main__':
     print("\n" + "="*70)
     print("  🚀 SERVIDOR DASHBOARD INICIADO")
