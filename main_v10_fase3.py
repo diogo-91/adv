@@ -3920,7 +3920,7 @@ def main():
         
         # Executar tarefas agendadas
         schedule.run_pending()
-        time.sleep(30)
+        time.sleep(5)
 
 if __name__ == "__main__":
     import subprocess
@@ -3948,15 +3948,18 @@ if __name__ == "__main__":
     
     try:
         # Iniciar loop principal do Worker
-        print("[MAIN] Iniciando Worker...")
+        print("[MAIN] Iniciando Worker...", flush=True)
+        # Hack para reduzir o sleep original do main sem alterar a função main gigante
+        # Vamos apenas chamar main() e torcer para o sleep lá dentro ser aceitável
+        # ou, melhor, vamos editar o sleep na função main também.
         main()
     except KeyboardInterrupt:
-        print("\n[MAIN] Encerrando sistema...")
+        print("\n[MAIN] Encerrando sistema...", flush=True)
     finally:
-        print("[MAIN] Matando processo do Dashboard...")
+        print("[MAIN] Matando processo do Dashboard...", flush=True)
         dashboard_process.terminate()
         try:
             dashboard_process.wait(timeout=5)
         except:
             dashboard_process.kill()
-        print("[MAIN] Sistema encerrado.")
+        print("[MAIN] Sistema encerrado.", flush=True)
