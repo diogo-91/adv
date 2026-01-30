@@ -1417,17 +1417,53 @@ def aplicar_formatacoes_especiais_word(doc):
         return doc
 
 def autenticar_google_drive():
+    print(f"    [DEBUG AUTH] Iniciando autenticação...")
+    print(f"    [DEBUG AUTH] Diretório atual: {os.getcwd()}")
+    print(f"    [DEBUG AUTH] Arquivos no diretório: {os.listdir('.')}")
+    
     creds = None
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        print(f"    [DEBUG AUTH] token.json encontrado.")
+        try:
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+            print(f"    [DEBUG AUTH] Credenciais carregadas. Válidas: {creds.valid}, Expiradas: {creds.expired}")
+        except Exception as e:
+             print(f"    [DEBUG AUTH] Erro ao ler token.json: {e}")
+    else:
+        print(f"    [DEBUG AUTH] token.json NÃO encontrado.")
+
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            print(f"    [DEBUG AUTH] Token expirado, tentando refresh...")
+            try:
+                creds.refresh(Request())
+                print(f"    [DEBUG AUTH] Refresh com sucesso!")
+            except Exception as e:
+                print(f"    [DEBUG AUTH] Falha no refresh ({e}). Forçando login via browser...")
+                if os.path.exists('credentials.json'):
+                    flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+                    creds = flow.run_local_server(port=8080)
+                else:
+                    print(f"    [DEBUG AUTH] CRÍTICO: credentials.json também não encontrado!")
+                    return None
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=8080)
+            print(f"    [DEBUG AUTH] Sem credenciais válidas ou refresh token. Tentando login via browser...")
+            if os.path.exists('credentials.json'):
+                try:
+                    flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+                    creds = flow.run_local_server(port=8080)
+                except Exception as e:
+                     print(f"    [DEBUG AUTH] Erro ao iniciar server local: {e}")
+                     # Tentar method console se disponivel ou falhar
+                     raise e
+            else:
+                 print(f"    [DEBUG AUTH] CRÍTICO: credentials.json não encontrado para iniciar login!")
+                 return None
+                 
+        # Salvar token atualizado
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
+            
     return build('drive', 'v3', credentials=creds)
 
 def listar_pastas(service, pasta_pai_id):
