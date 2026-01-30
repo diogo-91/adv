@@ -3920,16 +3920,19 @@ def main():
     print("   Nível de Advogado Sênior")
     print("="*70 + "\n")
     
-    agente_gerador()
-    agente_auditor()
+    # MODO MANUAL APENAS - AUTOMÁTICO DESATIVADO
+    # agente_gerador()
+    # agente_auditor()
     
-    intervalo = int(os.getenv('INTERVALO_MINUTOS', 1))
-    schedule.every(intervalo).minutes.do(agente_gerador)
-    schedule.every(intervalo).minutes.do(agente_auditor)
+    # Agendar verificações (DESATIVADO PARA EVITAR VARREDURA AUTOMÁTICA)
+    # intervalo = int(os.getenv('INTERVALO_MINUTOS', 1))
+    # schedule.every(intervalo).minutes.do(agente_gerador)
+    # schedule.every(intervalo).minutes.do(agente_auditor)
     
     print("\n" + "="*70)
     print("  Rodando! Ctrl+C para parar.")
-    print("   Monitorando: Pastas + Flags Manuais")
+    print("   [MODO] Sistema aguardando comandos manuais via Dashboard...")
+    print("   (Varredura automática desativada)")
     print("="*70 + "\n")
     
     while True:
