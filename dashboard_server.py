@@ -1047,9 +1047,13 @@ def transcrever_video():
                 'error': 'Nome do cliente não fornecido'
             }), 400
         
+        # Garantir que pasta flags existe
+        if not os.path.exists('flags'):
+            os.makedirs('flags')
+            
         # Criar flag para transcrição
-        flag_file = f"flag_transcricao_{cliente_nome.replace(' ', '_')}.json"
-        with open(flag_file, 'w') as f:
+        flag_file = os.path.join('flags', f"flag_transcricao_{cliente_nome.replace(' ', '_')}.json")
+        with open(flag_file, 'w', encoding='utf-8') as f:
             json.dump({
                 'cliente_nome': cliente_nome,
                 'tipo': 'transcricao_video',

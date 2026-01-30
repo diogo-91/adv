@@ -3081,12 +3081,12 @@ def verificar_flags_manuais():
     Flags são criados pelo dashboard_server.py
     """
     # Verificar flags de petição
-    flags_peticao = glob.glob("flag_manual_*.json")
+    flags_peticao = glob.glob(os.path.join("flags", "flag_manual_*.json"))
     # Verificar flags de cronologia
-    flags_cronologia = glob.glob("flag_cronologia_*.json")
+    flags_cronologia = glob.glob(os.path.join("flags", "flag_cronologia_*.json"))
     
     # Processar flags de transcrição de vídeo
-    flags_transcricao = glob.glob("flag_transcricao_*.json")
+    flags_transcricao = glob.glob(os.path.join("flags", "flag_transcricao_*.json"))
     
     # DEBUG TOTAL - REMOVER DEPOIS
     # print(f"[DEBUG] P:{len(flags_peticao)} C:{len(flags_cronologia)} T:{len(flags_transcricao)} CWD:{os.getcwd()}")
