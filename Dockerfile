@@ -29,12 +29,11 @@ COPY . .
 # Criar diretórios necessários para logs e dados
 RUN mkdir -p logs_auditoria logs_prints flags
 
-# Copiar e tornar executável o script de inicialização
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+# Copiar script de inicialização Python
+COPY start.py /app/start.py
 
 # Expor a porta do dashboard
 EXPOSE 5000
 
 # Comando padrão: rodar ambos os serviços
-CMD ["/app/start.sh"]
+CMD ["python", "/app/start.py"]

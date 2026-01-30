@@ -322,8 +322,21 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
             """
             
             print(f"         Gerando resumo...")
-            response = model.generate_content([video_file, prompt])
-            texto_transcricao = response.text
+            try:
+                response = model.generate_content(
+                    [video_file, prompt],
+                    safety_settings={
+                        'HARASSMENT': 'block_none',
+                        'HATE_SPEECH': 'block_none',
+                        'SEXUALLY_EXPLICIT': 'block_none',
+                        'DANGEROUS_CONTENT': 'block_none'
+                    }
+                )
+                texto_transcricao = response.text
+            except Exception as api_error:
+                print(f"         ERRO na API Gemini: {api_error}")
+                print(f"         Tipo do erro: {type(api_error).__name__}")
+                raise
             
             print(f"         Resumo gerado! ({len(texto_transcricao)} caracteres)")
             
