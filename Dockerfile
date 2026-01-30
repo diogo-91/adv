@@ -33,4 +33,4 @@ RUN mkdir -p logs_auditoria logs_prints
 EXPOSE 5000
 
 # Comando padrão (pode ser sobrescrito no docker-compose)
-CMD ["python", "dashboard_server.py"]
+CMD ["python", "main_v10_fase3.py"]
