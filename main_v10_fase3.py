@@ -3228,18 +3228,19 @@ def verificar_flags_manuais():
 
 def processar_transcricao_manual(cliente_nome):
     """
-    Processa transcrição de vídeo via flag manual
-    Busca videos na pasta do cliente e transcreve o primeiro encontrado
+    Processa transcrição de vídeo via flag manual (OTIMIZADO)
+    Busca pasta do cliente diretamente e lista apenas vídeos
     """
     try:
         print(f"\n{'='*70}")
-        print(f"   TRANSCRIÇÃO DE VÍDEO AUTOMÁTICA")
+        print(f"   TRANSCRIÇÃO DE VÍDEO (MANUAL)")
         print(f"   Cliente: {cliente_nome}")
         print(f"{'='*70}\n")
         
         service = autenticar_google_drive()
         
-        # 1. Buscar pasta do cliente (Reutilizando lógica da cronologia)
+        # 1. Buscar pasta do cliente DIRETAMENTE (sem listar tudo)
+        print(f"   🔍 Buscando pasta do cliente...")
         pasta_cliente = None
         for _, pasta_id in [
             ('RECONHECIMENTO_VINCULO', os.getenv('PASTA_RECONHECIMENTO_VINCULO')),
@@ -3247,59 +3248,101 @@ def processar_transcricao_manual(cliente_nome):
             ('DIFERENCAS_CONTRATUAIS', os.getenv('PASTA_DIFERENCAS_CONTRATUAIS'))
         ]:
             if not pasta_id: continue
-            pastas = listar_pastas(service, pasta_id)
-            for p in pastas:
-                if p['name'].lower() == cliente_nome.lower():
-                    pasta_cliente = p
+            
+            # Query exata para achar a pasta do cliente
+            try:
+                query = f"'{pasta_id}' in parents and mimeType='application/vnd.google-apps.folder' and name='{cliente_nome}' and trashed=false"
+                results = service.files().list(q=query, fields="files(id, name)", pageSize=1).execute()
+                files = results.get('files', [])
+                if files:
+                    pasta_cliente = files[0]
                     break
-            if pasta_cliente: break
+            except Exception as e:
+                print(f"      Erro ao buscar na pasta {pasta_id}: {e}")
+                continue
             
         if not pasta_cliente:
-            print(f"   Pasta do cliente não encontrada")
+            print(f"   ❌ Pasta do cliente '{cliente_nome}' não encontrada!")
             return False
             
-        print(f"   Pasta encontrada: {pasta_cliente['name']} ({pasta_cliente['id']})")
+        print(f"   ✅ Pasta encontrada: {pasta_cliente['name']}")
         
-        # 2. MUDANÇA: Listar arquivos recursivamente (incluindo subpastas como "Vídeos")
-        arquivos = listar_arquivos_recursivo(service, pasta_cliente['id'])
+        # 2. Listar APENAS VÍDEOS recursivamente
+        print(f"   🔍 Buscando vídeos...")
+        
         videos = []
-        extensoes_video = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.m4v', '.mpeg', '.mpg')
         
-        for arq in arquivos:
-            if arq['name'].lower().endswith(extensoes_video):
-                videos.append(arq)
+        # Função auxiliar para buscar vídeos em uma pasta
+        def buscar_videos_pasta(folder_id, nivel=0):
+            if nivel > 2: return [] # Limite de profundidade
+            
+            videos_encontrados = []
+            try:
+                # Buscar arquivos de vídeo
+                query_video = f"'{folder_id}' in parents and mimeType contains 'video/' and trashed=false"
+                results = service.files().list(q=query_video, fields="files(id, name, mimeType)", pageSize=50).execute()
+                videos_encontrados.extend(results.get('files', []))
                 
-        if not videos:
-            print(f"   Nenhum vídeo encontrado na pasta do cliente")
-            print(f"   Formatos aceitos: {extensoes_video}")
+                # Buscar subpastas para recursão
+                query_folder = f"'{folder_id}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false"
+                folders = service.files().list(q=query_folder, fields="files(id, name)", pageSize=20).execute()
+                
+                for subfolder in folders.get('files', []):
+                    # Evitar pastas de sistema/transcrições antigas
+                    if 'transcri' in subfolder['name'].lower():
+                        continue
+                    videos_encontrados.extend(buscar_videos_pasta(subfolder['id'], nivel + 1))
+                    
+            except Exception as e:
+                print(f"      Erro ao listar vídeos: {e}")
+                
+            return videos_encontrados
+
+        videos = buscar_videos_pasta(pasta_cliente['id'])
+        
+        # Filtrar extensões se mimeType falhar (fallback) ou validar
+        extensoes_video = ('.mp4', '.avi', '.mov', '.mkv', '.webm', '.flv', '.wmv', '.m4v', '.mpeg', '.mpg')
+        videos_validos = [v for v in videos if v['name'].lower().endswith(extensoes_video) or 'video' in v.get('mimeType', '')]
+                
+        if not videos_validos:
+            print(f"   ⚠️ Nenhum vídeo encontrado.")
             return False
             
-        print(f"   {len(videos)} vídeo(s) encontrado(s)")
+        print(f"   📹 {len(videos_validos)} vídeo(s) encontrado(s)")
         
-        # 3. Transcrever TODOS os vídeos
-        print(f"   Iniciando processamento de {len(videos)} vídeo(s)...")
+        # 3. Transcrever
+        print(f"   ▶ Iniciando processamento...")
         
         sucesso_geral = False
         videos_processados = 0
         
-        for video_alvo in videos:
-            print(f"\n   Analisando vídeo: {video_alvo['name']}")
+        # Verificar arquivos existentes na pasta para evitar duplicidade
+        # (Listar tudo da pasta raiz do cliente para checar RESUMO_)
+        try:
+            arquivos_raiz = service.files().list(
+                q=f"'{pasta_cliente['id']}' in parents and trashed=false",
+                fields="files(name)"
+            ).execute().get('files', [])
+            nomes_arquivos_raiz = [a['name'] for a in arquivos_raiz]
+        except:
+            nomes_arquivos_raiz = []
+        
+        for video_alvo in videos_validos:
+            print(f"\\n   🎬 Analisando: {video_alvo['name']}")
             
-            # Verificar se já existe Resumo ou Transcrição
             nome_base = os.path.splitext(video_alvo['name'])[0]
+            
+            # Verificar se já existe RESUMO ou TRANSCRICAO
             existe = False
-            for arq in arquivos:
-                # Checa RESUMO_ ou TRANSCRICAO_
-                if (arq['name'].startswith(f"RESUMO_{nome_base}") or 
-                    arq['name'].startswith(f"TRANSCRICAO_{nome_base}")):
+            for nome in nomes_arquivos_raiz:
+                if nome.startswith(f"RESUMO_{nome_base}") or nome.startswith(f"TRANSCRICAO_{nome_base}"):
                     existe = True
                     break
             
             if existe:
-                print(f"      Já processado (Arquivo existente). Pulando.")
+                print(f"      ⏭️ Já processado (Arquivo existente). Pulando.")
                 continue
             
-            print(f"      Iniciando geração de resumo...")
             resultado = agente_transcricao_video(
                 service=service,
                 video_id=video_alvo['id'],
@@ -3312,13 +3355,13 @@ def processar_transcricao_manual(cliente_nome):
                 sucesso_geral = True
                 videos_processados += 1
             else:
-                print(f"      Falha ao processar {video_alvo['name']}")
+                print(f"      ❌ Falha ao processar")
         
-        print(f"\n   Processamento concluído: {videos_processados}/{len(videos)} vídeos processados.")
-        return True # Retorna True pois completou o ciclo (mesmo que tenha pulado todos)
+        print(f"\\n   ✅ Concluído: {videos_processados} processados.")
+        return True
         
     except Exception as e:
-        print(f"   Erro crítico na transcrição manual: {e}")
+        print(f"   ❌ Erro crítico: {e}")
         import traceback
         traceback.print_exc()
         return False
