@@ -2392,6 +2392,112 @@
             }, 3000);
         }
 
+        // --- Funções de Progresso para Vídeo (Replicando lógica da Petição) ---
+
+        async function monitorarProgressoVideo(clienteNome) {
+            let tentativas = 0;
+            const maxTentativas = 600; // 20 minutos (2s * 600)
+
+            const interval = setInterval(async () => {
+                tentativas++;
+
+                try {
+                    const response = await fetch('/api/status-transcricao', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cliente_nome: clienteNome })
+                    });
+                    const data = await response.json();
+
+                    if (data.success && data.status !== 'not_started' && data.status !== 'reading_error') {
+                        const status = data.status;
+
+                        // Mapear etapa para mensagem
+                        const mensagens = [
+                            'Baixando vídeo do Google Drive',
+                            'Processando vídeo com IA',
+                            'Gerando resumo detalhado',
+                            'Finalizando e Salvando'
+                        ];
+
+                        const mensagem = mensagens[status.etapa - 1] || status.mensagem;
+                        atualizarInterfaceProgressoVideo(status.etapa, status.total_etapas, mensagem);
+
+                        // Se completou
+                        if (status.etapa >= 4) {
+                            clearInterval(interval);
+                            finalizarSucessoVideo();
+                        }
+                    }
+
+                    if (tentativas >= maxTentativas) {
+                        clearInterval(interval);
+                        mostrarErroGeracao('Tempo limite excedido. Verifique os logs.');
+                    }
+                } catch (error) {
+                    console.error('Erro no polling de vídeo:', error);
+                }
+            }, 2000);
+        }
+
+        function atualizarInterfaceProgressoVideo(etapa, totalEtapas, mensagem) {
+            const bar = document.getElementById('progressBarFill');
+            const statusText = document.getElementById('progressStatus');
+            const steps = document.getElementById('progressSteps');
+
+            // Atualizar mensagem
+            statusText.textContent = mensagem || 'Processando...';
+
+            // Calcular porcentagem
+            const porcentagem = Math.round((etapa / totalEtapas) * 100);
+            bar.style.width = `${porcentagem}%`;
+
+            // Atualizar steps visuais
+            const stepItems = steps.querySelectorAll('.step-item');
+            const etapaIndex = etapa - 1; // Backend: 1..4, Array: 0..3
+
+            stepItems.forEach((item, index) => {
+                const icon = item.querySelector('i');
+                if (index < etapaIndex) {
+                    item.className = 'step-item completed';
+                    icon.className = 'bi bi-check-circle-fill';
+                } else if (index === etapaIndex) {
+                    item.className = 'step-item active';
+                    icon.className = 'bi bi-circle-fill';
+                } else {
+                    item.className = 'step-item';
+                    icon.className = 'bi bi-circle';
+                }
+            });
+        }
+
+        function finalizarSucessoVideo() {
+            const bar = document.getElementById('progressBarFill');
+            const statusText = document.getElementById('progressStatus');
+            const icon = document.querySelector('.spin-icon');
+
+            bar.style.width = '100%';
+            bar.style.background = '#22c55e';
+
+            statusText.textContent = 'Resumo gerado com sucesso!';
+            statusText.style.color = '#22c55e';
+            statusText.style.fontWeight = 'bold';
+
+            if (icon) {
+                icon.className = 'bi bi-check-circle-fill';
+                icon.style.color = '#22c55e';
+                icon.style.animation = 'none';
+            }
+
+            // Atualizar dados do dashboard
+            carregarDados();
+
+            setTimeout(() => {
+                fecharModalProgresso();
+                showCustomModal('success', 'Concluído!', 'O resumo do vídeo foi salvo na pasta do cliente.');
+            }, 2000);
+        }
+
         function atualizarTimestamp() {
             const agora = new Date();
             document.getElementById('ultimaAtualizacao').textContent = `Atualizado ${agora.toLocaleTimeString()}`;
