@@ -2075,8 +2075,12 @@
             // --- NOVA IMPLEMENTAÇÃO SIMPLIFICADA ---
             if (!confirm(`🎥 Transcrever vídeos do cliente "${clienteNome}"?\n\nO sistema irá buscar e transcrever automaticamente o vídeo mais recente.\n\nFormatos aceitos: MP4, AVI, MOV, MKV, WEBM, FLV, WMV, M4V, MPEG, MPG`)) return;
 
-            abrirModalProgresso('Transcrevendo Vídeo', ['Buscando vídeos', 'Processando com Gemini', 'Gerando documento']);
-            document.getElementById('progressStatus').textContent = 'Iniciando transcrição...';
+            abrirModalProgresso('Transcrevendo Vídeo', [
+                'Baixando vídeo do Google Drive',
+                'Processando vídeo com IA',
+                'Gerando resumo detalhado',
+                'Finalizando e Salvando'
+            ]);
 
             try {
                 const response = await fetch(`${API_BASE}/transcrever-video`, {
@@ -2086,9 +2090,8 @@
                 });
                 const data = await response.json();
                 if (data.success) {
-                    alert('✅ Solicitação enviada! Processamento iniciará em instantes.');
-                    const modal = document.getElementById('modalProgresso');
-                    if (modal) modal.remove();
+                    // Monitorar progresso (NOVA FUNÇÃO - igual à petição)
+                    monitorarProgressoVideo(clienteNome);
                 } else {
                     throw new Error(data.error || 'Erro ao iniciar');
                 }
