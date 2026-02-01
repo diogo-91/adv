@@ -238,6 +238,7 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         try:
             filename = f"status_video_{re.sub(r'[^a-zA-Z0-9]', '_', cliente_nome)}.json"
             filepath = os.path.join("flags", filename)
+            print(f"[DEBUG WORKER] Criando arquivo de status: {filepath}")
             data = {
                 "cliente": cliente_nome,
                 "mensagem": mensagem,
@@ -248,8 +249,9 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
             }
             with open(filepath, 'w', encoding='utf-8') as f:
                 json.dump(data, f)
+            print(f"[DEBUG WORKER] Arquivo criado com sucesso! Etapa: {etapa}/{total_etapas}")
         except Exception as e:
-            print(f"Erro ao salvar status: {e}")
+            print(f"[DEBUG WORKER] Erro ao salvar status: {e}")
 
     atualizar_progresso("Iniciando processamento...", 1)
     
