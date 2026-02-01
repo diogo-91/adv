@@ -1617,21 +1617,14 @@ def check_status_transcricao():
         filename = f"status_video_{clean_name}.json"
         filepath = os.path.join("flags", filename)
         
-        print(f"[DEBUG VIDEO STATUS] Cliente: {cliente_nome}")
-        print(f"[DEBUG VIDEO STATUS] Arquivo procurado: {filepath}")
-        print(f"[DEBUG VIDEO STATUS] Arquivo existe? {os.path.exists(filepath)}")
-        
         if os.path.exists(filepath):
             try:
                 with open(filepath, 'r', encoding='utf-8') as f:
                     status_data = json.load(f)
-                print(f"[DEBUG VIDEO STATUS] Dados lidos: {status_data}")
                 return jsonify({'success': True, 'status': status_data})
             except Exception as e:
-                print(f"[DEBUG VIDEO STATUS] Erro ao ler: {e}")
                 return jsonify({'success': False, 'status': 'reading_error'})
         else:
-            print(f"[DEBUG VIDEO STATUS] Arquivo não encontrado - retornando not_started")
             return jsonify({'success': False, 'status': 'not_started'})
             
     except Exception as e:
