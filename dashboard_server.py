@@ -17,6 +17,7 @@ import io
 from docx import Document
 import tempfile
 import subprocess
+import re
 
 load_dotenv()
 
