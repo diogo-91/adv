@@ -2243,6 +2243,10 @@
                 icon.style.color = '#3b82f6';
             }
 
+            // Esconder botões de ação
+            const actions = document.getElementById('progressActions');
+            if (actions) actions.style.display = 'none';
+
             // Setar Título
             if (titleEl) titleEl.textContent = titulo;
 
