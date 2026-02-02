@@ -25,6 +25,7 @@ from docx import Document
 import tempfile
 import base64
 import google.generativeai as genai
+import re
 
 # Importar módulo Prompt Master (opcional - para petições de alto nível)
 try:
