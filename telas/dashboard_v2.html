@@ -2416,10 +2416,11 @@
             // Atualizar dados do dashboard
             carregarDados();
 
-            setTimeout(() => {
-                fecharModalProgresso();
-                // Opcional: Mostrar toast de sucesso
-            }, 3000);
+            // Mostrar botão de fechar
+            const actions = document.getElementById('progressActions');
+            if (actions) {
+                actions.style.display = 'block';
+            }
         }
 
         // --- Funções de Progresso para Vídeo (Replicando lógica da Petição) ---
