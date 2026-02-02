@@ -1892,6 +1892,10 @@
                         <i class="bi bi-check-circle-fill" style="font-size: 4rem; color: #22c55e; display: block; margin-bottom: 1rem;"></i>
                         <h4 style="color: #1e293b; margin-bottom: 1rem;">Petição Aprovada e Disponível</h4>
                         <p style="color: #64748b; margin-bottom: 2rem;">A petição foi aprovada pela auditoria e está pronta para uso.</p>
+                            <button onclick="gerarCronologiaAtual()" class="btn btn-secondary" style="background: #8b5cf6; border: none; padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 0.5rem; flex: 1; justify-content: center;">
+                                <i class="bi bi-clock-history"></i>
+                                Gerar Cronologia (V2)
+                            </button>
                         <a href="${cliente.link}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
                             <i class="bi bi-download"></i>
                             Abrir Petição no Google Drive
@@ -2957,7 +2961,7 @@
                 <button class="btn btn-secondary" onclick="fecharDetalhes()">Fechar</button>
                 <button class="btn" style="background: #8B5CF6; color: white; border: none; margin-right: 8px;"
                     onclick="gerarCronologiaAtual()">
-                    <i class="bi bi-clock-history"></i> Gerar Cronologia dos Fatos
+                    <i class="bi bi-clock-history"></i> Gerar Cronologia V2 🟣
                 </button>
                 <button class="btn btn-primary" id="btnGerarPeticaoModal" onclick="verificarEIniciarGeracao()">
                     <i class="bi bi-magic"></i> Gerar Petição Agora
