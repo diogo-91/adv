@@ -3399,6 +3399,9 @@ def processar_cronologia_manual(cliente_nome):
         if not pasta_cliente:
             print(f"   Cliente não encontrado: {cliente_nome}")
             return False
+            
+        # ATUALIZAR STATUS: Lendo documentos
+        atualizar_status_processamento(cliente_nome, 'CRONOLOGIA', 'Lendo documentos da pasta...')
         
         print(f"   ID da pasta: {pasta_cliente['id']}")
         
@@ -3464,6 +3467,9 @@ def processar_cronologia_manual(cliente_nome):
             return False
         
         print(f"   Texto extraído: {len(texto_transcricao)} caracteres")
+        
+        # ATUALIZAR STATUS: Gerando com IA
+        atualizar_status_processamento(cliente_nome, 'CRONOLOGIA', 'Extraindo fatos e datas com IA...')
         print(f"   Gerando cronologia com IA...")
         
         # Gerar cronologia
@@ -3474,15 +3480,21 @@ def processar_cronologia_manual(cliente_nome):
             return False
         
         print(f"   Cronologia gerada!")
+        
+        # ATUALIZAR STATUS: Salvando
+        atualizar_status_processamento(cliente_nome, 'CRONOLOGIA', 'Gerando arquivo final .DOCX...')
         print(f"   Salvando no Google Drive...")
         
         # Salvar cronologia no Drive
         sucesso = salvar_cronologia_docx(service, cronologia_texto, pasta_cliente['name'], pasta_cliente['id'])
         
         if sucesso:
+            # ATUALIZAR STATUS: Concluído
+            atualizar_status_processamento(cliente_nome, 'CRONOLOGIA', 'Concluído com sucesso!')
             print(f"   Cronologia salva com sucesso na pasta do cliente!")
             return True
         else:
+            atualizar_status_processamento(cliente_nome, 'CRONOLOGIA', 'Erro ao salvar arquivo')
             print(f"   Erro ao salvar cronologia")
             return False
         
