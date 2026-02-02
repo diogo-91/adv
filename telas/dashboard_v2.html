@@ -2416,12 +2416,24 @@
             icon.style.animation = 'none';
 
             // Atualizar dados do dashboard
+            console.log('[DEBUG] Finalizando sucesso. Atualizando dados...');
             carregarDados();
 
             // Mostrar botão de fechar
             const actions = document.getElementById('progressActions');
+            console.log('[DEBUG] Buscando progressActions:', actions);
             if (actions) {
                 actions.style.display = 'block';
+                // Mudar cor do botão para roxo para indicar V2
+                const btn = actions.querySelector('button');
+                if (btn) {
+                    btn.classList.remove('btn-secondary');
+                    btn.style.background = '#8b5cf6';
+                    btn.style.color = 'white';
+                    btn.textContent = 'Fechar Janela';
+                }
+            } else {
+                console.error('[ERRO] Elemento progressActions não encontrado!');
             }
         }
 
