@@ -2011,7 +2011,7 @@
 
                 if (data.success) {
                     // Monitorar status
-                    monitorarProgresso(clienteSelecionado.nome || clienteSelecionado.cliente);
+                    monitorarProgresso(clienteNome);
                 } else {
                     throw new Error(data.error || 'Erro ao iniciar geração');
                 }
@@ -2072,7 +2072,7 @@
 
                 if (data.success) {
                     // Monitorar status
-                    monitorarProgresso(clienteSelecionado.nome || clienteSelecionado.cliente);
+                    monitorarProgresso(clienteNome);
                 } else {
                     throw new Error(data.error || 'Erro ao iniciar geração de cronologia');
                 }
