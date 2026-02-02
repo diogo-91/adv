@@ -251,7 +251,9 @@ def agente_transcricao_video(service, video_id, video_nome, cliente_nome, pasta_
         except Exception as e:
             print(f"Erro ao salvar status: {e}")
 
+    print(f"[DEBUG] Chamando atualizar_progresso - Etapa 1")
     atualizar_progresso("Iniciando processamento...", 1)
+    print(f"[DEBUG] atualizar_progresso concluído - Etapa 1")
     
     try:
         # 1. Verificar se Gemini API está configurada
@@ -3229,10 +3231,13 @@ def verificar_flags_manuais():
             
             cliente_nome = dados.get('cliente_nome')
             
-            print(f"   Processando vídeos para: {cliente_nome}")
+            print(f"[DEBUG] Processando vídeos para: {cliente_nome}")
+            print(f"[DEBUG] Flag file: {flag_file}")
             
             # Processar transcrição de vídeo
+            print(f"[DEBUG] Chamando processar_transcricao_manual...")
             sucesso = processar_transcricao_manual(cliente_nome)
+            print(f"[DEBUG] processar_transcricao_manual retornou: {sucesso}")
             
             # Remover flag após processar
             os.remove(flag_file)
