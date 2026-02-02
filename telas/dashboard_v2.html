@@ -2023,11 +2023,26 @@
         async function gerarCronologiaAtual() {
             console.log('[DEBUG] gerarCronologiaAtual chamada. clienteSelecionado:', clienteSelecionado);
 
-            if (!clienteSelecionado) {
-                console.error('[ERRO] clienteSelecionado está undefined/null');
+            // Fallback: tentar pegar do DOM se clienteSelecionado for null
+            let clienteNome = null;
+            if (clienteSelecionado) {
+                clienteNome = clienteSelecionado.nome || clienteSelecionado.cliente;
+            } else {
+                // Tentar pegar do modal
+                const modalNomeElement = document.getElementById('modalClienteNome');
+                if (modalNomeElement) {
+                    clienteNome = modalNomeElement.textContent.trim();
+                    console.log('[DEBUG] Cliente extraído do DOM:', clienteNome);
+                }
+            }
+
+            if (!clienteNome) {
+                console.error('[ERRO] Não foi possível identificar o cliente');
                 alert('❌ Erro: Não foi possível identificar o cliente selecionado.\n\nPor favor, feche este modal e abra novamente clicando no card do cliente.');
                 return;
             }
+
+            console.log('[DEBUG] Cliente identificado:', clienteNome);
 
             // Fechar modal de detalhes
             fecharDetalhes();
@@ -2049,7 +2064,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        cliente_nome: clienteSelecionado.nome || clienteSelecionado.cliente
+                        cliente_nome: clienteNome
                     })
                 });
 
