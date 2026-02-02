@@ -2356,24 +2356,18 @@
 
             const msgLower = (mensagem || '').toLowerCase();
 
-            if (msgLower.includes('localizando') || msgLower.includes('buscando')) {
+            if (msgLower.includes('localizando') || msgLower.includes('buscando') || msgLower.includes('lendo documentos')) {
                 porcentagem = 25;
                 stepIndex = 1;
-            } else if (msgLower.includes('analisando') || msgLower.includes('documentos')) {
-                porcentagem = 40;
-                stepIndex = 1;
-            } else if (msgLower.includes('cronologia')) {
-                porcentagem = 60;
+            } else if (msgLower.includes('analisando') || msgLower.includes('extraindo') || msgLower.includes('fatos')) {
+                porcentagem = 50;
                 stepIndex = 2;
-            } else if (msgLower.includes('gerando') || msgLower.includes('petição')) {
-                porcentagem = 80;
-                stepIndex = 2;
-            } else if (msgLower.includes('salvando') || msgLower.includes('movendo')) {
-                porcentagem = 90;
+            } else if (msgLower.includes('cronologia') || msgLower.includes('gerando arquivo') || msgLower.includes('salvando')) {
+                porcentagem = 75;
                 stepIndex = 3;
-            } else if (status === 'sucesso' || status === 'concluido' || status === 'aprovada') {
+            } else if (msgLower.includes('concluído') || msgLower.includes('sucesso') || status === 'sucesso' || status === 'concluido' || status === 'aprovada') {
                 porcentagem = 100;
-                stepIndex = 4;
+                stepIndex = 4; // Todos completos
             }
 
             bar.style.width = `${porcentagem}%`;
