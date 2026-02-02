@@ -2508,7 +2508,10 @@
 
         function atualizarTimestamp() {
             const agora = new Date();
-            document.getElementById('ultimaAtualizacao').textContent = `Atualizado ${agora.toLocaleTimeString()}`;
+            const elemento = document.getElementById('ultimaAtualizacao');
+            if (elemento) {
+                elemento.textContent = `Atualizado ${agora.toLocaleTimeString()}`;
+            }
         }
 
         // Carregar dados inicialmente e a cada 30 segundos
