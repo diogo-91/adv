@@ -1868,7 +1868,9 @@
         });
 
         function abrirDetalhes(cliente) {
+            console.log('[DEBUG] abrirDetalhes chamada com cliente:', cliente);
             clienteSelecionado = cliente;
+            console.log('[DEBUG] clienteSelecionado definido como:', clienteSelecionado);
 
             // Usar o modal V2
             const modal = document.getElementById('modalDetalhesV2');
@@ -2019,8 +2021,11 @@
         }
 
         async function gerarCronologiaAtual() {
+            console.log('[DEBUG] gerarCronologiaAtual chamada. clienteSelecionado:', clienteSelecionado);
+
             if (!clienteSelecionado) {
-                alert('Nenhum cliente selecionado');
+                console.error('[ERRO] clienteSelecionado está undefined/null');
+                alert('❌ Erro: Não foi possível identificar o cliente selecionado.\n\nPor favor, feche este modal e abra novamente clicando no card do cliente.');
                 return;
             }
 
