@@ -1006,7 +1006,9 @@ def gerar_cronologia():
         if not os.path.exists('flags'):
             os.makedirs('flags')
             
-        filename = f"flag_cronologia_{cliente_nome.replace(' ', '_')}.json"
+        # Sanitizar nome
+        cliente_safe = re.sub(r'[^a-zA-Z0-9]', '_', cliente_nome)
+        filename = f"flag_cronologia_{cliente_safe}.json"
         flag_file = os.path.join("flags", filename)
         
         with open(flag_file, 'w', encoding='utf-8') as f:
