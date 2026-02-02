@@ -873,7 +873,9 @@
 <body>
     <!-- Modal de Progresso -->
     <div id="modalProgresso" class="modal-backdrop">
-        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem;">
+        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem; position: relative;">
+            <button onclick="fecharModalProgresso()"
+                style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer;">&times;</button>
             <div id="progressContent">
                 <i class="bi bi-gear-wide-connected spin-icon"
                     style="font-size: 4rem; color: #3b82f6; margin-bottom: 1.5rem; display: inline-block;"></i>
