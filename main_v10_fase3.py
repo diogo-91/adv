@@ -18,6 +18,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 from anthropic import Anthropic
+import httpx  # Para configurar timeout
 import io
 from PIL import Image
 import fitz  # PyMuPDF
@@ -40,7 +41,13 @@ load_dotenv()
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
-anthropic_client = Anthropic(api_key=ANTHROPIC_API_KEY)
+
+# Configurar cliente Anthropic com timeout para evitar travamentos
+# Timeout: 5 minutos total (300s), 10 segundos para conectar
+anthropic_client = Anthropic(
+    api_key=ANTHROPIC_API_KEY,
+    timeout=httpx.Timeout(300.0, connect=10.0)
+)
 
 # Configurar Gemini API para transcrição de vídeos
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
@@ -828,16 +835,18 @@ def inserir_marcadores_prints(texto_peticao, tipo_acao, arquivos_cliente):
                     
                     if arquivo_encontrado:
                         status = "Disponível"
-                        marcador = f"\n\n[INSERIR PRINT: {nome_print} - Arquivo: {arquivo_encontrado} - Status: {status}]\n\n"
+                        # REMOVIDO: Não inserir marcadores na petição
+                        # marcador = f"\n\n[INSERIR PRINT: {nome_print} - Arquivo: {arquivo_encontrado} - Status: {status}]\n\n"
                     else:
                         if critico:
-                            status = "FALTANTE -  CRÍTICO"
+                            status = "FALTANTE - ⚠ CRÍTICO"
                             prints_faltantes[prioridade].append(nome_print)
                         else:
                             status = "FALTANTE"
                             prints_faltantes[prioridade].append(nome_print)
                         
-                        marcador = f"\n\n[INSERIR PRINT: {nome_print} - Arquivo: {status}]\n\n"
+                        # REMOVIDO: Não inserir marcadores na petição
+                        # marcador = f"\n\n[INSERIR PRINT: {nome_print} - Arquivo: {status}]\n\n"
                     
                     marcadores_inseridos.append({
                         'nome': nome_print,
@@ -847,16 +856,17 @@ def inserir_marcadores_prints(texto_peticao, tipo_acao, arquivos_cliente):
                         'critico': critico
                     })
                     
-                    # Inserir marcador após primeira menção
-                    # Encontrar final do parágrafo
-                    pos_final_paragrafo = texto_peticao.find('\n', posicao_mencao)
-                    if pos_final_paragrafo == -1:
-                        pos_final_paragrafo = len(texto_peticao)
-                    
-                    # Inserir marcador
-                    texto_modificado = (texto_modificado[:pos_final_paragrafo] + 
-                                      marcador + 
-                                      texto_modificado[pos_final_paragrafo:])
+                    # REMOVIDO: Não inserir marcador no texto da petição
+                    # # Inserir marcador após primeira menção
+                    # # Encontrar final do parágrafo
+                    # pos_final_paragrafo = texto_peticao.find('\n', posicao_mencao)
+                    # if pos_final_paragrafo == -1:
+                    #     pos_final_paragrafo = len(texto_peticao)
+                    # 
+                    # # Inserir marcador
+                    # texto_modificado = (texto_modificado[:pos_final_paragrafo] + 
+                    #                   marcador + 
+                    #                   texto_modificado[pos_final_paragrafo:])
         
         # Verificar se há prints críticos faltantes
         tem_criticos_faltantes = False
