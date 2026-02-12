@@ -1,5 +1,3 @@
-DA JUNTADA DE DOCUMENTOS
-
 {PARAGRAFO_INICIAL}. Instruem a presente inicial os seguintes documentos:
 
 {LISTA_DOCUMENTOS}

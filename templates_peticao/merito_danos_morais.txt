@@ -1,5 +1,3 @@
-DOS DANOS MORAIS
-
 {PARAGRAFO_INICIAL}. O reclamante sofreu danos morais em decorrência de {DESCRICAO_DANO}, o que configura violação aos direitos da personalidade previstos nos arts. 5º, X, da Constituição Federal e 186 e 927 do Código Civil.
 
 {PARAGRAFO_SITUACAO}. {DETALHAMENTO_SITUACAO_DANOSA}

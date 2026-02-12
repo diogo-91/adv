@@ -1,7 +1,3 @@
-DAS MULTAS DOS ARTIGOS 477 E 467 DA CLT
-
-DA MULTA DO ARTIGO 477, § 8º, DA CLT
-
 {PARAGRAFO_477_INICIAL}. A reclamada não efetuou o pagamento das verbas rescisórias no prazo legal previsto no art. 477, § 6º, da CLT, que estabelece o prazo de até 10 (dez) dias contados a partir do término do contrato.
 
 {PARAGRAFO_477_CONSEQUENCIA}. O descumprimento desse prazo acarreta a aplicação da multa prevista no § 8º do mesmo dispositivo legal, correspondente a um salário do empregado, corrigido monetariamente.
@@ -11,8 +7,6 @@ DA MULTA DO ARTIGO 477, § 8º, DA CLT
 {JURISPRUDENCIA_477}
 
 {PARAGRAFO_477_VALOR}. Considerando o último salário do reclamante no valor de {SALARIO}, a multa devida corresponde a {VALOR_MULTA_477}.
-
-DA MULTA DO ARTIGO 467 DA CLT
 
 {PARAGRAFO_467_INICIAL}. As verbas rescisórias devidas ao reclamante possuem natureza incontrovers a, uma vez que decorrem diretamente da legislação trabalhista e não foram pagas no prazo legal.
 

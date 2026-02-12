@@ -1146,56 +1146,36 @@ def listar_videos_pendentes():
 def executar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao):
     """
     Executa a geração manual de petição
-    
-    OPÇÃO 1: Importar diretamente (se main.py estiver preparado)
-    OPÇÃO 2: Executar como subprocess (mais seguro)
+    Importa e executa diretamente a função do main_v10_fase3.py
     """
     try:
-        # OPÇÃO 1: Importar diretamente
-        # Descomente se tiver a função no main.py:
-        """
-        from main_v10_fase3 import gerar_peticao_para_cliente
+        # Importar a função de processamento do main
+        from main_v10_fase3 import processar_geracao_manual
         
-        resultado = gerar_peticao_para_cliente(
-            cliente_nome=cliente_nome,
-            tipo_acao=tipo_acao,
-            forcar_geracao=forcar_geracao
-        )
-        return resultado
-        """
+        print(f"🔄 Iniciando processamento de {cliente_nome}...")
         
-        # OPÇÃO 2: Executar como subprocess (RECOMENDADO)
-        # Cria um arquivo temporário com flag de geração manual
-        # IMPORTANTE: Salvar na pasta 'flags' pois o worker procura lá
-        if not os.path.exists('flags'):
-            os.makedirs('flags')
-            
-        filename = f"flag_manual_{cliente_nome.replace(' ', '_')}.json"
-        flag_file = os.path.join("flags", filename)
+        # Executar o processamento (isso vai demorar alguns minutos)
+        sucesso = processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao)
         
-        with open(flag_file, 'w', encoding='utf-8') as f:
-            json.dump({
-                'cliente_nome': cliente_nome,
-                'tipo_acao': tipo_acao,
-                'forcar_geracao': forcar_geracao,
-                'timestamp': datetime.now().isoformat()
-            }, f)
-        
-        # O main.py deve verificar por flags e processar
-        # Por enquanto, retornar sucesso simulado
-        print(f"✅ Flag criada: {flag_file}")
-        print(f"⏳ Aguarde o main.py processar...")
-        
-        return {
-            'success': True,
-            'message': 'Solicitação de geração enviada',
-            'arquivo': f'Peticao_{cliente_nome}_pendente.docx',
-            'link': None,
-            'flag_file': flag_file
-        }
+        if sucesso:
+            print(f"✅ Petição gerada com sucesso para {cliente_nome}")
+            return {
+                'success': True,
+                'message': 'Petição gerada com sucesso',
+                'arquivo': f'Peticao_{tipo_acao}_{cliente_nome}',
+                'link': None  # O link será obtido do histórico
+            }
+        else:
+            print(f"❌ Falha ao gerar petição para {cliente_nome}")
+            return {
+                'success': False,
+                'error': 'Erro ao processar petição. Verifique os logs para mais detalhes.'
+            }
         
     except Exception as e:
         print(f"❌ Erro em executar_geracao_manual: {e}")
+        import traceback
+        traceback.print_exc()
         return {
             'success': False,
             'error': str(e)

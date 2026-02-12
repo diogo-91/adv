@@ -1672,18 +1672,51 @@ def baixar_arquivo(service, file_id):
         return None
 
 def converter_pdf_para_imagens(conteudo_bytes):
+    """
+    Converte primeiras 3 páginas do PDF em imagens otimizadas para IA
+    Limite: 4MB por imagem (API do Claude aceita ~5MB)
+    """
     try:
+        import io
+        from PIL import Image
+        
         pdf_document = fitz.open(stream=conteudo_bytes, filetype="pdf")
         imagens = []
+        
+        # Limitar a 3 páginas para não estourar contexto
         for page_num in range(min(3, len(pdf_document))):
             page = pdf_document[page_num]
-            pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))
-            img_data = pix.tobytes("png")
+            
+            # Tentar primeiro com resolução média (1.5x - bom para leitura)
+            zoom = 1.5
+            pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom))
+            img_data = pix.tobytes("jpeg", jpg_quality=85)
+            
+            # Se ficou muito grande (> 4MB), reduzir recursivamente
+            while len(img_data) > 4 * 1024 * 1024 and zoom > 0.5:
+                print(f"[COMPRESSAO] Imagem muito grande ({len(img_data)/1024/1024:.2f}MB). Reduzindo...")
+                zoom -= 0.3
+                pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom))
+                img_data = pix.tobytes("jpeg", jpg_quality=80)
+            
+            # Última tentativa: compressão bruta se ainda estiver grande
+            if len(img_data) > 4 * 1024 * 1024:
+                print(f"[COMPRESSAO] Aplicando rescale final de emergência...")
+                img = Image.open(io.BytesIO(img_data))
+                img.thumbnail((1024, 1024)) # Forçar max dimension
+                buffer = io.BytesIO()
+                img.save(buffer, format="JPEG", quality=70)
+                img_data = buffer.getvalue()
+
+            print(f"[IMAGEM] Página {page_num+1} convertida: {len(img_data)/1024/1024:.2f}MB")
+            
             img_base64 = base64.b64encode(img_data).decode('utf-8')
             imagens.append(img_base64)
+            
         pdf_document.close()
         return imagens
-    except:
+    except Exception as e:
+        print(f"[ERRO IMAGEM] Falha ao converter PDF: {e}")
         return []
 
 def extrair_texto_pdf(conteudo_bytes):
