@@ -3526,12 +3526,41 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
     Returns:
         bool: True se sucesso, False se erro
     """
+    # NOVO: Sistema de Lock para evitar processamento duplicado
+    lock_file = None
     try:
-        # STATUS 1: Iniciando processamento
-        print(f"   Criando entrada no histórico...")
-        atualizar_status_processamento(cliente_nome, tipo_acao, "Iniciando processamento...")
+        print(f"\n{'='*70}")
+        print(f"  🚀 INICIANDO GERAÇÃO MANUAL DE PETIÇÃO")
+        print(f"  👤 Cliente: {cliente_nome}")
+        print(f"  📋 Tipo: {tipo_acao}")
+        print(f"{'='*70}\n")
         
+        # Verificar se já está processando
+        cliente_safe = re.sub(r'[^a-zA-Z0-9]', '_', cliente_nome)
+        lock_file = f"flags/processing_{cliente_safe}.lock"
+        
+        if os.path.exists(lock_file):
+            print(f"❌ BLOQUEADO: Cliente {cliente_nome} já está sendo processado!")
+            print(f"   Arquivo de lock: {lock_file}")
+            with open(lock_file, 'r') as f:
+                lock_time = f.read()
+            print(f"   Processamento iniciado em: {lock_time}")
+            return False
+        
+        # Criar arquivo de lock
+        print(f"[DEBUG] Criando arquivo de lock: {lock_file}")
+        with open(lock_file, 'w') as f:
+            f.write(datetime.now().isoformat())
+        print(f"[DEBUG] ✓ Lock criado com sucesso")
+        
+        # STATUS 1: Iniciando processamento
+        print(f"\n[DEBUG] Etapa 1: Criando entrada no histórico...")
+        atualizar_status_processamento(cliente_nome, tipo_acao, "Iniciando processamento...")
+        print(f"[DEBUG] ✓ Entrada criada no histórico")
+        
+        print(f"\n[DEBUG] Etapa 2: Autenticando Google Drive...")
         service = autenticar_google_drive()
+        print(f"[DEBUG] ✓ Autenticado com sucesso")
         
         # Determinar qual pasta buscar baseado no tipo
         pasta_id = None
@@ -3638,9 +3667,10 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         atualizar_status_processamento(cliente_nome, tipo_acao, f"Baixando {len(docs)} documentos...")
         
         # Baixar documentos completos
-        print(f"\n   Baixando documentos...")
+        print(f"\n[DEBUG] Etapa 4: Baixando {len(docs)} documentos...")
         docs_completos = []
-        for doc in docs:
+        for i, doc in enumerate(docs, 1):
+            print(f"[DEBUG]   Baixando {i}/{len(docs)}: {doc['nome'][:50]}...")
             cont = baixar_arquivo(service, doc['id'])
             if cont:
                 texto = extrair_texto_pdf(cont) if doc['nome'].lower().endswith('.pdf') else ""
@@ -3651,7 +3681,7 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                     'texto': texto
                 })
         
-        print(f"   {len(docs_completos)} documentos baixados")
+        print(f"[DEBUG] ✓ {len(docs_completos)} documentos baixados com sucesso")
         
         # ============================================================================
         # BUSCAR RESUMO DO VÍDEO E CRONOLOGIA DOS FATOS
@@ -3831,14 +3861,15 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         }
         
         # Gerar petição
-        print(f"\n   Gerando petição com Claude AI...")
+        print(f"\n[DEBUG] Etapa 5: Gerando petição com Claude AI...")
         if procuracao_texto:
-            print(f"      Usando dados da procuração")
+            print(f"[DEBUG]   ✓ Usando dados da procuração ({len(procuracao_texto)} chars)")
         if resumo_texto:
-            print(f"      Usando resumo do vídeo")
+            print(f"[DEBUG]   ✓ Usando resumo do vídeo ({len(resumo_texto)} chars)")
         if cronologia_texto:
-            print(f"      Usando cronologia dos fatos")
+            print(f"[DEBUG]   ✓ Usando cronologia dos fatos ({len(cronologia_texto)} chars)")
         
+        print(f"[DEBUG]   Chamando API do Claude... (isso pode demorar 2-5 minutos)")
         peticao = gerar_peticao_com_claude(
             service, 
             cliente_info, 
@@ -3851,17 +3882,18 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         )
         
         if not peticao:
-            print(f"   Erro ao gerar petição")
+            print(f"[DEBUG] ❌ Erro: API do Claude retornou None")
             return False
         
-        print(f"   Petição gerada ({len(peticao)} caracteres)")
+        print(f"[DEBUG] ✓ Petição gerada com sucesso ({len(peticao)} caracteres)")
         
         # STATUS 6: Salvando
         atualizar_status_processamento(cliente_nome, tipo_acao, "Salvando petição no Drive...")
         
         # Salvar no Drive
-        print(f"\n   Salvando no Google Drive...")
+        print(f"\n[DEBUG] Etapa 6: Salvando petição no Google Drive...")
         arquivo = salvar_peticao_no_drive(service, peticao, cliente_info, arquivos_cliente=docs, usar_prompt_master=True)
+        print(f"[DEBUG] ✓ Arquivo salvo no Drive")
         
         if not arquivo:
             print(f"   Erro ao salvar no Drive")
@@ -3956,13 +3988,31 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                 import traceback
                 traceback.print_exc()
         
+        print(f"\n{'='*70}")
+        print(f"  ✅ PETIÇÃO GERADA COM SUCESSO!")
+        print(f"  👤 Cliente: {cliente_nome}")
+        print(f"{'='*70}\n")
+        
         return True
         
     except Exception as e:
-        print(f"   ERRO em processar_geracao_manual: {e}")
+        print(f"\n{'='*70}")
+        print(f"  ❌ ERRO EM PROCESSAR_GERACAO_MANUAL")
+        print(f"  👤 Cliente: {cliente_nome}")
+        print(f"  🐛 Erro: {e}")
+        print(f"{'='*70}\n")
         import traceback
         traceback.print_exc()
         return False
+    finally:
+        # SEMPRE remover o lock ao finalizar (sucesso ou erro)
+        if lock_file and os.path.exists(lock_file):
+            print(f"\n[DEBUG] Removendo arquivo de lock: {lock_file}")
+            try:
+                os.remove(lock_file)
+                print(f"[DEBUG] ✓ Lock removido com sucesso")
+            except Exception as e:
+                print(f"[DEBUG] ⚠ Erro ao remover lock: {e}")
 
 def main():
     print("\n" + "="*70)
