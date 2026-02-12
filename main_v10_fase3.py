@@ -1960,7 +1960,7 @@ DOCUMENTOS FORNECIDOS:
                 if imagens:
                     conteudo_mensagem.append({
                         "type": "image",
-                        "source": {"type": "base64", "media_type": "image/png", "data": imagens[0]}
+                        "source": {"type": "base64", "media_type": "image/jpeg", "data": imagens[0]}
                     })
             if doc.get('texto'):
                 conteudo_mensagem.append({
