@@ -1470,7 +1470,7 @@ def aplicar_formatacoes_especiais_word(doc):
                 paragraph.paragraph_format.space_before = Pt(24)
                 paragraph.paragraph_format.space_after = Pt(12)
                 
-                texto_limpo = texto.replace('**', '')
+                texto_limpo = texto.replace('**', '').lstrip('# ')
                 paragraph.text = "" 
                 run = paragraph.add_run(texto_limpo)
                 run.font.bold = True
@@ -1487,7 +1487,7 @@ def aplicar_formatacoes_especiais_word(doc):
                 paragraph.paragraph_format.space_before = Pt(24)
                 paragraph.paragraph_format.space_after = Pt(12)
                 
-                texto_limpo = texto.replace('**', '')
+                texto_limpo = texto.replace('**', '').lstrip('# ')
                 paragraph.text = "" 
                 run = paragraph.add_run(texto_limpo)
                 run.font.bold = True
