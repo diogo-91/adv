@@ -1364,9 +1364,9 @@ def aplicar_formatacoes_especiais_word(doc):
         # Padrões para detecção
         padrao_vocativo = re.compile(r'EXCELENT[ÍI]SSIMO', re.IGNORECASE)
         padrao_negrito = re.compile(r'\*\*(.*?)\*\*')
-        padrao_titulos_n1 = re.compile(r'^\s*(I{1,3}\.|IV\.|V\.|VI\.|VII\.|VIII\.|IX\.|X\.)\s+[A-ZÀ-Ú]') # Nível 1: Romanos
-        padrao_titulos_n2 = re.compile(r'^\s*([0-9]+\.)\s+[A-ZÀ-Ú]') # Nível 2: Numéricos (1. DA COMPETÊNCIA)
-        padrao_numeracao = re.compile(r'^([a-z]\)|\d+\.)\s')
+        padrao_titulos_n1 = re.compile(r'^\s*#*\s*(I{1,3}\.|IV\.|V\.|VI\.|VII\.|VIII\.|IX\.|X\.)\s+[A-ZÀ-Ú]') # Nível 1: Romanos
+        padrao_titulos_n2 = re.compile(r'^\s*#*\s*([0-9]+\.)\s+[A-ZÀ-Ú]') # Nível 2: Numéricos (1. DA COMPETÊNCIA)
+        padrao_numeracao = re.compile(r'^\s*#*\s*([a-z]\)|\d+\.)\s')
         padrao_jurisprudencia = re.compile(r'^\s*("?EMENTA|AGRAVO|RECURSO|SÚMULA|OJ|PROCESSO|TRT|TST|STF|STJ|Relator|Data\sde\sJulgamento)\b', re.IGNORECASE)
         
         from docx.shared import RGBColor
@@ -1514,7 +1514,9 @@ def aplicar_formatacoes_especiais_word(doc):
             match_num = padrao_numeracao.match(paragraph.text)
             if match_num and not paragraph.text.isupper():
                 numero = match_num.group(1)
-                texto_atual = paragraph.text
+                texto_atual = paragraph.text.lstrip('# ')
+                # Remove starting spaces, then slice out the number length
+                texto_atual = texto_atual.lstrip()
                 resto = texto_atual[len(numero):]
                 
                 # Se para alíneas for lowerLetter
