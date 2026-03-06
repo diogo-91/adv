@@ -1366,7 +1366,7 @@ def aplicar_formatacoes_especiais_word(doc):
         padrao_negrito = re.compile(r'\*\*(.*?)\*\*')
         padrao_titulos_n1 = re.compile(r'^\s*#*\s*(I{1,3}\.|IV\.|V\.|VI\.|VII\.|VIII\.|IX\.|X\.)\s+[A-ZÀ-Ú]') # Nível 1: Romanos
         padrao_titulos_n2 = re.compile(r'^\s*#*\s*([0-9]+\.)\s+[A-ZÀ-Ú]') # Nível 2: Numéricos (1. DA COMPETÊNCIA)
-        padrao_numeracao = re.compile(r'^\s*#*\s*([a-z]\)|\d+\.)\s')
+        padrao_numeracao = re.compile(r'^\s*#*\s*([a-zA-Z]\)|\d+\.)\s')
         padrao_jurisprudencia = re.compile(r'^\s*("?EMENTA|AGRAVO|RECURSO|SÚMULA|OJ|PROCESSO|TRT|TST|STF|STJ|Relator|Data\sde\sJulgamento)\b', re.IGNORECASE)
         
         from docx.shared import RGBColor
@@ -1499,6 +1499,25 @@ def aplicar_formatacoes_especiais_word(doc):
                 run.font.bold = True
                 # A especificação técnica dizia itálico, MAS A IMAGEM NÃO MOSTRA ITÁLICO
                 run.font.italic = False
+                run.font.name = 'Verdana'
+                run.font.size = Pt(10)
+                run.font.size = Pt(10)
+                continue
+
+            # --- 5.5 SUBTÍTULOS GENÉRICOS DE MARKDOWN (### e ####) ---
+            # Se a linha possui marcações de título Markdown e não foi pega nas regras super estritas acima,
+            # formataremos como um Subtítulo (Nível 3 ou 4) com destaque em negrito e sem as hashes.
+            if texto.lstrip().startswith('#'):
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                paragraph.paragraph_format.left_indent = Cm(2.0)
+                paragraph.paragraph_format.first_line_indent = Cm(0)
+                paragraph.paragraph_format.space_before = Pt(12)
+                paragraph.paragraph_format.space_after = Pt(12)
+                
+                texto_limpo = texto.replace('**', '').lstrip('# ')
+                paragraph.text = "" 
+                run = paragraph.add_run(texto_limpo)
+                run.font.bold = True
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
                 continue
