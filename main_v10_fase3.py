@@ -1386,16 +1386,22 @@ def aplicar_formatacoes_especiais_word(doc):
             # --- 1. DETECÇÃO E FORMATAÇÃO DE VOCATIVO ---
             if not vocativo_encontrado and padrao_vocativo.search(texto) and len(texto) < 300:
                 vocativo_encontrado = True
-                paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                paragraph.paragraph_format.left_indent = Cm(2.0)
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                paragraph.paragraph_format.left_indent = Cm(0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
                 paragraph.text = texto.upper()
                 for run in paragraph.runs:
                     run.font.bold = True
                     run.font.name = 'Verdana'
                     run.font.size = Pt(10)
-                paragraph.paragraph_format.space_after = Pt(24)
+                paragraph.paragraph_format.space_after = Pt(120)  # Large space after vocativo
                 continue
+            
+            # --- 1.5 ALINHAR QUALIFICAÇÃO E PROPOR A PRESENTE (tudo antes do Nível 1) ---
+            # Se já achou vocativo, mas ainda não chegou nos Fatos/Preliminares, tira o recuo esquerdo
+            if vocativo_encontrado and not padrao_titulos_n1.match(texto) and not padrao_titulos_n2.match(texto):
+                paragraph.paragraph_format.left_indent = Cm(0)
+                paragraph.paragraph_format.first_line_indent = Cm(0)
             
             # --- 2. NOME DO AUTOR (Primeiro parágrafo significativo após vocativo) ---
             if vocativo_encontrado and not autor_formatado and len(texto) > 10:
@@ -1408,8 +1414,7 @@ def aplicar_formatacoes_especiais_word(doc):
                     nome = match_markdown.group(1) if match_markdown else primeira_parte
                     resto = texto_limpo[len(nome):]
                     
-                    # Nome Autor e Réu em Caixa Alta e Negrito, Autor sublinhado.
-                    # Simplificação: aplica formatação baseada no markdown ou maiúsculo
+                    # Nome Autor em Caixa Alta e Negrito, Sublinhado.
                     run_nome = paragraph.add_run(nome.upper())
                     run_nome.font.bold = True
                     run_nome.font.underline = True
