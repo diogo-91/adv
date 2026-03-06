@@ -1374,6 +1374,7 @@ def aplicar_formatacoes_especiais_word(doc):
         
         vocativo_encontrado = False
         autor_formatado = False
+        primeiro_titulo_encontrado = False
         
         # Iterar sobre parágrafos
         for i, paragraph in enumerate(doc.paragraphs):
@@ -1464,6 +1465,10 @@ def aplicar_formatacoes_especiais_word(doc):
 
             # --- 4. TÍTULOS DE SEÇÃO NÍVEL 1 (Ex: I. PRELIMINARES) ---
             if padrao_titulos_n1.match(texto) and texto.replace('**','').isupper():
+                if not primeiro_titulo_encontrado:
+                    paragraph.paragraph_format.page_break_before = True
+                    primeiro_titulo_encontrado = True
+                    
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 paragraph.paragraph_format.left_indent = Cm(0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
