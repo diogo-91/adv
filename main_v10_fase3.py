@@ -1387,15 +1387,16 @@ def aplicar_formatacoes_especiais_word(doc):
             # --- 1. DETECÇÃO E FORMATAÇÃO DE VOCATIVO ---
             if not vocativo_encontrado and padrao_vocativo.search(texto) and len(texto) < 300:
                 vocativo_encontrado = True
-                paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 paragraph.paragraph_format.left_indent = Cm(0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
-                paragraph.text = texto.upper()
-                for run in paragraph.runs:
-                    run.font.bold = True
-                    run.font.name = 'Verdana'
-                    run.font.size = Pt(10)
-                paragraph.paragraph_format.space_after = Pt(120)  # Large space after vocativo
+                paragraph.text = ""
+                run = paragraph.add_run(texto.upper())
+                run.font.bold = True
+                run.font.name = 'Verdana'
+                run.font.size = Pt(10)
+                # Adiciona um espaçamento maciço após o vocativo para jogar a qualificação lá para o rodapé
+                paragraph.paragraph_format.space_after = Pt(280)  
                 continue
             
             # --- 1.5 ALINHAR QUALIFICAÇÃO E PROPOR A PRESENTE (tudo antes do Nível 1) ---
