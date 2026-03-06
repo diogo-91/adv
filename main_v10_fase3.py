@@ -1401,7 +1401,7 @@ def aplicar_formatacoes_especiais_word(doc):
             
             # --- 1.5 ALINHAR QUALIFICAÇÃO E PROPOR A PRESENTE (tudo antes do Nível 1) ---
             # Se já achou vocativo, mas ainda não chegou nos Fatos/Preliminares, tira o recuo esquerdo
-            if vocativo_encontrado and not padrao_titulos_n1.match(texto) and not padrao_titulos_n2.match(texto):
+            if vocativo_encontrado and not padrao_titulos_n1.match(texto) and not padrao_titulos_n2.match(texto) and not primeiro_titulo_encontrado:
                 paragraph.paragraph_format.left_indent = Cm(0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
             
@@ -1579,11 +1579,35 @@ def aplicar_formatacoes_especiais_word(doc):
                     run_resto.font.name = 'Verdana'
                     run_resto.font.size = Pt(10)
 
-        print(f"         Formatações especiais ROBUSTAS aplicadas (incluindo sublinhado e espaçamento)")
-        return doc
+        # --- 8. ADICIONAR NUMERAÇÃO DE PÁGINAS NO RODAPÉ ---
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
         
+        def create_page_number():
+            fldSimple = OxmlElement('w:fldSimple')
+            fldSimple.set(qn('w:instr'), 'PAGE')
+            return fldSimple
+            
+        for section in doc.sections:
+            footer = section.footer
+            # Pegamos o primeiro parágrafo do rodapé ou criamos um
+            paragraph = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+            paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+            
+            # Limpa o parágrafo (caso já exista numeração prévia)
+            paragraph.text = ""
+            
+            # Adiciona o campo de número de página
+            # Usando a estrutura WordProcessingML baseada no add_run()
+            run = paragraph.add_run()
+            run.font.name = 'Verdana'
+            run.font.size = Pt(9)
+            run._r.append(create_page_number())
+
+        print(f"         Formatações especiais e paginação aplicadas com sucesso (Robustez ativada)")
+        return doc
     except Exception as e:
-        print(f"         Erro ao aplicar formatações especiais: {e}")
+        print(f"         Erro nas formatações especiais: {e}")
         import traceback
         traceback.print_exc()
         return doc
