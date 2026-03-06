@@ -1464,6 +1464,7 @@ def aplicar_formatacoes_especiais_word(doc):
 
             # --- 4. TÍTULOS DE SEÇÃO NÍVEL 1 (Ex: I. PRELIMINARES) ---
             if padrao_titulos_n1.match(texto) and texto.replace('**','').isupper():
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 paragraph.paragraph_format.left_indent = Cm(0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
                 paragraph.paragraph_format.space_before = Pt(24)
@@ -1480,16 +1481,18 @@ def aplicar_formatacoes_especiais_word(doc):
 
             # --- 5. TÍTULOS DE SEÇÃO NÍVEL 2 (Ex: 1. DA COMPETÊNCIA) ---
             if padrao_titulos_n2.match(texto) and texto.replace('**','').isupper():
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 paragraph.paragraph_format.left_indent = Cm(2.0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
-                paragraph.paragraph_format.space_before = Pt(12)
-                paragraph.paragraph_format.space_after = Pt(6)
+                paragraph.paragraph_format.space_before = Pt(24)
+                paragraph.paragraph_format.space_after = Pt(12)
                 
                 texto_limpo = texto.replace('**', '')
                 paragraph.text = "" 
                 run = paragraph.add_run(texto_limpo)
                 run.font.bold = True
-                run.font.italic = True
+                # A especificação técnica dizia itálico, MAS A IMAGEM NÃO MOSTRA ITÁLICO
+                run.font.italic = False
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
                 continue
@@ -1518,13 +1521,23 @@ def aplicar_formatacoes_especiais_word(doc):
                 if numero.endswith(')'):
                     paragraph.paragraph_format.left_indent = Cm(2.5)
                     paragraph.paragraph_format.first_line_indent = Cm(0)
-                
+                else:
+                    # Parágrafo numerado base (1. , 2. etc)
+                    paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                    paragraph.paragraph_format.left_indent = Cm(2.0)
+                    paragraph.paragraph_format.first_line_indent = Cm(2.0)
+                    # Espaço extra entre os parágrafos numerados (como na imagem)
+                    paragraph.paragraph_format.space_before = Pt(12)
+                    paragraph.paragraph_format.space_after = Pt(0)
+                    
                 # Verificar se o resto já foi formatado em partes (ex: contém negrito pelo regex acima)
                 # Se não usou markdown, ou se vamos sobrescrever:
                 if '**' not in texto:
                     paragraph.text = "" 
                     run_num = paragraph.add_run(numero)
-                    run_num.font.bold = True
+                    # Na imagem o número NORMAL não é negrito (ex: "1. A presente demanda..."). Apenas no Título 2 (Ex: "1. DA COMPETÊNCIA")
+                    # Portanto, vamos tirar o negrito do número do parágrafo:
+                    run_num.font.bold = False
                     run_num.font.name = 'Verdana'
                     run_num.font.size = Pt(10)
                     
