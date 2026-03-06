@@ -1464,6 +1464,9 @@ def aplicar_formatacoes_especiais_word(doc):
                     r2.font.color.rgb = azul_juris
                 continue
 
+            # Variável de controle para não sobrescrever formatação depois
+            titulo_formatado = False
+
             # --- 4. TÍTULOS DE SEÇÃO NÍVEL 1 (Ex: I. PRELIMINARES) ---
             if padrao_titulos_n1.match(texto) and texto.replace('**','').isupper():
                 if not primeiro_titulo_encontrado:
@@ -1483,6 +1486,7 @@ def aplicar_formatacoes_especiais_word(doc):
                 run.font.underline = True
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
+                titulo_formatado = True
                 continue
 
             # --- 5. TÍTULOS DE SEÇÃO NÍVEL 2 (Ex: 1. DA COMPETÊNCIA) ---
@@ -1502,6 +1506,7 @@ def aplicar_formatacoes_especiais_word(doc):
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
                 run.font.size = Pt(10)
+                titulo_formatado = True
                 continue
 
             # --- 5.5 SUBTÍTULOS GENÉRICOS DE MARKDOWN (### e ####) ---
@@ -1520,6 +1525,7 @@ def aplicar_formatacoes_especiais_word(doc):
                 run.font.bold = True
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
+                titulo_formatado = True
                 continue
 
             # --- 6. FORMATAR MARKDOWN EM GERAL (**texto**) ---
@@ -1537,7 +1543,7 @@ def aplicar_formatacoes_especiais_word(doc):
             # --- 7. NÚMEROS DE PARÁGRAFOS E ALÍNEAS ---
             # Detectar "1. Texto..." ou "a) Texto" e garantir que só o "1." seja negrito
             match_num = padrao_numeracao.match(paragraph.text)
-            if match_num and not paragraph.text.isupper():
+            if match_num and not paragraph.text.isupper() and not titulo_formatado and not texto.lstrip().startswith('#'):
                 numero = match_num.group(1)
                 texto_atual = paragraph.text.lstrip('# ')
                 # Remove starting spaces, then slice out the number length
