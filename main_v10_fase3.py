@@ -1590,12 +1590,10 @@ def aplicar_formatacoes_especiais_word(doc):
             
         for section in doc.sections:
             footer = section.footer
-            # Pegamos o primeiro parágrafo do rodapé ou criamos um
-            paragraph = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+            # Adiciona um novo parágrafo ao final do rodapé para o número da página,
+            # em vez de sobrescrever o primeiro parágrafo (preservando imagens do template)
+            paragraph = footer.add_paragraph()
             paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-            
-            # Limpa o parágrafo (caso já exista numeração prévia)
-            paragraph.text = ""
             
             # Adiciona o campo de número de página
             # Usando a estrutura WordProcessingML baseada no add_run()
