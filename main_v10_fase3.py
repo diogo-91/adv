@@ -1302,13 +1302,15 @@ def aplicar_formatacao_master(doc):
     - Recuo: 2cm à esquerda em todo o texto
     """
     try:
-        from docx.shared import Pt, Cm
+        from docx.shared import Pt, Cm, RGBColor
         from docx.enum.text import WD_ALIGN_PARAGRAPH
         
         # Configurar margens conforme especificação do usuário
         for section in doc.sections:
-            section.top_margin = Cm(3)
-            section.bottom_margin = Cm(1)
+            section.page_width = Cm(21.0)
+            section.page_height = Cm(29.7)
+            section.top_margin = Cm(3.0)
+            section.bottom_margin = Cm(1.0)
             section.left_margin = Cm(3.25)
             section.right_margin = Cm(2.5)
             
@@ -1317,25 +1319,27 @@ def aplicar_formatacao_master(doc):
             section.header_distance = Cm(1.5)  # Espaço abaixo do cabeçalho
             section.footer_distance = Cm(1.0)  # Espaço acima do rodapé
         
-        # Aplicar formatação a todos os parágrafos
+        # Aplicar formatação a todos os parágrafos (Corpo Normal)
         for paragraph in doc.paragraphs:
             # Alinhamento justificado
             paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
             
-            # Espaçamento 1.5
+            # Espaçamento 1.5 e exatos 0pt antes e depois
             paragraph.paragraph_format.line_spacing = 1.5
+            paragraph.paragraph_format.space_before = Pt(0)
+            paragraph.paragraph_format.space_after = Pt(0)
             
-            # SEM recuo de parágrafo (alinhado à margem esquerda)
-            paragraph.paragraph_format.left_indent = Cm(0)
-            paragraph.paragraph_format.right_indent = Cm(0)
-            paragraph.paragraph_format.first_line_indent = Cm(0)
+            # Recuo padrão corpo numerado: left=2cm, right=-0.25cm, first_line=2cm
+            paragraph.paragraph_format.left_indent = Cm(2.0)
+            paragraph.paragraph_format.right_indent = Cm(-0.25)
+            paragraph.paragraph_format.first_line_indent = Cm(2.0)
             
             # Fonte Verdana 10pt
             for run in paragraph.runs:
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
         
-        print(f"         Formatação aplicada (Verdana 10pt, margens 3-1-3.25-2.5, SEM recuo, espaçamento cabeçalho/rodapé)")
+        print(f"         Formatação aplicada (Verdana 10pt, margens 3-1-3.25-2.5, Recuos base)")
         return doc
     except Exception as e:
         print(f"         Erro ao aplicar formatação: {e}")
@@ -1360,8 +1364,13 @@ def aplicar_formatacoes_especiais_word(doc):
         # Padrões para detecção
         padrao_vocativo = re.compile(r'EXCELENT[ÍI]SSIMO', re.IGNORECASE)
         padrao_negrito = re.compile(r'\*\*(.*?)\*\*')
-        padrao_titulos = re.compile(r'^\s*(I+\.|[0-9]+\.)\s+[A-ZÀ-Ú]') # Detecta I. TÍTULO ou 1. TÍTULO
-        padrao_numeracao = re.compile(r'^(\d+\.)\s')
+        padrao_titulos_n1 = re.compile(r'^\s*(I{1,3}\.|IV\.|V\.|VI\.|VII\.|VIII\.|IX\.|X\.)\s+[A-ZÀ-Ú]') # Nível 1: Romanos
+        padrao_titulos_n2 = re.compile(r'^\s*([0-9]+\.)\s+[A-ZÀ-Ú]') # Nível 2: Numéricos (1. DA COMPETÊNCIA)
+        padrao_numeracao = re.compile(r'^([a-z]\)|\d+\.)\s')
+        padrao_jurisprudencia = re.compile(r'^\s*("?EMENTA|AGRAVO|RECURSO|SÚMULA|OJ|PROCESSO|TRT|TST|STF|STJ|Relator|Data\sde\sJulgamento)\b', re.IGNORECASE)
+        
+        from docx.shared import RGBColor
+        azul_juris = RGBColor(0x4F, 0x81, 0xBD)
         
         vocativo_encontrado = False
         autor_formatado = False
@@ -1370,110 +1379,154 @@ def aplicar_formatacoes_especiais_word(doc):
         for i, paragraph in enumerate(doc.paragraphs):
             texto = paragraph.text.strip()
             
-            # Pular parágrafos vazios, mas manter espaçamento
+            # Pular parágrafos vazios
             if not texto:
                 continue
 
             # --- 1. DETECÇÃO E FORMATAÇÃO DE VOCATIVO ---
             if not vocativo_encontrado and padrao_vocativo.search(texto) and len(texto) < 300:
                 vocativo_encontrado = True
-                
-                # Formatação Vocativo
-                paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
-                paragraph.text = texto.upper() # Forçar maiúsculas
-                
+                paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                paragraph.paragraph_format.left_indent = Cm(2.0)
+                paragraph.paragraph_format.first_line_indent = Cm(0)
+                paragraph.text = texto.upper()
                 for run in paragraph.runs:
                     run.font.bold = True
                     run.font.name = 'Verdana'
                     run.font.size = Pt(10)
-                
-                # Adicionar espaço GRANDE após vocativo (aprox 10 linhas)
-                paragraph.paragraph_format.space_after = Pt(120)
+                paragraph.paragraph_format.space_after = Pt(24)
                 continue
             
             # --- 2. NOME DO AUTOR (Primeiro parágrafo significativo após vocativo) ---
-            # Lógica: Se já passamos do vocativo e ainda não formatamos o autor, 
-            # e este parágrafo começa com nome (geralmente em negrito ou caps)
             if vocativo_encontrado and not autor_formatado and len(texto) > 10:
-                # Tenta detectar nome em negrito ou primeiro trecho antes da vírgula
                 match_markdown = padrao_negrito.match(texto)
-                primeira_parte = texto.split(',')[0] # Pega até a primeira vírgula
-                
-                # Se começar com Markdown **Nome**
+                primeira_parte = texto.split(',')[0]
                 if match_markdown or primeira_parte.isupper(): 
                     autor_formatado = True
-                    
-                    # Limpar markdown se existir
                     texto_limpo = texto.replace('**', '')
-                    paragraph.text = "" # Limpar para reconstruir
-                    
-                    # Parte do nome (até a virgula ou o que estava em negrito)
+                    paragraph.text = "" 
                     nome = match_markdown.group(1) if match_markdown else primeira_parte
                     resto = texto_limpo[len(nome):]
                     
-                    # Run do Nome: Negrito + SUBLINHADO
-                    run_nome = paragraph.add_run(nome)
+                    # Nome Autor e Réu em Caixa Alta e Negrito, Autor sublinhado.
+                    # Simplificação: aplica formatação baseada no markdown ou maiúsculo
+                    run_nome = paragraph.add_run(nome.upper())
                     run_nome.font.bold = True
                     run_nome.font.underline = True
                     run_nome.font.name = 'Verdana'
                     run_nome.font.size = Pt(10)
                     
-                    # Run do resto
                     run_resto = paragraph.add_run(resto)
                     run_resto.font.name = 'Verdana'
                     run_resto.font.size = Pt(10)
                     continue
 
-            # --- 3. TÍTULOS DE SEÇÃO (I. PRELIMINARES / 1. DA COMPETÊNCIA) ---
-            # Detecta linhas que parecem títulos e aplica espaçamento antes
-            if padrao_titulos.match(texto) and texto.isupper():
-                paragraph.paragraph_format.space_before = Pt(12) # Espaço antes do título
-                paragraph.paragraph_format.space_after = Pt(6)   # Espaço depois do título
+            # --- 3. JURISPRUDÊNCIA ---
+            # Se parece jurisprudência de tribunal ou ementa (contém aspas em bloco, ou palavras chaves)
+            # Vamos verificar se bate o padrão ou se tem características de citação
+            is_juris = padrao_jurisprudencia.search(texto) and len(texto) > 30
+            if not is_juris and texto.startswith('"') and len(texto) > 100 and '"' in texto[1:]:
+                # Uma citação longa entre aspas muitas vezes é ementa
+                is_juris = True
                 
-                # Garantir Negrito
-                if not paragraph.runs or not paragraph.runs[0].font.bold:
-                    paragraph.text = texto # Resetar para garantir clean runs
-                    run = paragraph.add_run(texto)
-                    run.font.bold = True
-                    run.font.name = 'Verdana'
-                    run.font.size = Pt(10)
+            if is_juris:
+                paragraph.paragraph_format.left_indent = Cm(4.0)
+                paragraph.paragraph_format.first_line_indent = Cm(2.0)
+                paragraph.paragraph_format.right_indent = Cm(-0.25)
+                
+                texto_limpo = texto.replace('**', '')
+                paragraph.text = ""
+                run = paragraph.add_run(texto_limpo)
+                run.font.name = 'Verdana'
+                run.font.size = Pt(10)
+                run.font.color.rgb = azul_juris
+                
+                # Destacar fonte/relator (costuma estar no início ou no fim)
+                if ':' in texto_limpo[:100]:
+                    partes = texto_limpo.split(':', 1)
+                    paragraph.text = ""
+                    r1 = paragraph.add_run(partes[0] + ":")
+                    r1.font.bold = True
+                    r1.font.name = 'Verdana'
+                    r1.font.size = Pt(10)
+                    r1.font.color.rgb = azul_juris
+                    
+                    r2 = paragraph.add_run(partes[1])
+                    r2.font.name = 'Verdana'
+                    r2.font.size = Pt(10)
+                    r2.font.color.rgb = azul_juris
                 continue
 
-            # --- 4. FORMATAR MARKDOWN EM GERAL (**texto**) ---
+            # --- 4. TÍTULOS DE SEÇÃO NÍVEL 1 (Ex: I. PRELIMINARES) ---
+            if padrao_titulos_n1.match(texto) and texto.replace('**','').isupper():
+                paragraph.paragraph_format.left_indent = Cm(0)
+                paragraph.paragraph_format.first_line_indent = Cm(0)
+                paragraph.paragraph_format.space_before = Pt(24)
+                paragraph.paragraph_format.space_after = Pt(12)
+                
+                texto_limpo = texto.replace('**', '')
+                paragraph.text = "" 
+                run = paragraph.add_run(texto_limpo)
+                run.font.bold = True
+                run.font.underline = True
+                run.font.name = 'Verdana'
+                run.font.size = Pt(10)
+                continue
+
+            # --- 5. TÍTULOS DE SEÇÃO NÍVEL 2 (Ex: 1. DA COMPETÊNCIA) ---
+            if padrao_titulos_n2.match(texto) and texto.replace('**','').isupper():
+                paragraph.paragraph_format.left_indent = Cm(2.0)
+                paragraph.paragraph_format.first_line_indent = Cm(0)
+                paragraph.paragraph_format.space_before = Pt(12)
+                paragraph.paragraph_format.space_after = Pt(6)
+                
+                texto_limpo = texto.replace('**', '')
+                paragraph.text = "" 
+                run = paragraph.add_run(texto_limpo)
+                run.font.bold = True
+                run.font.italic = True
+                run.font.name = 'Verdana'
+                run.font.size = Pt(10)
+                continue
+
+            # --- 6. FORMATAR MARKDOWN EM GERAL (**texto**) ---
             if '**' in texto:
                 parts = texto.split('**')
-                paragraph.text = "" # Limpa parágrafo existente
+                paragraph.text = "" 
                 for idx, part in enumerate(parts):
+                    if not part: continue
                     run = paragraph.add_run(part)
                     run.font.name = 'Verdana'
                     run.font.size = Pt(10)
-                    
-                    # Se indice é ímpar, estava entre **, então é negrito
                     if idx % 2 == 1:
                         run.font.bold = True
-                # Se tinha numeração, a lógica abaixo vai corrigir o excesso de negrito
             
-            # --- 5. NÚMEROS DE PARÁGRAFOS ---
-            # Detectar "1. Texto..." e garantir que só o "1." seja negrito
-            match_num = padrao_numeracao.match(paragraph.text) # Checa texto atualizado
-            if match_num:
+            # --- 7. NÚMEROS DE PARÁGRAFOS E ALÍNEAS ---
+            # Detectar "1. Texto..." ou "a) Texto" e garantir que só o "1." seja negrito
+            match_num = padrao_numeracao.match(paragraph.text)
+            if match_num and not paragraph.text.isupper():
                 numero = match_num.group(1)
                 texto_atual = paragraph.text
                 resto = texto_atual[len(numero):]
                 
-                paragraph.text = "" # Limpa
+                # Se para alíneas for lowerLetter
+                if numero.endswith(')'):
+                    paragraph.paragraph_format.left_indent = Cm(2.5)
+                    paragraph.paragraph_format.first_line_indent = Cm(0)
                 
-                # Número em Negrito
-                run_num = paragraph.add_run(numero)
-                run_num.font.bold = True
-                run_num.font.name = 'Verdana'
-                run_num.font.size = Pt(10)
-                
-                # Resto normal (mesmo que antes estivesse em negrito por markdown incorreto)
-                run_resto = paragraph.add_run(resto)
-                run_resto.font.bold = False 
-                run_resto.font.name = 'Verdana'
-                run_resto.font.size = Pt(10)
+                # Verificar se o resto já foi formatado em partes (ex: contém negrito pelo regex acima)
+                # Se não usou markdown, ou se vamos sobrescrever:
+                if '**' not in texto:
+                    paragraph.text = "" 
+                    run_num = paragraph.add_run(numero)
+                    run_num.font.bold = True
+                    run_num.font.name = 'Verdana'
+                    run_num.font.size = Pt(10)
+                    
+                    run_resto = paragraph.add_run(resto)
+                    run_resto.font.bold = False 
+                    run_resto.font.name = 'Verdana'
+                    run_resto.font.size = Pt(10)
 
         print(f"         Formatações especiais ROBUSTAS aplicadas (incluindo sublinhado e espaçamento)")
         return doc
