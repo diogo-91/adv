@@ -1304,8 +1304,9 @@ def aplicar_formatacao_master(doc):
     try:
         from docx.shared import Pt, Cm, RGBColor
         from docx.enum.text import WD_ALIGN_PARAGRAPH
-        
-        # Configurar margens conforme especificação do usuário
+        from docx.oxml.ns import qn
+
+        # ── Configurar margens ──────────────────────────────────────────
         for section in doc.sections:
             section.page_width = Cm(21.0)
             section.page_height = Cm(29.7)
@@ -1313,33 +1314,48 @@ def aplicar_formatacao_master(doc):
             section.bottom_margin = Cm(1.0)
             section.left_margin = Cm(3.25)
             section.right_margin = Cm(2.5)
-            
-            # NOVO: Configurar distância do cabeçalho e rodapé
-            # Isso cria espaço entre o cabeçalho/rodapé e o conteúdo
-            section.header_distance = Cm(1.5)  # Espaço abaixo do cabeçalho
-            section.footer_distance = Cm(1.0)  # Espaço acima do rodapé
-        
-        # Aplicar formatação a todos os parágrafos (Corpo Normal)
+            section.header_distance = Cm(1.5)
+            section.footer_distance = Cm(1.0)
+
+        # ── Zerar space_before/after na RAIZ do estilo Normal ───────────
+        # Sem isso, o template herda o space_after=10pt do Word que
+        # sobrepõe o override de parágrafo em certas versões do python-docx.
+        try:
+            normal_style = doc.styles['Normal']
+            normal_style.paragraph_format.space_before = Pt(0)
+            normal_style.paragraph_format.space_after = Pt(0)
+        except Exception:
+            pass
+
+        # ── Aplicar formatação a todos os parágrafos ────────────────────
         for paragraph in doc.paragraphs:
-            # Alinhamento justificado
             paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-            
-            # Espaçamento 1.5 e exatos 0pt antes e depois
+
+            # Espaçamento 1.5 – explícito no parágrafo
             paragraph.paragraph_format.line_spacing = 1.5
             paragraph.paragraph_format.space_before = Pt(0)
             paragraph.paragraph_format.space_after = Pt(0)
-            
-            # Recuo padrão corpo numerado: left=2cm, right=-0.25cm, first_line=2cm
+
+            # Forçar via XML para garantir que o valor "0" seja gravado
+            # (evita o bug do python-docx onde Pt(0) é tratado como "não definido")
+            pPr = paragraph._p.get_or_add_pPr()
+            spacing_el = pPr.get_or_add_spacing()
+            spacing_el.set(qn('w:before'), '0')
+            spacing_el.set(qn('w:after'), '0')
+            spacing_el.set(qn('w:beforeAutospacing'), '0')
+            spacing_el.set(qn('w:afterAutospacing'), '0')
+
+            # Recuo padrão corpo numerado
             paragraph.paragraph_format.left_indent = Cm(2.0)
             paragraph.paragraph_format.right_indent = Cm(-0.25)
             paragraph.paragraph_format.first_line_indent = Cm(2.0)
-            
+
             # Fonte Verdana 10pt
             for run in paragraph.runs:
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
-        
-        print(f"         Formatação aplicada (Verdana 10pt, margens 3-1-3.25-2.5, Recuos base)")
+
+        print(f"         Formatação aplicada (Verdana 10pt, margens 3-1-3.25-2.5, espaçamento 0pt)")
         return doc
     except Exception as e:
         print(f"         Erro ao aplicar formatação: {e}")
@@ -1533,6 +1549,19 @@ def aplicar_formatacoes_especiais_word(doc):
                         run.font.bold = True
             
             # --- 7. NÚMEROS DE PARÁGRAFOS E ALÍNEAS ---
+            # Garantir espaçamento 0pt antes/depois via XML para parágrafos normais
+            # (reforça o que aplicar_formatacao_master já fez, caso o template resista)
+            try:
+                from docx.oxml.ns import qn as _qn
+                _pPr = paragraph._p.get_or_add_pPr()
+                _sp = _pPr.get_or_add_spacing()
+                _sp.set(_qn('w:before'), '0')
+                _sp.set(_qn('w:after'), '0')
+                _sp.set(_qn('w:beforeAutospacing'), '0')
+                _sp.set(_qn('w:afterAutospacing'), '0')
+            except Exception:
+                pass
+
             # Detectar "1. Texto..." ou "a) Texto" e garantir que só o "1." seja negrito
             match_num = padrao_numeracao.match(paragraph.text)
             if match_num and not paragraph.text.isupper() and not titulo_formatado and not texto.lstrip().startswith('#'):
