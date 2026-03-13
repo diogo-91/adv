@@ -2919,7 +2919,10 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
         # Adicionar info de marcadores ao retorno
         if marcadores_info:
             file['marcadores_prints'] = marcadores_info
-        
+
+        # Retornar também a pasta onde foi salvo (para relatório de auditoria)
+        file['pasta_peticoes_id'] = pasta
+
         return file
     except Exception as e:
         print(f"        ERRO: {e}")
@@ -3038,6 +3041,224 @@ def gerar_relatorio_score(resultado, score_medio_tipo, score_medio_escritorio):
             'pontos_melhoria': [],
             'comparacoes': []
         }
+
+def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, tipo_acao, pasta_id):
+    """
+    Gera e salva um relatório de auditoria em DOCX na mesma pasta da petição.
+    O relatório mostra score, pontos fortes, pontos de melhoria e sugestões
+    para aprimorar as próximas petições.
+    """
+    try:
+        print(f"        [RELATÓRIO] Gerando relatório de auditoria...")
+        from docx import Document as DocxDocument
+        from docx.shared import Pt, RGBColor, Cm
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+        doc = DocxDocument()
+
+        score    = resultado_auditoria.get('score', 0)
+        ranking  = resultado_auditoria.get('ranking', 'N/A')
+        data_str = datetime.now().strftime('%d/%m/%Y %H:%M')
+
+        # ── Margens ──────────────────────────────────────────────────────────
+        for section in doc.sections:
+            section.top_margin    = Cm(2.5)
+            section.bottom_margin = Cm(2.0)
+            section.left_margin   = Cm(3.0)
+            section.right_margin  = Cm(2.0)
+
+        # ── Helpers ───────────────────────────────────────────────────────────
+        def add_titulo(texto, nivel=1):
+            p = doc.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            run = p.add_run(texto)
+            run.bold = True
+            run.font.size = Pt(14 if nivel == 1 else 12)
+            run.font.color.rgb = RGBColor(0x1E, 0x29, 0x3B)
+            p.paragraph_format.space_before = Pt(12)
+            p.paragraph_format.space_after  = Pt(4)
+            return p
+
+        def add_item(texto, cor=None, prefixo='•'):
+            p = doc.add_paragraph()
+            p.paragraph_format.left_indent  = Cm(1.0)
+            p.paragraph_format.space_before = Pt(2)
+            p.paragraph_format.space_after  = Pt(2)
+            run = p.add_run(f'{prefixo} {texto}')
+            run.font.size = Pt(11)
+            if cor:
+                run.font.color.rgb = cor
+            return p
+
+        def add_linha(texto=''):
+            p = doc.add_paragraph(texto)
+            p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.space_after  = Pt(0)
+            for run in p.runs:
+                run.font.size = Pt(11)
+            return p
+
+        # ── Cabeçalho ─────────────────────────────────────────────────────────
+        titulo = doc.add_paragraph()
+        titulo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = titulo.add_run('RELATÓRIO DE AUDITORIA DE PETIÇÃO')
+        r.bold = True
+        r.font.size = Pt(16)
+        r.font.color.rgb = RGBColor(0x1E, 0x29, 0x3B)
+
+        sub = doc.add_paragraph()
+        sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        sub.add_run(f'Cliente: {cliente_nome}  |  Tipo: {tipo_acao}  |  Data: {data_str}').font.size = Pt(10)
+
+        doc.add_paragraph()
+
+        # ── Score ─────────────────────────────────────────────────────────────
+        add_titulo('SCORE GERAL')
+        p_score = doc.add_paragraph()
+        p_score.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_score = p_score.add_run(f'{score}/100 — {ranking}')
+        r_score.bold = True
+        r_score.font.size = Pt(18)
+        if score >= 80:
+            r_score.font.color.rgb = RGBColor(0x16, 0xA3, 0x4A)   # verde
+        elif score >= 60:
+            r_score.font.color.rgb = RGBColor(0xD9, 0x77, 0x06)   # amarelo
+        else:
+            r_score.font.color.rgb = RGBColor(0xDC, 0x26, 0x26)   # vermelho
+
+        # Comparações
+        comp = resultado_auditoria.get('comparacao_escritorio', {})
+        if isinstance(comp, dict):
+            dif = comp.get('diferenca', '')
+            melhor = comp.get('melhor_que_media', False)
+            sinal = '▲' if melhor else '▼'
+            add_linha(f'{sinal} {dif} pontos em relação à média do tipo de processo')
+
+        rel = resultado_auditoria.get('relatorio_detalhado', {})
+        for cmp in rel.get('comparacoes', []):
+            add_linha(cmp)
+
+        doc.add_paragraph()
+
+        # ── Pontos Positivos ─────────────────────────────────────────────────
+        pontos_pos = resultado_auditoria.get('pontos_positivos', []) or rel.get('pontos_fortes', [])
+        if pontos_pos:
+            add_titulo('PONTOS POSITIVOS')
+            for item in pontos_pos:
+                add_item(item, cor=RGBColor(0x16, 0xA3, 0x4A))
+
+        # ── Estrutura — Seções Presentes/Ausentes ─────────────────────────────
+        estrutura = resultado_auditoria.get('estrutura_validacao', {})
+        faltantes = resultado_auditoria.get('estrutura_faltante', [])
+        if estrutura:
+            add_titulo('ESTRUTURA DA PETIÇÃO')
+            LABELS = {
+                'vocativo': 'Vocativo', 'qualif_reclamante': 'Qualificação do Reclamante',
+                'qualif_reclamada': 'Qualificação da Reclamada', 'formula': 'Fórmula de Apresentação',
+                'dos_fatos': 'Dos Fatos', 'do_merito': 'Do Mérito',
+                'dos_pedidos': 'Dos Pedidos', 'valor_causa': 'Valor da Causa',
+                'encerramento': 'Encerramento'
+            }
+            for chave, label in LABELS.items():
+                presente = estrutura.get(chave, False)
+                cor  = RGBColor(0x16, 0xA3, 0x4A) if presente else RGBColor(0xDC, 0x26, 0x26)
+                icone = 'OK' if presente else 'AUSENTE'
+                add_item(f'{label}: {icone}', cor=cor, prefixo='–')
+
+        # ── Qualidade Extra ──────────────────────────────────────────────────
+        qualidade = resultado_auditoria.get('qualidade_extra', {})
+        if qualidade:
+            add_titulo('QUALIDADE EXTRA (Bônus de Pontos)')
+            itens_qualidade = {
+                'jurisprudencia_tst'       : 'Jurisprudência TST citada',
+                'jurisprudencia_trt'       : 'Jurisprudência TRT citada',
+                'calculos_detalhados'      : 'Cálculos detalhados',
+                'narrativa_persuasiva'     : 'Narrativa persuasiva',
+                'fundamentacao_doutrinaria': 'Fundamentação doutrinária',
+            }
+            for chave, label in itens_qualidade.items():
+                val = qualidade.get(chave, False)
+                cor = RGBColor(0x16, 0xA3, 0x4A) if val else RGBColor(0x64, 0x74, 0x8B)
+                add_item(f'{label}: {"Presente" if val else "Ausente"}', cor=cor, prefixo='–')
+            bonus = qualidade.get('bonus_pontos', 0)
+            add_linha(f'   Bônus total: +{bonus} pontos')
+
+        # ── O que melhorar ───────────────────────────────────────────────────
+        melhorias = resultado_auditoria.get('melhorias_100', []) or rel.get('pontos_melhoria', [])
+        sugestoes = resultado_auditoria.get('sugestoes', [])
+        alertas   = resultado_auditoria.get('alertas', [])
+        erros     = resultado_auditoria.get('erros_criticos', [])
+
+        if erros:
+            add_titulo('ERROS CRÍTICOS')
+            for item in erros:
+                add_item(item, cor=RGBColor(0xDC, 0x26, 0x26))
+
+        if melhorias:
+            add_titulo('O QUE MELHORAR NAS PRÓXIMAS PETIÇÕES')
+            for item in melhorias:
+                add_item(item, cor=RGBColor(0xD9, 0x77, 0x06))
+
+        if sugestoes:
+            add_titulo('SUGESTÕES')
+            for item in sugestoes:
+                add_item(item)
+
+        if alertas:
+            add_titulo('ALERTAS')
+            for item in alertas:
+                add_item(item, cor=RGBColor(0xD9, 0x77, 0x06))
+
+        # ── Justificativa do Score ────────────────────────────────────────────
+        justificativa = resultado_auditoria.get('justificativa_score', '')
+        analise_list  = rel.get('analise', [])
+        texto_analise = justificativa or (analise_list[0] if analise_list else '')
+        if texto_analise:
+            add_titulo('ANÁLISE GERAL')
+            add_linha(texto_analise)
+
+        # ── Rodapé ────────────────────────────────────────────────────────────
+        doc.add_paragraph()
+        rodape = doc.add_paragraph()
+        rodape.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r_rod = rodape.add_run(f'Relatório gerado automaticamente pelo sistema — {data_str}')
+        r_rod.font.size = Pt(9)
+        r_rod.font.color.rgb = RGBColor(0x94, 0xA3, 0xB8)
+
+        # ── Salvar e fazer upload ─────────────────────────────────────────────
+        nome_relatorio = f'Relatorio_Auditoria_{cliente_nome.replace(" ", "_")}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.docx'
+        tmp_fd, tmp_path = tempfile.mkstemp(suffix='.docx')
+        os.close(tmp_fd)
+        doc.save(tmp_path)
+
+        file_metadata = {
+            'name'   : nome_relatorio,
+            'parents': [pasta_id]
+        }
+        media = MediaFileUpload(
+            tmp_path,
+            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        )
+        uploaded = service.files().create(
+            body=file_metadata,
+            media_body=media,
+            fields='id, name'
+        ).execute()
+
+        try:
+            os.unlink(tmp_path)
+        except:
+            pass
+
+        print(f"        [RELATÓRIO] Salvo: {uploaded.get('name')} (ID: {uploaded.get('id')})")
+        return uploaded.get('id')
+
+    except Exception as e:
+        print(f"        [RELATÓRIO] Erro ao gerar relatório de auditoria: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
 
 def auditar_peticao_com_claude(service, arquivo_id, tipo_processo, cliente_nome):
     """Audita petição - CHECKLIST V4.0 FASE 3 PERFEITA"""
@@ -4296,6 +4517,19 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                     
                     # Petição permanece na subpasta do cliente (não move para pasta global)
                     print(f"   Petição aprovada - mantida na pasta do cliente")
+
+                    # Gerar e salvar relatório de auditoria na mesma pasta da petição
+                    pasta_peticoes_id = arquivo.get('pasta_peticoes_id')
+                    if pasta_peticoes_id:
+                        salvar_relatorio_auditoria_docx(
+                            service,
+                            resultado_auditoria,
+                            cliente_nome,
+                            tipo_acao,
+                            pasta_peticoes_id
+                        )
+                    else:
+                        print(f"   [AVISO] pasta_peticoes_id não disponível, relatório não salvo")
                     
                 else:
                     print(f"   Erro na auditoria")
