@@ -3657,9 +3657,9 @@
                     <div style="margin-bottom: 1.5rem;">
                         <label
                             style="display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: #334155;">
-                            Selecione o arquivo
+                            Selecione os arquivos
                         </label>
-                        <input type="file" id="inputArquivo" required
+                        <input type="file" id="inputArquivo" multiple required
                             style="width: 100%; padding: 0.75rem; border: 2px dashed #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.9rem; color: #1e293b; cursor: pointer;"
                             onchange="mostrarNomeArquivo(this)">
                         <p id="nomeArquivoSelecionado" style="margin-top: 0.5rem; font-size: 0.85rem; color: #64748b;">
@@ -3749,9 +3749,14 @@
 
         function mostrarNomeArquivo(input) {
             const p = document.getElementById('nomeArquivoSelecionado');
-            if (input.files && input.files[0]) {
-                const size = (input.files[0].size / 1024).toFixed(1);
-                p.textContent = `📎 ${input.files[0].name} (${size} KB)`;
+            if (input.files && input.files.length > 0) {
+                if (input.files.length === 1) {
+                    const size = (input.files[0].size / 1024).toFixed(1);
+                    p.textContent = `📎 ${input.files[0].name} (${size} KB)`;
+                } else {
+                    const totalSize = Array.from(input.files).reduce((acc, f) => acc + f.size, 0);
+                    p.textContent = `📎 ${input.files.length} arquivos selecionados (${(totalSize / 1024).toFixed(1)} KB)`;
+                }
             } else {
                 p.textContent = '';
             }
@@ -3761,10 +3766,10 @@
             event.preventDefault();
 
             const fileInput = document.getElementById('inputArquivo');
-            const file = fileInput.files[0];
+            const files = Array.from(fileInput.files);
 
-            if (!file || !currentFolderId) {
-                alert('Selecione um arquivo e navegue até uma pasta');
+            if (!files.length || !currentFolderId) {
+                alert('Selecione ao menos um arquivo e navegue até uma pasta');
                 return;
             }
 
@@ -3773,48 +3778,48 @@
             const progressText = document.getElementById('progressText');
             const btnUpload = document.getElementById('btnUpload');
 
-            // Mostrar progresso
             progressContainer.style.display = 'block';
             btnUpload.disabled = true;
-            progressBar.style.width = '30%';
-            progressText.textContent = 'Enviando arquivo...';
+            progressText.style.color = '#64748b';
 
-            try {
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('folderId', currentFolderId);
+            let erros = 0;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const pct = Math.round(((i) / files.length) * 100);
+                progressBar.style.width = `${pct}%`;
+                progressText.textContent = `Enviando ${i + 1} de ${files.length}: ${file.name}`;
 
-                progressBar.style.width = '60%';
+                try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('folderId', currentFolderId);
 
-                const response = await fetch(`${API_BASE}/drive/upload`, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    progressBar.style.width = '100%';
-                    progressText.textContent = 'Upload concluído!';
-                    progressText.style.color = '#10b981';
-
-                    setTimeout(() => {
-                        fecharModalUpload();
-                        // Recarregar lista de documentos
-                        const lastFolder = navigationStack[navigationStack.length - 1];
-                        if (lastFolder) {
-                            navegarPasta(lastFolder.id, lastFolder.name);
-                        }
-                    }, 1000);
-                } else {
-                    throw new Error(data.error || 'Erro no upload');
+                    const response = await fetch(`${API_BASE}/drive/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (!data.success) throw new Error(data.error || 'Erro no upload');
+                } catch (error) {
+                    console.error(`Erro ao enviar ${file.name}:`, error);
+                    erros++;
                 }
-            } catch (error) {
-                console.error('Erro no upload:', error);
-                progressText.textContent = 'Erro no upload: ' + error.message;
-                progressText.style.color = '#ef4444';
-                btnUpload.disabled = false;
             }
+
+            progressBar.style.width = '100%';
+            if (erros === 0) {
+                progressText.textContent = files.length === 1 ? 'Upload concluído!' : `${files.length} arquivos enviados com sucesso!`;
+                progressText.style.color = '#10b981';
+            } else {
+                progressText.textContent = `Concluído com ${erros} erro(s). ${files.length - erros} de ${files.length} enviados.`;
+                progressText.style.color = '#f59e0b';
+            }
+
+            setTimeout(() => {
+                fecharModalUpload();
+                const lastFolder = navigationStack[navigationStack.length - 1];
+                if (lastFolder) navegarPasta(lastFolder.id, lastFolder.name);
+            }, 1200);
         }
 
         // --- Criar Pasta ---
