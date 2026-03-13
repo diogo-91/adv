@@ -2892,7 +2892,17 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
         os.close(tmp_fd)
         doc.save(tmp_path)
         nome = f"Peticao_{cliente_info['tipo_processo']}_{cliente_info['cliente_nome'].replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.docx"
-        pasta = PASTAS_PETICOES_GERADAS.get(cliente_info['tipo_processo'])
+
+        # Salvar dentro da pasta do próprio cliente em subpasta "Petições"
+        pasta_cliente_id = cliente_info.get('pasta_cliente_id')
+        if pasta_cliente_id:
+            pasta = buscar_ou_criar_pasta(service, "Petições", pasta_cliente_id)
+            print(f"        - Salvando em subpasta 'Petições' do cliente: {pasta}")
+        else:
+            # Fallback: pasta global por tipo de processo (comportamento anterior)
+            pasta = PASTAS_PETICOES_GERADAS.get(cliente_info['tipo_processo'])
+            print(f"        - [FALLBACK] Salvando em pasta global: {pasta}")
+
         metadata = {'name': nome, 'parents': [pasta]}
         media = MediaFileUpload(tmp_path, mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
         file = service.files().create(body=metadata, media_body=media, fields='id, name, webViewLink').execute()
@@ -3315,7 +3325,8 @@ def agente_gerador():
                 cliente_info = {
                     'cliente_nome': pasta_cliente['name'],
                     'tipo_processo': tipo,
-                    'verif_docs': verif  # Passar verificação para auditoria
+                    'verif_docs': verif,  # Passar verificação para auditoria
+                    'pasta_cliente_id': pasta_cliente['id']
                 }
                 
                 peticao = gerar_peticao_com_claude(service, cliente_info, docs_completos, tipo)
@@ -4160,7 +4171,8 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
         cliente_info = {
             'cliente_nome': pasta_cliente['name'],
             'tipo_processo': tipo_acao,
-            'verif_docs': verif
+            'verif_docs': verif,
+            'pasta_cliente_id': pasta_cliente['id']
         }
         
         # Gerar petição
