@@ -1124,7 +1124,10 @@
                             <h1>Documentos</h1>
                             <p class="subtitle">Navegue pelos documentos armazenados no Google Drive</p>
                         </div>
-                        <div class="header-actions" id="uploadButtonContainer" style="display: none;">
+                        <div class="header-actions" id="uploadButtonContainer" style="display: none; gap: 0.5rem;">
+                            <button class="btn btn-secondary" onclick="abrirModalCriarPasta()">
+                                <span>📁</span> Nova Pasta
+                            </button>
                             <button class="btn btn-primary" onclick="abrirModalUpload()">
                                 <span>📤</span> Upload Arquivo
                             </button>
@@ -2882,11 +2885,11 @@
                 const rowStyle = item.isPrincipal ? 'background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-left: 4px solid #3b82f6;' : '';
                 const nameStyle = item.isPrincipal ? 'font-weight: 600; color: #1e40af; font-size: 0.95rem;' : 'font-weight: 500;';
 
-                // Botão de exclusão apenas para arquivos (não pastas)
-                const deleteButton = !item.isFolder
-                    ? `<button onclick="confirmarExclusao('${item.id}', '${item.name}'); event.stopPropagation();" 
-                              style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 0.25rem; font-size: 1.1rem;" 
-                              title="Excluir arquivo">
+                // Botão de exclusão para arquivos e pastas (exceto pastas principais)
+                const deleteButton = !item.isPrincipal
+                    ? `<button onclick="confirmarExclusao('${item.id}', '${item.name}'); event.stopPropagation();"
+                              style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 0.25rem; font-size: 1.1rem;"
+                              title="Excluir ${item.isFolder ? 'pasta' : 'arquivo'}">
                           <i class="bi bi-trash"></i>
                        </button>`
                     : '';
@@ -3617,6 +3620,27 @@
         }
     </style>
 
+    <!-- Modal Criar Pasta -->
+    <div id="modalCriarPasta" class="modal-backdrop" onclick="fecharModalCriarPasta(event)" style="display:none;">
+        <div class="modal-container" onclick="event.stopPropagation()"
+            style="background: white; width: 440px; padding: 0; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+            <div class="modal-header" style="border-bottom: 1px solid #f1f5f9; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; font-size: 1.1rem; color: #1e293b;">📁 Nova Pasta</h3>
+                <button class="modal-close" onclick="fecharModalCriarPasta()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #64748b;">✕</button>
+            </div>
+            <div style="padding: 1.5rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 600; color: #374151;">Nome da pasta</label>
+                <input type="text" id="inputNomePasta" placeholder="Ex: Cliente João Silva"
+                    style="width: 100%; padding: 0.75rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 0.95rem; outline: none; box-sizing: border-box;"
+                    onkeydown="if(event.key==='Enter') criarPasta()" />
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
+                    <button onclick="fecharModalCriarPasta()" class="btn btn-secondary">Cancelar</button>
+                    <button onclick="criarPasta()" class="btn btn-primary" id="btnCriarPasta">Criar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Upload Arquivo -->
     <div id="modalUpload" class="modal-backdrop" onclick="fecharModalUpload(event)" style="display:none;">
         <div class="modal-container" onclick="event.stopPropagation()"
@@ -3790,6 +3814,55 @@
                 progressText.textContent = 'Erro no upload: ' + error.message;
                 progressText.style.color = '#ef4444';
                 btnUpload.disabled = false;
+            }
+        }
+
+        // --- Criar Pasta ---
+
+        function abrirModalCriarPasta() {
+            const input = document.getElementById('inputNomePasta');
+            input.value = '';
+            const modal = document.getElementById('modalCriarPasta');
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.classList.add('active'); input.focus(); }, 10);
+        }
+
+        function fecharModalCriarPasta(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('modal-close')) return;
+            const modal = document.getElementById('modalCriarPasta');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        async function criarPasta() {
+            const nome = document.getElementById('inputNomePasta').value.trim();
+            if (!nome) { alert('Informe o nome da pasta.'); return; }
+            if (!currentFolderId) { alert('Navegue para uma pasta antes de criar subpastas.'); return; }
+
+            const btn = document.getElementById('btnCriarPasta');
+            btn.disabled = true;
+            btn.textContent = 'Criando...';
+
+            try {
+                const response = await fetch(`${API_BASE}/drive/create-folder`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: nome, parentId: currentFolderId })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    fecharModalCriarPasta();
+                    const lastFolder = navigationStack[navigationStack.length - 1];
+                    if (lastFolder) navegarPasta(lastFolder.id, lastFolder.name);
+                } else {
+                    alert('Erro ao criar pasta: ' + (data.error || 'Erro desconhecido'));
+                }
+            } catch (err) {
+                alert('Erro ao criar pasta: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Criar';
             }
         }
 

@@ -326,7 +326,7 @@ def get_detailed_stats():
         return jsonify({'error': str(e)}), 500
 
 def analisar_casos_novos(service):
-    """Analisa pasta 01_CASOS_NOVOS com sistema de 3 prioridades"""
+    """Analisa pasta CLIENTES com sistema de 3 prioridades"""
     tipos_pastas = {
         'RECONHECIMENTO_VINCULO': os.getenv('PASTA_RECONHECIMENTO_VINCULO'),
         'ACAO_ACIDENTARIA': os.getenv('PASTA_ACAO_ACIDENTARIA'),
@@ -900,9 +900,9 @@ def debug_auth():
         service = autenticar_google_drive()
         auth_status = "Sucesso" if service else "Falha"
         
-        # Testar acesso à pasta 01
+        # Testar acesso à pasta CLIENTES
         folder_test = "N/A"
-        pasta_id = os.getenv('PASTA_01_CASOS_NOVOS')
+        pasta_id = os.getenv('PASTA_CLIENTES')
         files_found = []
         
         if service and pasta_id:
@@ -925,7 +925,7 @@ def debug_auth():
             'folder_access_test': folder_test,
             'files_found_in_folder': files_found,
             'env_vars_loaded': {
-                'PASTA_01': bool(os.getenv('PASTA_01_CASOS_NOVOS')),
+                'PASTA_01': bool(os.getenv('PASTA_CLIENTES')),
                 'PASTA_RECONHECIMENTO': bool(os.getenv('PASTA_RECONHECIMENTO_VINCULO'))
             }
         })
@@ -1367,8 +1367,7 @@ def list_drive_folders():
         if not folder_id:
             # Pastas principais do sistema (em destaque)
             pastas_principais = [
-                {'id': os.getenv('PASTA_01_CASOS_NOVOS'), 'name': '📋 01_CASOS_NOVOS', 'isPrincipal': True},
-                {'id': os.getenv('PASTA_03_APROVADAS'), 'name': '✅ 03_PETICOES_APROVADAS', 'isPrincipal': True}
+                {'id': os.getenv('PASTA_CLIENTES'), 'name': '📋 CLIENTES', 'isPrincipal': True}
             ]
             
             # Adicionar apenas pastas principais
@@ -1492,6 +1491,28 @@ def upload_to_drive():
         
     except Exception as e:
         print(f"❌ Erro no upload: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/drive/create-folder', methods=['POST'])
+def create_drive_folder():
+    """Cria uma nova pasta no Google Drive"""
+    try:
+        data = request.json
+        nome = data.get('name', '').strip()
+        parent_id = data.get('parentId')
+
+        if not nome:
+            return jsonify({'success': False, 'error': 'Nome da pasta não especificado'}), 400
+        if not parent_id:
+            return jsonify({'success': False, 'error': 'Pasta pai não especificada'}), 400
+
+        service = autenticar_google_drive()
+        folder_id = criar_pasta_google_drive(service, nome, parent_id)
+
+        return jsonify({'success': True, 'id': folder_id, 'name': nome})
+
+    except Exception as e:
+        print(f"❌ Erro ao criar pasta: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/drive/delete', methods=['DELETE'])
