@@ -3909,10 +3909,6 @@
 
                 const data = await response.json();
 
-                // Remover modal de progresso
-                const modal = document.getElementById('modalTranscricao');
-                if (modal) modal.remove();
-
                 if (data.success) {
                     // Mostrar resultado
                     alert(`✅ Transcrição concluída com sucesso!
@@ -3934,10 +3930,6 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
                     alert(`❌ Erro ao transcrever vídeo:\n\n${data.error}`);
                 }
             } catch (error) {
-                // Remover modal de progresso
-                const modal = document.getElementById('modalTranscricao');
-                if (modal) modal.remove();
-
                 console.error('Erro ao transcrever vídeo:', error);
                 alert(`❌ Erro ao transcrever vídeo:\n\n${error.message}`);
             }
@@ -4011,10 +4003,6 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
 
                 const data = await response.json();
 
-                // Remover modal de progresso
-                const modal = document.getElementById('modalTranscricaoProgress');
-                if (modal) modal.remove();
-
                 if (data.success) {
                     // Iniciar monitoramento do progresso
                     monitorarTranscricao(clienteNome);
@@ -4025,10 +4013,6 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
                     console.error('❌ Erro:', data.error);
                 }
             } catch (error) {
-                // Remover modal de progresso se existir
-                const modal = document.getElementById('modalTranscricaoProgress');
-                if (modal) modal.remove();
-
                 console.error('❌ Erro ao solicitar transcrição:', error);
                 alert(`❌ Erro ao solicitar transcrição:\n\n${error.message}`);
             }
