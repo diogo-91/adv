@@ -1464,10 +1464,12 @@ def aplicar_formatacoes_especiais_word(doc):
                 if not primeiro_titulo_encontrado:
                     paragraph.paragraph_format.page_break_before = True
                     primeiro_titulo_encontrado = True
-                    
+
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                paragraph.paragraph_format.left_indent = Cm(2.0)
-                paragraph.paragraph_format.first_line_indent = Cm(0)
+                # Hanging indent conforme padrão real: left=3.27cm (1854 twips), hanging=1.27cm (720 twips)
+                # Resultado: 1ª linha fica em 2.0cm | linhas seguintes em 3.27cm
+                paragraph.paragraph_format.left_indent = Cm(3.27)
+                paragraph.paragraph_format.first_line_indent = Cm(-1.27)
                 paragraph.paragraph_format.space_before = Pt(0)
                 paragraph.paragraph_format.space_after = Pt(0)
 
@@ -2527,8 +2529,8 @@ def processar_marcadores_formatacao(peticao_texto):
             flags=re.IGNORECASE
         )
         
-        # [ESPACO_GRANDE] -> 8 linhas em branco
-        texto_processado = texto_processado.replace('[ESPACO_GRANDE]', '\n\n\n\n\n\n\n\n')
+        # [ESPACO_GRANDE] -> marcador especial para 18 parágrafos vazios (padrão real do docx)
+        texto_processado = texto_processado.replace('[ESPACO_GRANDE]', '\n<<<ESPACO_18>>>\n')
         
         return texto_processado
         
@@ -2683,14 +2685,23 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                     # 3. Adicionar novo conteúdo (formatação será aplicada depois)
                     primeiro_paragrafo = True
                     for linha in texto_final.split('\n'):
-                        if linha.strip():
+                        # Marcador especial: inserir 18 parágrafos vazios (espaço protocolo)
+                        if linha.strip() == '<<<ESPACO_18>>>':
+                            for _ in range(18):
+                                p_vazio = doc.add_paragraph('')
+                                try:
+                                    p_vazio.style = 'Normal'
+                                except:
+                                    pass
+                            primeiro_paragrafo = False
+                        elif linha.strip():
                             # Adicionar parágrafo com estilo Normal
                             p = doc.add_paragraph(linha)
                             try:
                                 p.style = 'Normal'
                             except:
                                 pass
-                            
+
                             # Aplicar negrito apenas no primeiro parágrafo (cabeçalho)
                             if primeiro_paragrafo:
                                 for run in p.runs:
@@ -2710,19 +2721,28 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                     print(f"         Não foi possível baixar modelo, criando documento vazio")
                     doc = Document()
                     for p in texto_final.split('\n'):
-                        if p.strip():
+                        if p.strip() == '<<<ESPACO_18>>>':
+                            for _ in range(18):
+                                doc.add_paragraph('')
+                        elif p.strip():
                             doc.add_paragraph(p)
             except Exception as e:
                 print(f"         Erro ao usar modelo: {e}, criando documento vazio")
                 doc = Document()
                 for p in texto_final.split('\n'):
-                    if p.strip():
+                    if p.strip() == '<<<ESPACO_18>>>':
+                        for _ in range(18):
+                            doc.add_paragraph('')
+                    elif p.strip():
                         doc.add_paragraph(p)
         else:
             print(f"         Modelo não configurado para {tipo_processo}, criando documento vazio")
             doc = Document()
             for p in texto_final.split('\n'):
-                if p.strip():
+                if p.strip() == '<<<ESPACO_18>>>':
+                    for _ in range(18):
+                        doc.add_paragraph('')
+                elif p.strip():
                     doc.add_paragraph(p)
         
         # Aplicar formatação padrão do escritório (sempre)
