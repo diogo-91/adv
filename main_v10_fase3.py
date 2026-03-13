@@ -2732,6 +2732,56 @@ def adicionar_numeracao_paragrafos(peticao_texto):
         print(f"        [AVISO] Erro ao numerar parágrafos: {e}")
         return peticao_texto  # Retornar original em caso de erro
 
+def _popular_doc_com_texto(doc, texto_final, negrito_primeiro=False):
+    """
+    Itera as linhas de texto_final e adiciona parágrafos ao documento Word.
+
+    Regras:
+    - <<<ESPACO_14>>> → 14 parágrafos vazios (espaço protocolo)
+    - Linha com conteúdo  → parágrafo Normal
+    - Linha vazia         → 1 parágrafo em branco (UMA linha de espaçamento),
+                            nunca duplicado (max 1 parágrafo vazio consecutivo)
+
+    O primeiro parágrafo com conteúdo recebe negrito quando negrito_primeiro=True.
+    """
+    primeiro_paragrafo = negrito_primeiro
+    ultimo_era_vazio = True   # True no início para não criar linha em branco no topo
+
+    for linha in texto_final.split('\n'):
+        if linha.strip() == '<<<ESPACO_14>>>':
+            for _ in range(14):
+                p_vazio = doc.add_paragraph('')
+                try:
+                    p_vazio.style = 'Normal'
+                except Exception:
+                    pass
+            ultimo_era_vazio = True
+            primeiro_paragrafo = False
+
+        elif linha.strip():
+            p = doc.add_paragraph(linha)
+            try:
+                p.style = 'Normal'
+            except Exception:
+                pass
+            if primeiro_paragrafo:
+                for run in p.runs:
+                    run.font.bold = True
+                primeiro_paragrafo = False
+            ultimo_era_vazio = False
+
+        else:
+            # Linha vazia → 1 parágrafo em branco (espaçamento entre parágrafos)
+            # Nunca duplicar: se o anterior já era vazio, não adicionar outro
+            if not ultimo_era_vazio:
+                p_branco = doc.add_paragraph('')
+                try:
+                    p_branco.style = 'Normal'
+                except Exception:
+                    pass
+            ultimo_era_vazio = True
+
+
 def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_cliente=None, usar_prompt_master=False):
     try:
         print(f"        - Salvando no Drive...")
@@ -2802,30 +2852,7 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                         p._element.getparent().remove(p._element)
                     
                     # 3. Adicionar novo conteúdo (formatação será aplicada depois)
-                    primeiro_paragrafo = True
-                    for linha in texto_final.split('\n'):
-                        # Marcador especial: inserir 18 parágrafos vazios (espaço protocolo)
-                        if linha.strip() == '<<<ESPACO_14>>>':
-                            for _ in range(14):
-                                p_vazio = doc.add_paragraph('')
-                                try:
-                                    p_vazio.style = 'Normal'
-                                except:
-                                    pass
-                            primeiro_paragrafo = False
-                        elif linha.strip():
-                            # Adicionar parágrafo com estilo Normal
-                            p = doc.add_paragraph(linha)
-                            try:
-                                p.style = 'Normal'
-                            except:
-                                pass
-
-                            # Aplicar negrito apenas no primeiro parágrafo (cabeçalho)
-                            if primeiro_paragrafo:
-                                for run in p.runs:
-                                    run.font.bold = True
-                                primeiro_paragrafo = False
+                    _popular_doc_com_texto(doc, texto_final, negrito_primeiro=True)
                     
                     # Limpar arquivo temporário do modelo
                     try:
@@ -2839,30 +2866,15 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                 else:
                     print(f"         Não foi possível baixar modelo, criando documento vazio")
                     doc = Document()
-                    for p in texto_final.split('\n'):
-                        if p.strip() == '<<<ESPACO_14>>>':
-                            for _ in range(14):
-                                doc.add_paragraph('')
-                        elif p.strip():
-                            doc.add_paragraph(p)
+                    _popular_doc_com_texto(doc, texto_final)
             except Exception as e:
                 print(f"         Erro ao usar modelo: {e}, criando documento vazio")
                 doc = Document()
-                for p in texto_final.split('\n'):
-                    if p.strip() == '<<<ESPACO_14>>>':
-                        for _ in range(14):
-                            doc.add_paragraph('')
-                    elif p.strip():
-                        doc.add_paragraph(p)
+                _popular_doc_com_texto(doc, texto_final)
         else:
             print(f"         Modelo não configurado para {tipo_processo}, criando documento vazio")
             doc = Document()
-            for p in texto_final.split('\n'):
-                if p.strip() == '<<<ESPACO_14>>>':
-                    for _ in range(14):
-                        doc.add_paragraph('')
-                elif p.strip():
-                    doc.add_paragraph(p)
+            _popular_doc_com_texto(doc, texto_final)
         
         # Aplicar formatação padrão do escritório (sempre)
         doc = aplicar_formatacao_master(doc)
