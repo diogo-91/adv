@@ -2441,7 +2441,11 @@ RETORNE APENAS A PETIÇÃO COMPLETA, PERFEITA E PRONTA PARA PROTOCOLO.
         # PÓS-PROCESSAMENTO: Limpar marcadores de quebra de linha
         peticao = limpar_marcadores_quebra_linha(peticao)
         print(f"        - Marcadores de quebra de linha removidos")
-        
+
+        # PÓS-PROCESSAMENTO: Fundir fragmentos da qualificação em um único parágrafo
+        peticao = fundir_qualificacao_fragmentos(peticao)
+        print(f"        - Qualificação fundida em parágrafo único")
+
         # PÓS-PROCESSAMENTO: Processar marcadores de formatação especial
         peticao = processar_marcadores_formatacao(peticao)
         print(f"        - Marcadores de formatação processados")
@@ -2494,6 +2498,69 @@ def limpar_marcadores_quebra_linha(peticao_texto):
         print(f"        [AVISO] Erro ao limpar marcadores: {e}")
         return peticao_texto  # Retornar original em caso de erro
 
+def fundir_qualificacao_fragmentos(peticao_texto):
+    """
+    Funde os fragmentos da qualificação em UM único parágrafo, conforme o
+    padrão real do escritório (padrão de formatação.docx).
+
+    O padrão correto é:
+      NOME DO AUTOR, qualificação..., propor a presente **RECLAMAÇÃO
+      TRABALHISTA** em face de **NOME DA EMPRESA**, CNPJ..., pelos
+      fundamentos de fato e de direito a seguir expostos.
+
+    A IA frequentemente gera os fragmentos como parágrafos separados:
+      "...propor a presente"
+      "RECLAMAÇÃO TRABALHISTA"   ← parágrafo separado
+      "em face de"               ← parágrafo separado
+      "EMPRESA LTDA..."          ← parágrafo separado
+
+    Esta função detecta esse padrão e reúne tudo em UM parágrafo.
+    """
+    try:
+        import re
+
+        linhas = peticao_texto.split('\n')
+        resultado = []
+        i = 0
+
+        while i < len(linhas):
+            linha = linhas[i]
+            linha_strip = linha.strip()
+
+            # Detecta fim do bloco "propor a presente" (com ou sem \n após)
+            if re.search(r'propor\s+a\s+presente\s*$', linha_strip, re.IGNORECASE):
+                # Acumula fragmentos seguintes até encontrar "pelos fundamentos"
+                acumulado = linha_strip
+                j = i + 1
+                while j < len(linhas) and j < i + 15:
+                    prox = linhas[j].strip()
+                    j += 1
+                    if not prox:          # pula linhas vazias entre fragmentos
+                        continue
+                    # Limpa tags de centralização que a IA possa ter colocado
+                    prox = re.sub(r'<<<CENTRO>>>|<<</CENTRO>>>', '', prox)
+                    prox = re.sub(r'\[CENTRALIZAR\]|\[/CENTRALIZAR\]', '', prox, flags=re.IGNORECASE)
+                    prox = prox.strip()
+                    if not prox:
+                        continue
+                    acumulado = acumulado + ' ' + prox
+                    # Para quando chegar em "pelos fundamentos"
+                    if re.search(r'pelos\s+fundamentos', prox, re.IGNORECASE):
+                        i = j - 1
+                        break
+                resultado.append(acumulado)
+            else:
+                resultado.append(linha)
+
+            i += 1
+
+        return '\n'.join(resultado)
+
+    except Exception as e:
+        print(f"        [AVISO] Erro ao fundir qualificação: {e}")
+        return peticao_texto
+
+
 def processar_marcadores_formatacao(peticao_texto):
     """
     Processa marcadores especiais de formatação que serão aplicados no documento Word:
@@ -2531,26 +2598,26 @@ def processar_marcadores_formatacao(peticao_texto):
         )
 
         # [ESPACO_GRANDE] explícito → marcador (caso a IA gere no lugar certo)
-        texto_processado = texto_processado.replace('[ESPACO_GRANDE]', '\n<<<ESPACO_18>>>\n')
+        texto_processado = texto_processado.replace('[ESPACO_GRANDE]', '\n<<<ESPACO_14>>>\n')
 
         # ---------------------------------------------------------------
         # GARANTIA PROGRAMÁTICA: o espaço protocolo SEMPRE vem logo após
         # o vocativo (linha com EXCELENTÍSSIMO), independente do que a IA
-        # gerar. Remove qualquer <<<ESPACO_18>>> que a IA tenha colocado
+        # gerar. Remove qualquer <<<ESPACO_14>>> que a IA tenha colocado
         # fora do lugar e insere no lugar certo.
         # ---------------------------------------------------------------
         linhas = texto_processado.split('\n')
 
-        # 1. Remover todos os <<<ESPACO_18>>> existentes (podem estar errados)
-        linhas = [l for l in linhas if l.strip() != '<<<ESPACO_18>>>']
+        # 1. Remover todos os <<<ESPACO_14>>> existentes (podem estar errados)
+        linhas = [l for l in linhas if l.strip() != '<<<ESPACO_14>>>']
 
-        # 2. Reinserir <<<ESPACO_18>>> imediatamente após a linha do vocativo
+        # 2. Reinserir <<<ESPACO_14>>> imediatamente após a linha do vocativo
         resultado = []
         espaco_inserido = False
         for linha in linhas:
             resultado.append(linha)
             if not espaco_inserido and re.search(r'EXCELENT[ÍI]SSIMO', linha, re.IGNORECASE):
-                resultado.append('<<<ESPACO_18>>>')
+                resultado.append('<<<ESPACO_14>>>')
                 espaco_inserido = True
 
         texto_processado = '\n'.join(resultado)
@@ -2709,8 +2776,8 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                     primeiro_paragrafo = True
                     for linha in texto_final.split('\n'):
                         # Marcador especial: inserir 18 parágrafos vazios (espaço protocolo)
-                        if linha.strip() == '<<<ESPACO_18>>>':
-                            for _ in range(18):
+                        if linha.strip() == '<<<ESPACO_14>>>':
+                            for _ in range(14):
                                 p_vazio = doc.add_paragraph('')
                                 try:
                                     p_vazio.style = 'Normal'
@@ -2744,8 +2811,8 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                     print(f"         Não foi possível baixar modelo, criando documento vazio")
                     doc = Document()
                     for p in texto_final.split('\n'):
-                        if p.strip() == '<<<ESPACO_18>>>':
-                            for _ in range(18):
+                        if p.strip() == '<<<ESPACO_14>>>':
+                            for _ in range(14):
                                 doc.add_paragraph('')
                         elif p.strip():
                             doc.add_paragraph(p)
@@ -2753,8 +2820,8 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
                 print(f"         Erro ao usar modelo: {e}, criando documento vazio")
                 doc = Document()
                 for p in texto_final.split('\n'):
-                    if p.strip() == '<<<ESPACO_18>>>':
-                        for _ in range(18):
+                    if p.strip() == '<<<ESPACO_14>>>':
+                        for _ in range(14):
                             doc.add_paragraph('')
                     elif p.strip():
                         doc.add_paragraph(p)
@@ -2762,8 +2829,8 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
             print(f"         Modelo não configurado para {tipo_processo}, criando documento vazio")
             doc = Document()
             for p in texto_final.split('\n'):
-                if p.strip() == '<<<ESPACO_18>>>':
-                    for _ in range(18):
+                if p.strip() == '<<<ESPACO_14>>>':
+                    for _ in range(14):
                         doc.add_paragraph('')
                 elif p.strip():
                     doc.add_paragraph(p)
