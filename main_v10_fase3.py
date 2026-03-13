@@ -139,10 +139,14 @@ def salvar_cronologia_docx(service, texto_cronologia, cliente_nome, pasta_id):
         temp_path = os.path.join(tempfile.gettempdir(), temp_filename)
         doc.save(temp_path)
         
+        # Criar/buscar subpasta "Cronologia dos Fatos" dentro da pasta do cliente
+        pasta_cronologia_id = buscar_ou_criar_pasta(service, "Cronologia dos Fatos", pasta_id)
+        print(f"        [AGENTE CRONOLOGIA] Pasta destino: {pasta_cronologia_id}")
+
         # Upload para o Drive
         file_metadata = {
             'name': 'Cronologia_Fatos.docx',
-            'parents': [pasta_id]
+            'parents': [pasta_cronologia_id]
         }
         
         # Usar try-finally para garantir que recursos sejam liberados
