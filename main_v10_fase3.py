@@ -2499,19 +2499,20 @@ def processar_marcadores_formatacao(peticao_texto):
     Processa marcadores especiais de formatação que serão aplicados no documento Word:
     - [CENTRALIZAR]...[/CENTRALIZAR] -> texto centralizado
     - [NEGRITO_SUBLINHADO]...[/NEGRITO_SUBLINHADO] -> negrito + sublinhado
-    - [ESPACO_GRANDE] -> 8-10 linhas em branco
-    
+    - [ESPACO_GRANDE] -> 18 parágrafos vazios (padrão real do docx)
+    - Garante programaticamente que o espaço aparece APÓS o vocativo
+
     Args:
         peticao_texto: Texto da petição com possíveis marcadores
-        
+
     Returns:
         Texto com marcadores convertidos para tags especiais
     """
     try:
         import re
-        
+
         texto_processado = peticao_texto
-        
+
         # Converter marcadores para tags especiais que serão processadas no Word
         # [CENTRALIZAR]...[/CENTRALIZAR] -> <<<CENTRO>>>...<<</CENTRO>>>
         texto_processado = re.sub(
@@ -2520,7 +2521,7 @@ def processar_marcadores_formatacao(peticao_texto):
             texto_processado,
             flags=re.DOTALL | re.IGNORECASE
         )
-        
+
         # [NEGRITO_SUBLINHADO]...[/NEGRITO_SUBLINHADO] -> <<<BOLD_UL>>>...<<</BOLD_UL>>>
         texto_processado = re.sub(
             r'\[NEGRITO_SUBLINHADO\](.*?)\[/NEGRITO_SUBLINHADO\]',
@@ -2528,12 +2529,34 @@ def processar_marcadores_formatacao(peticao_texto):
             texto_processado,
             flags=re.IGNORECASE
         )
-        
-        # [ESPACO_GRANDE] -> marcador especial para 18 parágrafos vazios (padrão real do docx)
+
+        # [ESPACO_GRANDE] explícito → marcador (caso a IA gere no lugar certo)
         texto_processado = texto_processado.replace('[ESPACO_GRANDE]', '\n<<<ESPACO_18>>>\n')
-        
+
+        # ---------------------------------------------------------------
+        # GARANTIA PROGRAMÁTICA: o espaço protocolo SEMPRE vem logo após
+        # o vocativo (linha com EXCELENTÍSSIMO), independente do que a IA
+        # gerar. Remove qualquer <<<ESPACO_18>>> que a IA tenha colocado
+        # fora do lugar e insere no lugar certo.
+        # ---------------------------------------------------------------
+        linhas = texto_processado.split('\n')
+
+        # 1. Remover todos os <<<ESPACO_18>>> existentes (podem estar errados)
+        linhas = [l for l in linhas if l.strip() != '<<<ESPACO_18>>>']
+
+        # 2. Reinserir <<<ESPACO_18>>> imediatamente após a linha do vocativo
+        resultado = []
+        espaco_inserido = False
+        for linha in linhas:
+            resultado.append(linha)
+            if not espaco_inserido and re.search(r'EXCELENT[ÍI]SSIMO', linha, re.IGNORECASE):
+                resultado.append('<<<ESPACO_18>>>')
+                espaco_inserido = True
+
+        texto_processado = '\n'.join(resultado)
+
         return texto_processado
-        
+
     except Exception as e:
         print(f"        [AVISO] Erro ao processar marcadores de formatação: {e}")
         return peticao_texto
