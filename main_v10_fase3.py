@@ -2895,13 +2895,17 @@ def salvar_peticao_no_drive(service, peticao_texto, cliente_info, arquivos_clien
 
         # Salvar dentro da pasta do próprio cliente em subpasta "Petições"
         pasta_cliente_id = cliente_info.get('pasta_cliente_id')
+        print(f"        [DEBUG PASTA] cliente_info keys: {list(cliente_info.keys())}")
+        print(f"        [DEBUG PASTA] pasta_cliente_id recebido: {pasta_cliente_id}")
         if pasta_cliente_id:
             pasta = buscar_ou_criar_pasta(service, "Petições", pasta_cliente_id)
-            print(f"        - Salvando em subpasta 'Petições' do cliente: {pasta}")
+            print(f"        [DEBUG PASTA] Subpasta 'Petições' ID: {pasta}")
+            if not pasta:
+                pasta = PASTAS_PETICOES_GERADAS.get(cliente_info['tipo_processo'])
+                print(f"        [DEBUG PASTA] buscar_ou_criar_pasta falhou, fallback: {pasta}")
         else:
-            # Fallback: pasta global por tipo de processo (comportamento anterior)
             pasta = PASTAS_PETICOES_GERADAS.get(cliente_info['tipo_processo'])
-            print(f"        - [FALLBACK] Salvando em pasta global: {pasta}")
+            print(f"        [DEBUG PASTA] pasta_cliente_id ausente, fallback global: {pasta}")
 
         metadata = {'name': nome, 'parents': [pasta]}
         media = MediaFileUpload(tmp_path, mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
