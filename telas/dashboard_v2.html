@@ -873,25 +873,25 @@
 <body>
     <!-- Modal de Progresso -->
     <div id="modalProgresso" class="modal-backdrop">
-        <div class="modal-content" style="max-width: 500px; text-align: center; padding: 3rem; position: relative;">
+        <div class="modal-content" style="max-width: 480px; text-align: center; padding: 3rem 2.5rem; position: relative;">
             <button onclick="fecharModalProgresso()"
                 style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer;">&times;</button>
             <div id="progressContent">
                 <i class="bi bi-gear-wide-connected spin-icon"
                     style="font-size: 4rem; color: #3b82f6; margin-bottom: 1.5rem; display: inline-block;"></i>
                 <h3 id="progressTitle" style="margin-bottom: 1rem; color: #1e293b;">Gerando Petição</h3>
-                <p id="progressStatus" style="color: #64748b; margin-bottom: 2rem; font-size: 1.1rem;">Iniciando...</p>
 
-                <div class="progress-bar-container"
-                    style="background: #f1f5f9; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 1.5rem;">
-                    <div id="progressBarFill" class="progress-bar-fill"
-                        style="width: 0%; height: 100%; background: linear-gradient(90deg, #3b82f6, #2563eb); border-radius: 6px; transition: width 0.5s ease;">
-                    </div>
-                </div>
+                <p style="color: #475569; font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.5rem;">
+                    Seu documento está sendo gerado.
+                </p>
+                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">
+                    Dentro de alguns minutos estará disponível para visualização.
+                </p>
 
-                <div id="progressSteps" style="text-align: left; margin-top: 2rem;">
-                    <!-- Etapas -->
-                </div>
+                <!-- Mantidos ocultos para não quebrar chamadas JS existentes -->
+                <p id="progressStatus" style="display: none;"></p>
+                <div id="progressBarFill" style="display: none;"></div>
+                <div id="progressSteps" style="display: none;"></div>
 
                 <div id="progressActions" style="margin-top: 2rem; display: none;">
                     <button class="btn btn-secondary" onclick="fecharModalProgresso()"
