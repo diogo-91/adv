@@ -1369,9 +1369,6 @@ def aplicar_formatacoes_especiais_word(doc):
         padrao_numeracao = re.compile(r'^\s*#*\s*([a-zA-Z]\)|\d+\.)\s')
         padrao_jurisprudencia = re.compile(r'^\s*("?EMENTA|AGRAVO|RECURSO|SÚMULA|OJ|PROCESSO|TRT|TST|STF|STJ|Relator|Data\sde\sJulgamento)\b', re.IGNORECASE)
         
-        from docx.shared import RGBColor
-        azul_juris = RGBColor(0x4F, 0x81, 0xBD)
-        
         vocativo_encontrado = False
         autor_formatado = False
         primeiro_titulo_encontrado = False
@@ -1388,22 +1385,20 @@ def aplicar_formatacoes_especiais_word(doc):
             if not vocativo_encontrado and padrao_vocativo.search(texto) and len(texto) < 300:
                 vocativo_encontrado = True
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                paragraph.paragraph_format.left_indent = Cm(0)
+                paragraph.paragraph_format.left_indent = Cm(2.0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
                 paragraph.text = ""
                 run = paragraph.add_run(texto.upper())
                 run.font.bold = True
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
-                # Adiciona um espaçamento maciço após o vocativo para jogar a qualificação lá para o rodapé
-                paragraph.paragraph_format.space_after = Pt(280)  
                 continue
             
-            # --- 1.5 ALINHAR QUALIFICAÇÃO E PROPOR A PRESENTE (tudo antes do Nível 1) ---
-            # Se já achou vocativo, mas ainda não chegou nos Fatos/Preliminares, tira o recuo esquerdo
+            # --- 1.5 QUALIFICAÇÃO E PROPOR A PRESENTE (tudo antes do Nível 1) ---
+            # Mantém o mesmo recuo padrão do corpo (left=2cm, firstLine=2cm) — igual ao padrão real
             if vocativo_encontrado and not padrao_titulos_n1.match(texto) and not padrao_titulos_n2.match(texto) and not primeiro_titulo_encontrado:
-                paragraph.paragraph_format.left_indent = Cm(0)
-                paragraph.paragraph_format.first_line_indent = Cm(0)
+                paragraph.paragraph_format.left_indent = Cm(2.0)
+                paragraph.paragraph_format.first_line_indent = Cm(2.0)
             
             # --- 2. NOME DO AUTOR (Primeiro parágrafo significativo após vocativo) ---
             if vocativo_encontrado and not autor_formatado and len(texto) > 10:
@@ -1437,17 +1432,16 @@ def aplicar_formatacoes_especiais_word(doc):
                 is_juris = True
                 
             if is_juris:
-                paragraph.paragraph_format.left_indent = Cm(4.0)
-                paragraph.paragraph_format.first_line_indent = Cm(2.0)
+                paragraph.paragraph_format.left_indent = Cm(5.0)
+                paragraph.paragraph_format.first_line_indent = Cm(0)
                 paragraph.paragraph_format.right_indent = Cm(-0.25)
-                
+
                 texto_limpo = texto.replace('**', '')
                 paragraph.text = ""
                 run = paragraph.add_run(texto_limpo)
                 run.font.name = 'Verdana'
                 run.font.size = Pt(10)
-                run.font.color.rgb = azul_juris
-                
+
                 # Destacar fonte/relator (costuma estar no início ou no fim)
                 if ':' in texto_limpo[:100]:
                     partes = texto_limpo.split(':', 1)
@@ -1456,12 +1450,10 @@ def aplicar_formatacoes_especiais_word(doc):
                     r1.font.bold = True
                     r1.font.name = 'Verdana'
                     r1.font.size = Pt(10)
-                    r1.font.color.rgb = azul_juris
-                    
+
                     r2 = paragraph.add_run(partes[1])
                     r2.font.name = 'Verdana'
                     r2.font.size = Pt(10)
-                    r2.font.color.rgb = azul_juris
                 continue
 
             # Variável de controle para não sobrescrever formatação depois
@@ -1474,13 +1466,13 @@ def aplicar_formatacoes_especiais_word(doc):
                     primeiro_titulo_encontrado = True
                     
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-                paragraph.paragraph_format.left_indent = Cm(0)
+                paragraph.paragraph_format.left_indent = Cm(2.0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
-                paragraph.paragraph_format.space_before = Pt(24)
-                paragraph.paragraph_format.space_after = Pt(12)
-                
+                paragraph.paragraph_format.space_before = Pt(0)
+                paragraph.paragraph_format.space_after = Pt(0)
+
                 texto_limpo = texto.replace('**', '').lstrip('# ')
-                paragraph.text = "" 
+                paragraph.text = ""
                 run = paragraph.add_run(texto_limpo)
                 run.font.bold = True
                 run.font.underline = True
@@ -1494,17 +1486,15 @@ def aplicar_formatacoes_especiais_word(doc):
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 paragraph.paragraph_format.left_indent = Cm(2.0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
-                paragraph.paragraph_format.space_before = Pt(24)
-                paragraph.paragraph_format.space_after = Pt(12)
-                
+                paragraph.paragraph_format.space_before = Pt(0)
+                paragraph.paragraph_format.space_after = Pt(0)
+
                 texto_limpo = texto.replace('**', '').lstrip('# ')
-                paragraph.text = "" 
+                paragraph.text = ""
                 run = paragraph.add_run(texto_limpo)
                 run.font.bold = True
-                # A especificação técnica dizia itálico, MAS A IMAGEM NÃO MOSTRA ITÁLICO
                 run.font.italic = False
                 run.font.name = 'Verdana'
-                run.font.size = Pt(10)
                 run.font.size = Pt(10)
                 titulo_formatado = True
                 continue
@@ -1516,11 +1506,11 @@ def aplicar_formatacoes_especiais_word(doc):
                 paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 paragraph.paragraph_format.left_indent = Cm(2.0)
                 paragraph.paragraph_format.first_line_indent = Cm(0)
-                paragraph.paragraph_format.space_before = Pt(12)
-                paragraph.paragraph_format.space_after = Pt(12)
-                
+                paragraph.paragraph_format.space_before = Pt(0)
+                paragraph.paragraph_format.space_after = Pt(0)
+
                 texto_limpo = texto.replace('**', '').lstrip('# ')
-                paragraph.text = "" 
+                paragraph.text = ""
                 run = paragraph.add_run(texto_limpo)
                 run.font.bold = True
                 run.font.name = 'Verdana'
@@ -1559,8 +1549,7 @@ def aplicar_formatacoes_especiais_word(doc):
                     paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                     paragraph.paragraph_format.left_indent = Cm(2.0)
                     paragraph.paragraph_format.first_line_indent = Cm(2.0)
-                    # Espaço extra entre os parágrafos numerados (como na imagem)
-                    paragraph.paragraph_format.space_before = Pt(12)
+                    paragraph.paragraph_format.space_before = Pt(0)
                     paragraph.paragraph_format.space_after = Pt(0)
                     
                 # Verificar se o resto já foi formatado em partes (ex: contém negrito pelo regex acima)
