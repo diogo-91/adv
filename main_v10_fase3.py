@@ -3440,8 +3440,7 @@ def agente_auditor():
                         tempo_geracao=0
                     )
                     
-                    # Mover para pasta de aprovadas
-                    mover_peticao(service, arquivo['id'], True)
+                    # Petição permanece na subpasta do cliente (não move para pasta global)
                     total_aprovadas += 1
                     
                     # Mostrar resultado
@@ -4295,9 +4294,8 @@ def processar_geracao_manual(cliente_nome, tipo_acao, forcar_geracao=False):
                         resultado_auditoria.get('relatorio_detalhado', {})  #  Salva como 'relatorio_auditoria'
                     )
                     
-                    # Mover para pasta de aprovadas
-                    mover_peticao(service, arquivo_id, True)
-                    print(f"   Movida para pasta APROVADAS")
+                    # Petição permanece na subpasta do cliente (não move para pasta global)
+                    print(f"   Petição aprovada - mantida na pasta do cliente")
                     
                 else:
                     print(f"   Erro na auditoria")
