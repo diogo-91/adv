@@ -2272,6 +2272,10 @@
 
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 10);
+
+            // Fechar automaticamente após 5 segundos
+            clearTimeout(window._modalProgressoTimer);
+            window._modalProgressoTimer = setTimeout(() => fecharModalProgresso(), 5000);
         }
 
         function fecharModalProgresso() {
@@ -3874,6 +3878,12 @@
 
             document.body.insertAdjacentHTML('beforeend', modalHtml);
 
+            // Fechar automaticamente após 5 segundos
+            setTimeout(() => {
+                const m = document.getElementById('modalTranscricao');
+                if (m) m.remove();
+            }, 5000);
+
             try {
                 const response = await fetch(`${API_BASE}/transcrever-video`, {
                     method: 'POST',
@@ -3972,6 +3982,12 @@ A transcrição foi salva na pasta "Transcrições de Vídeo" do cliente.`);
                 `;
 
                 document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+                // Fechar automaticamente após 5 segundos
+                setTimeout(() => {
+                    const m = document.getElementById('modalTranscricaoProgress');
+                    if (m) m.remove();
+                }, 5000);
 
                 // Chamar endpoint de transcrição
                 const response = await fetch(`${API_BASE}/transcrever-video`, {
