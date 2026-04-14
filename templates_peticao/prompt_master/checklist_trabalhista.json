@@ -200,6 +200,171 @@
         "multa_477",
         "multa_467",
         "adicional_noturno",
-        "insalubridade"
-    ]
+        "insalubridade",
+        "doenca_ocupacional",
+        "camara_fria",
+        "fgts",
+        "seguro_desemprego",
+        "estabilidade_provisoria",
+        "adicional_periculosidade",
+        "justica_gratuita",
+        "terceirizacao"
+    ],
+    "referencias_universais_obrigatorias": {
+        "descricao": "Incluir SEMPRE em todas as peticoes, independente do tipo de acao",
+        "frequencia_media": "86% das peticoes do Dr. Guilherme usam pelo menos uma",
+        "referencias": [
+            {
+                "referencia": "ADI 5.766 (STF)",
+                "uso": "honorarios_sucumbenciais",
+                "frequencia_percentual": 86.1,
+                "quando_usar": "SEMPRE - em todas as peticoes com pedido de justica gratuita"
+            },
+            {
+                "referencia": "Sumula 463 do TST",
+                "uso": "justica_gratuita",
+                "frequencia_percentual": 44.2,
+                "quando_usar": "SEMPRE - junto com pedido de gratuidade da justica"
+            },
+            {
+                "referencia": "Sumula 389 do TST",
+                "uso": "seguro_desemprego_indenizacao_substitutiva",
+                "frequencia_percentual": 31.2,
+                "quando_usar": "Quando houver rescisao sem entrega de guias ou rescisao indireta"
+            },
+            {
+                "referencia": "ADC 58 (STF)",
+                "uso": "correcao_monetaria_selic",
+                "frequencia_percentual": 24.5,
+                "quando_usar": "SEMPRE - nos pedidos de juros e correcao monetaria (Lei 14.905/2024)"
+            },
+            {
+                "referencia": "Sumula 331 do TST",
+                "uso": "terceirizacao_responsabilidade_subsidiaria",
+                "frequencia_percentual": 23.1,
+                "quando_usar": "Quando houver terceirizacao ou tomadora de servicos"
+            },
+            {
+                "referencia": "Sumula 462 do TST",
+                "uso": "multa_art_477",
+                "frequencia_percentual": 8.2,
+                "quando_usar": "Quando o vinculo e reconhecido em juizo e multa art. 477 e devida"
+            },
+            {
+                "referencia": "OJ 351 SBDI-1 (cancelada)",
+                "uso": "multa_art_477_sem_excecao",
+                "frequencia_percentual": 7.2,
+                "quando_usar": "Para reforcar que controversia nao isenta da multa art. 477"
+            }
+        ]
+    },
+    "referencias_por_tipo_acao": {
+        "ACAO_ACIDENTARIA": {
+            "media_citacoes_por_peticao": 6.8,
+            "sumulas_mais_usadas": [
+                "ADI 5.766 (86.9%)",
+                "Sumula 463 TST (38.0%)",
+                "Sumula 389 TST (31.4%)",
+                "ADC 58 STF (24.8%)",
+                "Sumula 331 TST (19.7%)",
+                "Sumula 47 TST - insalubridade intermitente",
+                "Sumula 139 TST - reflexos do adicional de insalubridade",
+                "Sumula 448 TST - limpeza banheiros grau maximo",
+                "OJ 230 SBDI-1 - doenca ocupacional",
+                "Sumula 364 TST - periculosidade",
+                "Sumula 396 TST - estabilidade provisoria/indenizacao substitutiva",
+                "Sumula 461 TST - FGTS",
+                "OJ 89 SBDI-1 - FGTS sobre parcelas salariais",
+                "Sumula 437 TST - intervalo intrajornada",
+                "Sumula 244 TST - estabilidade gestante"
+            ],
+            "precedentes_chave": "precedentes_acao_acidentaria"
+        },
+        "DIFERENCAS_CONTRATUAIS": {
+            "media_citacoes_por_peticao": 5.5,
+            "sumulas_mais_usadas": [
+                "ADI 5.766 (80.9%)",
+                "Sumula 463 TST (55.3%)",
+                "Sumula 331 TST (38.3%)",
+                "Sumula 389 TST (23.4%)",
+                "ADC 58 STF (17.0%)",
+                "Sumula 448 TST - insalubridade/limpeza",
+                "Sumula 139 TST - reflexos insalubridade",
+                "Sumula 338 TST - controle de jornada/onus da prova",
+                "Sumula 437 TST - intervalo intrajornada",
+                "Sumula 462 TST - multa art. 477",
+                "OJ 351 SBDI-1 - multa art. 477 sem excecao",
+                "OJ 89 SBDI-1 - FGTS"
+            ],
+            "precedentes_chave": "precedentes_diferencas_contratuais"
+        },
+        "RECONHECIMENTO_VINCULO": {
+            "media_citacoes_por_peticao": 5.0,
+            "sumulas_mais_usadas": [
+                "ADI 5.766 (91.7%)",
+                "Sumula 463 TST (58.3%)",
+                "Sumula 389 TST (45.8%)",
+                "ADC 58 STF (37.5%)",
+                "Sumula 212 TST - onus da prova/extincao do contrato",
+                "Sumula 146 TST - trabalho em domingos e feriados",
+                "Sumula 331 TST (12.5%)",
+                "Sumula 462 TST - multa art. 477",
+                "Sumula 91 TST - clausula globo"
+            ],
+            "precedentes_chave": "precedentes_reconhecimento_vinculo"
+        }
+    },
+    "relatores_especializados": {
+        "descricao": "Relatores com maior recorrencia nos precedentes utilizados - util para calibrar argumentacao",
+        "lista": [
+            {
+                "relator": "Augusto Cesar Leite de Carvalho",
+                "tribunal_turma": "TST - 6a Turma",
+                "especialidade": ["insalubridade", "camara_fria", "rescisao_indireta", "estabilidade"],
+                "observacao": "Relator mais citado em Acao Acidentaria"
+            },
+            {
+                "relator": "Joao Batista Brito Pereira",
+                "tribunal_turma": "TST - 8a Turma",
+                "especialidade": ["rescisao_indireta", "fgts", "multa_477", "danos_morais"],
+                "observacao": "Alta frequencia em todos os tipos de acao"
+            },
+            {
+                "relator": "Delaíde Miranda Arantes",
+                "tribunal_turma": "TST - 2a Turma",
+                "especialidade": ["danos_morais", "vinculo_empregaticio", "insalubridade"],
+                "observacao": "Processo mais citado da base (13x)"
+            },
+            {
+                "relator": "Alexandre de Souza Agra Belmonte",
+                "tribunal_turma": "TST - 3a Turma",
+                "especialidade": ["insalubridade", "rescisao_indireta", "fgts"],
+                "observacao": "Destaque em Diferencas Contratuais"
+            },
+            {
+                "relator": "Alberto Luiz Bresciani",
+                "tribunal_turma": "TST - 3a Turma",
+                "especialidade": ["doenca_ocupacional", "estabilidade", "multa_477"],
+                "observacao": "Recorrente em Acao Acidentaria"
+            },
+            {
+                "relator": "Joao Pedro Silvestrin",
+                "tribunal_turma": "TST - 5a Turma",
+                "especialidade": ["multa_477", "verbas_rescisorias"],
+                "observacao": "Processo de referencia para multa art. 477 (15x no total)"
+            },
+            {
+                "relator": "Amaury Rodrigues Pinto Junior",
+                "tribunal_turma": "TST - 1a Turma",
+                "especialidade": ["doenca_ocupacional", "estabilidade", "limbo_previdenciario"],
+                "observacao": "Especializado em materia acidentaria"
+            },
+            {
+                "relator": "Hugo Carlos Scheuermann",
+                "tribunal_turma": "TST - 1a Turma",
+                "especialidade": ["rescisao_indireta", "fgts", "intervalo_intrajornada"],
+                "observacao": "Frequente em Diferencas Contratuais"
+            }
+        ]
+    }
 }

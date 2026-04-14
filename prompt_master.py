@@ -175,15 +175,18 @@ Distribuição OBRIGATÓRIA:
 - Numeração: parágrafos numerados sequencialmente
 
 ### JURISPRUDÊNCIA
-- Quantidade máxima: 5 (cinco) precedentes em toda a petição
+- Quantidade: até 7 precedentes por petição (média real: 6,8 em Ação Acidentária)
 - Formato: SEMPRE resumida, NUNCA transcrever ementa completa
-- Estrutura: Tribunal + Número + Relator + Tese em 2-3 linhas + Aplicação
+- Estrutura: Tribunal + Número + Relator + Tese em 2-3 linhas + Aplicação ao caso
+- PRIORIZAR as referências indicadas na seção de jurisprudência calibrada abaixo
 
 ### CÁLCULOS E VALORES
 - Valores na inicial: SEMPRE arredondados (sem centavos)
 - Discriminação: clara e objetiva
 - Base de cálculo: explícita
 - Indicar: "valor estimado" ou "a ser apurado em liquidação"
+
+{self._gerar_referencias_jurisprudenciais()}
 
 {self._gerar_estrutura_detalhada()}
 
@@ -302,6 +305,128 @@ Para cada pedido principal:
 - Valor da causa
 """
     
+    def _gerar_referencias_jurisprudenciais(self) -> str:
+        """
+        Gera bloco de jurisprudência calibrado por tipo de ação,
+        baseado na análise real de 208 petições do Dr. Guilherme
+        (1.308 citações, média 6,8 por petição em Ação Acidentária).
+        """
+        referencias_universais = """
+### REFERÊNCIAS UNIVERSAIS — INCLUIR EM TODA PETIÇÃO
+
+As referências abaixo aparecem em mais de 80% das petições e devem ser sempre consideradas:
+
+| Referência | Frequência | Aplicação |
+|---|---|---|
+| ADI 5.766 (STF) | 86,1% | Honorários sucumbenciais — limita cobrança de beneficiários de justiça gratuita |
+| Súmula 463 do TST | 44,2% | Justiça gratuita — basta declaração do empregado |
+| Súmula 389 do TST | 31,2% | Indenização substitutiva seguro-desemprego; rescisão indireta em juízo |
+| ADC 58 (STF) + Lei 14.905/2024 | 24,5% | Correção monetária: IPCA + SELIC |
+| Súmula 331 do TST | 23,1% | Terceirização — responsabilidade subsidiária da tomadora |
+| Súmula 462 do TST | 8,2% | Multa art. 477 incide mesmo quando vínculo reconhecido em juízo |
+| OJ 351 SBDI-1 (cancelada) | 7,2% | Controvérsia não isenta da multa art. 477 |
+"""
+
+        por_tipo = {
+            'ACAO_ACIDENTARIA': """
+### REFERÊNCIAS ESPECÍFICAS — AÇÃO ACIDENTÁRIA (média: 6,8 citações/petição)
+
+**Insalubridade:**
+- Súmula 47 do TST — insalubridade configurada ainda que de forma intermitente
+- Súmula 139 do TST — reflexos do adicional sobre HE, noturno, DSR, férias, 13º, FGTS
+- Súmula 448 do TST — limpeza de banheiros coletivos = grau máximo (40%)
+- Súmula 293 do TST — acréscimo de insalubridade (base de cálculo)
+
+**Câmara fria (tema recorrente):**
+- TST RR 111158720165030021 — Augusto Cesar Leite de Carvalho (6ª T.) — 09/09/2021
+- TST Ag 10008204320165020492 — Guilherme Augusto Caputo Bastos (4ª T.) — 09/03/2021
+
+**Doença ocupacional / Estabilidade acidentária:**
+- OJ 230 SBDI-1 — doença equiparada ao acidente; estabilidade 12 meses após alta
+- TST RR 5774920165110013 — Alberto Luiz Bresciani (3ª T.) — nexo causal
+- TST Ag 5190320165200011 — Amaury Rodrigues Pinto Junior (1ª T.) — limbo previdenciário
+- TST RR 00014487820205120056 — Alberto Bastos Balazeiro (3ª T.) — 24/05/2023
+
+**Danos morais / Vínculo:**
+- TST RR 0020786-26.2015.5.04.0124 — Delaíde Miranda Arantes (2ª T.) — **13x citado**
+- TRT-3 RO 00106550920205030103 — Des. Antonio Gomes — 2020
+- TRT-4 ROT 00207958920205040551 — 1ª T. — 13/07/2023
+- TRT-1 RO 01005510920195010021 — 06/09/2021
+
+**Rescisão indireta / FGTS / Multa 477:**
+- TST RR 10017567620165020069 — Augusto Cesar Leite de Carvalho (6ª T.) — 06/04/2022
+- TST Ag 10006625520165020502 — João Pedro Silvestrin (5ª T.) — 07/04/2021 (10x)
+- TST RR 118242220175150032 — João Batista Brito Pereira (8ª T.) — 24/02/2021
+- TRT-11 RO 00008726020145110012 — 3ª T. — 10/12/2015
+
+**Periculosidade:**
+- Súmula 364 do TST — exposição permanente ou intermitente (não eventual)
+- OJ 278 SBDI — periculosidade
+- Súmula 191 do TST
+
+**Outros:**
+- Súmula 396 do TST — estabilidade provisória / indenização substitutiva
+- Súmula 244 do TST — gestante; estabilidade provisória
+- Súmula 461 do TST + OJ 89 SBDI-1 — FGTS e reflexos
+- OJ 210 SBDI-1 + Súmula 389 do TST — seguro-desemprego
+""",
+            'DIFERENCAS_CONTRATUAIS': """
+### REFERÊNCIAS ESPECÍFICAS — DIFERENÇAS CONTRATUAIS (média: 5,5 citações/petição)
+
+**Insalubridade:**
+- Súmula 448 do TST — limpeza de banheiros coletivos = grau máximo
+- Súmula 139 do TST — reflexos sobre demais verbas
+- TST Ag 106832420185030013 — Alexandre de Souza Agra Belmonte (3ª T.) — 24/02/2021
+- TST RR 407520175170005 — Kátia Magalhães Arruda (6ª T.) — 21/04/2021
+
+**Rescisão indireta / FGTS:**
+- TST RR 118242220175150032 — João Batista Brito Pereira (8ª T.) — **5x citado**
+- TST RR 10006156020185020066 — Alexandre de Souza Agra Belmonte (3ª T.) — 15/12/2021
+- TST RR 10007471620195020056 — Hugo Carlos Scheuermann (1ª T.) — 17/08/2022
+
+**Multa art. 477 / Verbas rescisórias:**
+- TST RR 10017567620165020069 — Augusto Cesar Leite de Carvalho (6ª T.) — 06/04/2022
+- TST Ag 10006625520165020502 — João Pedro Silvestrin (5ª T.) — 07/04/2021
+- Súmula 462 do TST + OJ 351 SBDI-1 (cancelada)
+
+**Horas extras / Jornada:**
+- Súmula 338 do TST — ônus do empregador de apresentar cartões de ponto
+- OJ 394 SBDI-1 — bancários / horas extras
+- OJ 355 SBDI-1 — intervalo intrajornada / art. 66 CLT
+- Súmula 437 do TST — supressão intervalo intrajornada; indenização e reflexos
+
+**Outros:**
+- OJ 89 SBDI-1 — FGTS sobre parcelas salariais
+- Súmula 331 do TST — terceirização (38,3% das petições desta categoria)
+""",
+            'RECONHECIMENTO_VINCULO': """
+### REFERÊNCIAS ESPECÍFICAS — RECONHECIMENTO DE VÍNCULO (média: 5,0 citações/petição)
+
+**Vínculo empregatício:**
+- Súmula 212 do TST — ônus da prova; extinção do contrato — inversão quando empregador não junta documentos
+- TRT-15 0000666-94.2012.5.15.0015 — **3x citado**
+- TRT-3 0001110-76.2010.5.03.0098 — Mauro Cesar Silva — **3x citado**
+- TST ROT 801435820205070000 — Morgana de Almeida Richa — 17/05/2022
+- TRT-2 AP 10016737920225020609 — 3ª T. — 2022
+
+**Multa art. 477 / Rescisão:**
+- Súmula 462 do TST — multa incide mesmo com vínculo reconhecido em juízo
+- OJ 351 SBDI-1 (cancelada) — controvérsia não isenta da multa
+- TST RR 10001336720185020081 — João Batista Brito Pereira (8ª T.) — 28/10/2020
+
+**Encargos e outros:**
+- Súmula 146 do TST — trabalho em domingos e feriados não compensado = dobro (16,7% das petições)
+- Súmula 91 do TST — nulidade de cláusula globo
+- Súmula 268 do TST — prescrição bienal e quinquenal
+- OJ 410 SBDI-1 — trabalho em domingos; dobra mesmo com salário mensal
+"""
+        }
+
+        bloco = referencias_universais
+        if self.tipo_processo in por_tipo:
+            bloco += por_tipo[self.tipo_processo]
+        return bloco
+
     def _gerar_checklist_especifico(self, checklist: Dict) -> str:
         """Gera checklist específico da área do direito"""
         if not checklist:
