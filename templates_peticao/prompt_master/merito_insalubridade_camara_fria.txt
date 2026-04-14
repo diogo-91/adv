@@ -1,0 +1,70 @@
+## DO ADICIONAL DE INSALUBRIDADE — CÂMARA FRIA/FRIGORÍFICO
+
+### REGRA TÉCNICA OBRIGATÓRIA
+⚠️ CÂMARA FRIA = GRAU MÉDIO (20%) sobre salário mínimo vigente — NUNCA pleitear 40% sem laudo.
+Salário Mínimo 2026: R$ 1.518,00 → Adicional mensal: R$ 1.518,00 × 20% = R$ 303,60
+Argumento central: análise QUALITATIVA — NR-15 Anexo 9 não estipula limite mínimo de exposição ao frio.
+
+---
+
+### A) FUNDAMENTAÇÃO LEGAL
+
+O art. 189 da CLT define trabalho insalubre como aquele que expõe o empregado a agentes nocivos acima dos limites de tolerância fixados pelo Ministério do Trabalho. O art. 192 da CLT assegura ao empregado exposto a agentes insalubres o pagamento de adicional sobre o salário mínimo, nos graus mínimo (10%), médio (20%) ou máximo (40%), conforme a natureza do agente.
+
+A NR-15 do MTE, em seu Anexo 9, disciplina especificamente as atividades executadas em câmaras frigoríficas e em ambientes com frio artificial excessivo, enquadrando-as como insalubres em grau médio (20% sobre o salário mínimo). Diferentemente de outros anexos da NR-15, o Anexo 9 NÃO estabelece limites quantitativos de tempo de exposição — basta o contato com o agente insalubre para que o direito seja reconhecido.
+
+### B) JURISPRUDÊNCIA — EMENTAS REAIS OBRIGATÓRIAS
+
+Precedente 1 — TST (análise qualitativa, não quantitativa):
+
+"O Regional, mantendo a sentença, entendeu ser indevido o deferimento do adicional de insalubridade haja vista que o obreiro entrava na câmara fria de uma a duas vezes em determinadas semanas (...). A jurisprudência desta Corte tem adotado o entendimento de que, para fins de caracterização da insalubridade para os obreiros que realizam atividade no interior de câmaras frias, a questão acerca do tempo de exposição não é o fator determinante para deferir ou não o adicional de insalubridade, porém o contato com o agente insalubre, porquanto a Norma Regulamentadora nº 15, Anexo 9, do Ministério do Trabalho e Emprego, não estipula limites de tolerância de tempo de exposição ao frio. Nesses casos, a exposição ao frio é examinada de forma qualitativa e não quantitativa. Recurso de revista conhecido e provido."
+
+(TST - RR: 111158720165030021, Relator: Augusto Cesar Leite De Carvalho, Data de Julgamento: 09/09/2021, 6ª Turma, Data de Publicação: 10/09/2021)
+
+---
+
+Precedente 2 — TST (EPI insuficiente):
+
+"Esta Corte Superior firmou entendimento de que, para fins de caracterização da insalubridade para os empregados que executam atividade no interior de câmaras frigoríficas, não importa o tempo de exposição, mas o contato com o agente insalubre (...). O egrégio Tribunal Regional constatou que o reclamante, no desempenho de suas atribuições, permanecia exposto ao frio, ao adentrar diariamente na câmara de resfriados e de congelados, sem proteção adequada, uma vez que os EPIs fornecidos pela reclamada não foram suficientes para eliminar ou neutralizar a insalubridade. Assim, concluiu ser devido o pagamento do adicional de insalubridade em grau médio, nos termos da NR-15. Agravo a que se nega provimento."
+
+(TST - Ag: 10008204320165020492, Relator: Guilherme Augusto Caputo Bastos, Data de Julgamento: 09/03/2021, 4ª Turma, Data de Publicação: 19/03/2021)
+
+---
+
+Precedente 3 — TRT-2 (choque térmico):
+
+"ADICIONAL DE INSALUBRIDADE. INGRESSO EM CÂMARAS FRIAS. PAGAMENTO DEVIDO. (...) o autor suportava choques térmicos, pela evidente entrada e saída das câmaras frias e de congelamento, o que era realizado diariamente, sendo prejudiciais à saúde do empregado, posto que a exposição ao choque térmico (oscilação entre temperaturas entre -18°C até a temperatura ambiente), enseja o direito à contrapartida pecuniária quanto ao adicional de insalubridade eis que nociva à saúde do trabalhador, sendo devidos também os reflexos pertinentes, conforme preceitua a Súmula 139 do C.TST."
+
+(TRT-2 10001763520195020706 SP, Relator: VALDIR FLORINDO, 6ª Turma - Cadeira 3, Data de Publicação: 05/03/2020)
+
+---
+
+Súmula obrigatória:
+
+"SÚMULA Nº 47 DO TST — INSALUBRIDADE. O trabalho executado em condições insalubres, em caráter intermitente, não afasta, só por essa circunstância, o direito à percepção do respectivo adicional."
+
+### C) APLICAÇÃO AO CASO CONCRETO
+
+O reclamante, no exercício de suas funções de {FUNCAO}, adentrava regularmente na câmara fria/frigorífico da reclamada, expondo-se ao frio artificial com temperaturas negativas. Conforme amplamente assentado pelo TST, a caracterização da insalubridade por exposição ao frio independe da frequência ou da duração de cada ingresso — basta o contato com o agente insalubre (NR-15, Anexo 9). Ademais, os EPIs eventualmente fornecidos pela reclamada não foram suficientes para eliminar ou neutralizar a insalubridade, conforme reconhecido pela 4ª Turma do TST no precedente acima transcrito.
+
+Enquadrada a atividade no Anexo 9 da NR-15, o adicional é devido em grau médio, correspondente a 20% sobre o salário mínimo vigente.
+
+### D) CÁLCULO DO ADICIONAL E REFLEXOS
+
+Salário Mínimo 2026: R$ 1.518,00
+Adicional mensal (20%): R$ 303,60
+Período: {DATA_ADMISSAO} a {DATA_RESCISAO} = {MESES_TRABALHADOS} meses
+Total adicional: R$ 303,60 × {MESES_TRABALHADOS} = R$ {TOTAL_ADICIONAL}
+
+Reflexos obrigatórios (Súmula 139 do TST):
+- DSR: (R$ 303,60 ÷ dias úteis) × domingos e feriados do período = R$ {VALOR_DSR}
+- 13º salário proporcional: R$ 303,60 × {MESES} ÷ 12 = R$ {VALOR_13}
+- Férias proporcionais: R$ 303,60 × {MESES} ÷ 12 = R$ {VALOR_FERIAS}
+- 1/3 constitucional sobre férias: R$ {VALOR_FERIAS} ÷ 3 = R$ {VALOR_TERCO}
+- Aviso prévio (se aplicável): R$ 303,60
+- FGTS sobre adicional + reflexos: (soma) × 8% = R$ {VALOR_FGTS}
+- Multa 40% FGTS: R$ {VALOR_FGTS} × 40% = R$ {VALOR_MULTA_FGTS}
+
+### E) PEDIDO
+
+Requer a condenação da reclamada ao pagamento do adicional de insalubridade em grau médio (20% sobre o salário mínimo vigente), no valor mensal de R$ 303,60, referente ao período de {DATA_ADMISSAO} a {DATA_RESCISAO}, totalizando R$ {TOTAL_ADICIONAL}, com os reflexos em DSR, 13º salário, férias + 1/3 constitucional, FGTS + multa de 40% e aviso prévio, na forma da Súmula 139 do TST, além de realização de perícia técnica para constatação das condições insalubres, cujos honorários periciais deverão ser suportados pela reclamada (art. 790-B da CLT).

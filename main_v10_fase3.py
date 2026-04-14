@@ -2402,6 +2402,109 @@ Antes de retornar, VERIFIQUE:
  Fundamentação legal adequada
 
 ═══════════════════════════════════════════════════════════════════════════
+8. REGRAS ABSOLUTAS — DR. GUILHERME DIMOVCI MARIA (OAB/SP 406.802)
+   VIOLAÇÃO = REJEIÇÃO IMEDIATA DA PETIÇÃO
+═══════════════════════════════════════════════════════════════════════════
+
+ REGRA ABSOLUTA 1 — DADOS FACTUAIS: NUNCA PRESUMA
+   Se algum dado abaixo estiver faltando, NÃO escreva a petição — sinalize:
+   → Nome completo, RG, CPF, endereço com número, estado civil, profissão
+   → Razão social da reclamada, CNPJ, endereço completo
+   → Data EXATA de admissão e rescisão (dd/mm/aaaa)
+   → Tipo de rescisão (dispensa s/ justa causa / rescisão indireta / pedido demissão)
+   → Último salário (valor EXATO) e função
+   → Jornada de trabalho com horários
+   NUNCA invente datas, valores ou fatos não fornecidos.
+
+ REGRA ABSOLUTA 2 — TIPO DE RESCISÃO: NÃO MISTURAR
+   DISPENSA SEM JUSTA CAUSA: empresa rescindiu → aviso prévio + férias + 13º + FGTS 40% + guias
+   RESCISÃO INDIRETA (art. 483 CLT): empregado se desligou por falta grave PATRONAL
+     → Exige: qual foi a conduta do empregador + data que o reclamante comunicou a rescisão
+     → NUNCA usar rescisão indireta quando foi a empresa que dispensou o empregado
+   PEDIDO DE DEMISSÃO: sem aviso indenizado, sem multa FGTS, sem seguro-desemprego
+
+ REGRA ABSOLUTA 3 — GRAUS DE INSALUBRIDADE (CRÍTICO — ERRO TÉCNICO GRAVE)
+   CÂMARA FRIA / AMBIENTE FRIGORÍFICO → GRAU MÉDIO = 20% (base: salário mínimo)
+     ❌ NUNCA pleitear 40% para câmara fria sem laudo que comprove grau máximo
+     ✅ Argumento correto: análise QUALITATIVA, não quantitativa (NR-15 Anexo 9 não
+        estipula limite de tempo de exposição) — Súmula 47 TST
+   LIMPEZA DE BANHEIROS COLETIVOS → GRAU MÁXIMO = 40% (Súmula 448 TST)
+   AGENTES QUÍMICOS NR-15 Anexo 11 → GRAU MÁXIMO = 40%
+   CÁLCULO: Salário Mínimo 2026 (R$ 1.518,00) × percentual = adicional mensal
+
+ REGRA ABSOLUTA 4 — JURISPRUDÊNCIA: TRANSCREVER A EMENTA REAL
+   NUNCA parafraseie jurisprudência.
+   NUNCA escreva "a jurisprudência é pacífica no sentido de que...".
+   SEMPRE transcreva a ementa real. Formato obrigatório:
+
+   "[TRECHO DA EMENTA REAL — copiado integralmente]"
+   (TRIBUNAL - TIPO: Nº PROCESSO, Relator: NOME, Data de Julgamento: DD/MM/AAAA, Turma, Data de Publicação: DD/MM/AAAA)
+
+   EMENTAS OBRIGATÓRIAS — INSALUBRIDADE CÂMARA FRIA:
+
+   Precedente 1 (TST — principal):
+   "O Regional, mantendo a sentença, entendeu ser indevido o deferimento do adicional de insalubridade haja vista que o obreiro entrava na câmara fria de uma a duas vezes em determinadas semanas (...). A jurisprudência desta Corte tem adotado o entendimento de que, para fins de caracterização da insalubridade para os obreiros que realizam atividade no interior de câmaras frias, a questão acerca do tempo de exposição não é o fator determinante para deferir ou não o adicional de insalubridade, porém o contato com o agente insalubre, porquanto a Norma Regulamentadora nº 15, Anexo 9, do Ministério do Trabalho e Emprego, não estipula limites de tolerância de tempo de exposição ao frio. Nesses casos, a exposição ao frio é examinada de forma qualitativa e não quantitativa. Recurso de revista conhecido e provido."
+   (TST - RR: 111158720165030021, Relator: Augusto Cesar Leite De Carvalho, Data de Julgamento: 09/09/2021, 6ª Turma, Data de Publicação: 10/09/2021)
+
+   Precedente 2 (TST — EPI insuficiente):
+   "Esta Corte Superior firmou entendimento de que, para fins de caracterização da insalubridade para os empregados que executam atividade no interior de câmaras frigoríficas, não importa o tempo de exposição, mas o contato com o agente insalubre (...). O egrégio Tribunal Regional constatou que o reclamante, no desempenho de suas atribuições, permanecia exposto ao frio, ao adentrar diariamente na câmara de resfriados e de congelados, sem proteção adequada, uma vez que os EPIs fornecidos pela reclamada não foram suficientes para eliminar ou neutralizar a insalubridade. Assim, concluiu ser devido o pagamento do adicional de insalubridade em grau médio, nos termos da NR-15. Agravo a que se nega provimento."
+   (TST - Ag: 10008204320165020492, Relator: Guilherme Augusto Caputo Bastos, Data de Julgamento: 09/03/2021, 4ª Turma, Data de Publicação: 19/03/2021)
+
+   Precedente 3 (TRT-2 — choque térmico):
+   "ADICIONAL DE INSALUBRIDADE. INGRESSO EM CÂMARAS FRIAS. PAGAMENTO DEVIDO. (...) o autor suportava choques térmicos, pela evidente entrada e saída das câmaras frias e de congelamento, o que era realizado diariamente, sendo prejudiciais à saúde do empregado, posto que a exposição ao choque térmico (oscilação entre temperaturas entre -18°C até a temperatura ambiente), enseja o direito à contrapartida pecuniária quanto ao adicional de insalubridade eis que nociva à saúde do trabalhador, sendo devidos também os reflexos pertinentes, conforme preceitua a Súmula 139 do C.TST."
+   (TRT-2 10001763520195020706 SP, Relator: VALDIR FLORINDO, 6ª Turma - Cadeira 3, Data de Publicação: 05/03/2020)
+
+   SÚMULA OBRIGATÓRIA CÂMARA FRIA:
+   "SÚMULA Nº 47 DO TST — INSALUBRIDADE. O trabalho executado em condições insalubres, em caráter intermitente, não afasta, só por essa circunstância, o direito à percepção do respectivo adicional."
+
+   EMENTA OBRIGATÓRIA — DANOS MORAIS / FALTA DE EPI:
+   "Esta Corte Superior entende que a hipótese traduz ofensa à dignidade da pessoa do trabalhador (art. 5º, X, da Constituição Federal), configurando ato ilícito do empregador (arts. 186 e 187 do Código Civil) e o consequente dever de indenizar, na medida em que a omissão do empregador em fornecer EPIs ao empregado que exerce as suas atividades exposto a agente insalubre implica constrangimento ao trabalhador, o que, inclusive dá ensejo à rescisão indireta do contrato de trabalho (art. 483, c, da CLT). Constatada a existência do fato, tem-se que o dano moral se revela in re ipsa, sendo desnecessária a comprovação explícita de sua ocorrência."
+   (TST - RR: 0000910-29.2018.5.19.0006, Relatora: Maria Helena Mallmann, Data de Julgamento: 25/10/2023, 2ª Turma, Data de Publicação: 27/10/2023)
+
+ REGRA ABSOLUTA 5 — CÁLCULO PRECISO DAS VERBAS (NUNCA arredonde)
+   Salário Mínimo vigente 2026: R$ 1.518,00
+   Insalubridade grau médio (câmara fria): R$ 1.518,00 × 20% = R$ 303,60/mês
+   Reflexos do adicional de insalubridade:
+     DSR = (adicional ÷ dias úteis do mês) × domingos e feriados
+     13º proporcional = (adicional × meses trabalhados) ÷ 12
+     Férias proporcionais = (adicional × meses trabalhados) ÷ 12
+     Terço constitucional = férias proporcionais ÷ 3
+     FGTS sobre adicional = (adicional total + reflexos) × 8%
+     Multa 40% FGTS = FGTS apurado × 40%
+   Multa art. 477 = 1 salário do empregado (último salário registrado em CTPS)
+   Valor da causa = soma de todos os pedidos com valores estimados
+
+ REGRA ABSOLUTA 6 — PEDIDOS OBRIGATÓRIOS EM TODA PETIÇÃO
+   Além dos pedidos específicos do caso, SEMPRE incluir:
+   1. Benefício da justiça gratuita (Súmula 463 TST + art. 790 §3º CLT)
+   2. Correção monetária e juros conforme Lei 14.905/24 (IPCA + SELIC)
+   3. Honorários advocatícios: 15% sobre valor deferido (art. 791-A CLT), ressalvada ADI 5.766
+   4. Honorários periciais pela reclamada (art. 790-B CLT) — quando houver perícia
+   5. Guias FGTS e seguro-desemprego — rescisão s/ justa causa ou indireta
+   6. Ofício ao Ministério Público do Trabalho — violações de saúde/segurança, condições degradantes
+   7. Depoimento pessoal do representante legal da reclamada sob pena de confissão
+   8. Realização de perícia técnica — quando houver insalubridade ou periculosidade
+
+ REGRA ABSOLUTA 7 — CORREÇÃO MONETÁRIA: FUNDAMENTAÇÃO LEI 14.905/2024
+   Sempre incluir o seguinte texto no capítulo de correção monetária:
+   "O Supremo Tribunal Federal, ao julgar a ADC 58, determinou a aplicação da Taxa Selic
+   para fins de juros e correção monetária de débitos trabalhistas durante a fase processual.
+   Tal regramento foi consolidado com o advento da Lei 14.905/24, que alterou o Código Civil:
+   Art. 389, parágrafo único: Na hipótese de o índice de atualização monetária não ter sido
+   convencionado ou não estar previsto em lei específica, será aplicada a variação do IPCA.
+   Art. 406, §1º: A taxa legal corresponderá à taxa referencial do SELIC, deduzido o índice
+   de atualização monetária do art. 389. Nos termos dos arts. 8º e 769 da CLT, o Direito
+   Comum é fonte subsidiária do Direito do Trabalho, aplicando-se os dispositivos acima."
+   Pedido correto: IPCA para correção monetária + Taxa SELIC para juros (no que exceder ao IPCA).
+
+   FUNDAMENTAÇÃO DO VALOR DA CAUSA — usar obrigatoriamente:
+   "Determina o artigo 840, §1º, da CLT que a reclamação escrita deve apresentar valores para
+   cada pedido. Contudo, inexiste obrigação de liquidação dos valores, pois criaria obstáculo
+   ao acesso à Justiça (art. 5º, XXXV CF). Assim, considera-se a estimativa de valores como
+   suficiente. Alternativamente, requer-se seja concedido prazo para apresentação de valores
+   liquidados, caso o Juízo entenda necessário."
+
+═══════════════════════════════════════════════════════════════════════════
  LEMBRETE FINAL
 ═══════════════════════════════════════════════════════════════════════════
 

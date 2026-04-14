@@ -176,9 +176,10 @@ Distribuição OBRIGATÓRIA:
 
 ### JURISPRUDÊNCIA
 - Quantidade: até 7 precedentes por petição (média real: 6,8 em Ação Acidentária)
-- Formato: SEMPRE resumida, NUNCA transcrever ementa completa
-- Estrutura: Tribunal + Número + Relator + Tese em 2-3 linhas + Aplicação ao caso
-- PRIORIZAR as referências indicadas na seção de jurisprudência calibrada abaixo
+- Formato: SEMPRE transcrever a ementa real — NUNCA parafrasear ou resumir com suas palavras
+- NUNCA escrever "a jurisprudência é pacífica no sentido de que..." sem transcrever a ementa
+- Estrutura obrigatória: "[EMENTA REAL TRANSCRITA]" seguida de (Tribunal - Tipo: Nº, Relator: NOME, Data: DD/MM/AAAA, Turma, Publicação: DD/MM/AAAA)
+- PRIORIZAR as referências e ementas indicadas na seção de jurisprudência calibrada abaixo
 
 ### CÁLCULOS E VALORES
 - Valores na inicial: SEMPRE arredondados (sem centavos)
@@ -314,7 +315,8 @@ Para cada pedido principal:
         referencias_universais = """
 ### REFERÊNCIAS UNIVERSAIS — INCLUIR EM TODA PETIÇÃO
 
-As referências abaixo aparecem em mais de 80% das petições e devem ser sempre consideradas:
+As referências abaixo aparecem em mais de 80% das petições e DEVEM ser sempre incluídas.
+Transcreva a ementa real — NUNCA parafraseie.
 
 | Referência | Frequência | Aplicação |
 |---|---|---|
@@ -325,48 +327,73 @@ As referências abaixo aparecem em mais de 80% das petições e devem ser sempre
 | Súmula 331 do TST | 23,1% | Terceirização — responsabilidade subsidiária da tomadora |
 | Súmula 462 do TST | 8,2% | Multa art. 477 incide mesmo quando vínculo reconhecido em juízo |
 | OJ 351 SBDI-1 (cancelada) | 7,2% | Controvérsia não isenta da multa art. 477 |
+
+#### CORREÇÃO MONETÁRIA — TEXTO OBRIGATÓRIO (Lei 14.905/2024):
+Sempre incluir no capítulo de correção monetária:
+> O Supremo Tribunal Federal, ao julgar a ADC 58, determinou a aplicação da Taxa Selic para fins
+> de juros e correção monetária de débitos trabalhistas durante a fase processual, até que o
+> legislador determinasse um novo regramento. Tal regramento veio com o advento da Lei 14.905/24,
+> que alterou o Código Civil: Art. 389, parágrafo único: Na hipótese de o índice de atualização
+> monetária não ter sido convencionado ou não estar previsto em lei específica, será aplicada a
+> variação do Índice Nacional de Preços ao Consumidor Amplo (IPCA). Art. 406, §1º: A taxa legal
+> corresponderá à taxa referencial do SELIC, deduzido o índice de atualização monetária do art. 389.
+> Nos termos dos arts. 8º e 769 da CLT, o Direito Comum é fonte subsidiária do Direito do Trabalho,
+> aplicando-se os dispositivos acima ao presente processo.
+Pedido correto: IPCA (correção monetária) + SELIC (juros, no que exceder ao IPCA).
+
+#### VALOR DA CAUSA — FUNDAMENTAÇÃO OBRIGATÓRIA:
+> Determina o artigo 840, §1º, da CLT que a reclamação trabalhista escrita deve apresentar valores
+> para cada pedido. Contudo, inexiste obrigação de liquidação dos valores, pois criaria obstáculo
+> ao acesso à Justiça (art. 5º, XXXV CF). Assim, a estimativa de valores é suficiente para cumprir
+> o art. 840, §1º, da CLT. Alternativamente, caso o Juízo entenda necessária a liquidação,
+> requer-se seja concedido prazo para que o autor apresente valores precisos e liquidados.
 """
 
         por_tipo = {
             'ACAO_ACIDENTARIA': """
 ### REFERÊNCIAS ESPECÍFICAS — AÇÃO ACIDENTÁRIA (média: 6,8 citações/petição)
 
-**Insalubridade:**
-- Súmula 47 do TST — insalubridade configurada ainda que de forma intermitente
-- Súmula 139 do TST — reflexos do adicional sobre HE, noturno, DSR, férias, 13º, FGTS
+---
+#### ⚠️ CÂMARA FRIA: REGRA CRÍTICA
+CÂMARA FRIA / FRIGORÍFICO → GRAU MÉDIO (20%) sobre salário mínimo — NUNCA 40%
+Salário Mínimo 2026: R$ 1.518,00 → Adicional mensal: R$ 303,60
+Argumento: análise QUALITATIVA (NR-15 Anexo 9 não estipula limite de tempo de exposição)
+---
+
+**EMENTAS REAIS OBRIGATÓRIAS — CÂMARA FRIA (transcrever integralmente):**
+
+Ementa 1 (TST — principal):
+"O Regional, mantendo a sentença, entendeu ser indevido o deferimento do adicional de insalubridade haja vista que o obreiro entrava na câmara fria de uma a duas vezes em determinadas semanas (...). A jurisprudência desta Corte tem adotado o entendimento de que, para fins de caracterização da insalubridade para os obreiros que realizam atividade no interior de câmaras frias, a questão acerca do tempo de exposição não é o fator determinante para deferir ou não o adicional de insalubridade, porém o contato com o agente insalubre, porquanto a Norma Regulamentadora nº 15, Anexo 9, do Ministério do Trabalho e Emprego, não estipula limites de tolerância de tempo de exposição ao frio. Nesses casos, a exposição ao frio é examinada de forma qualitativa e não quantitativa. Recurso de revista conhecido e provido."
+(TST - RR: 111158720165030021, Relator: Augusto Cesar Leite De Carvalho, Data de Julgamento: 09/09/2021, 6ª Turma, Data de Publicação: 10/09/2021)
+
+Ementa 2 (TST — EPI insuficiente):
+"Esta Corte Superior firmou entendimento de que, para fins de caracterização da insalubridade para os empregados que executam atividade no interior de câmaras frigoríficas, não importa o tempo de exposição, mas o contato com o agente insalubre (...). O egrégio Tribunal Regional constatou que o reclamante, no desempenho de suas atribuições, permanecia exposto ao frio, ao adentrar diariamente na câmara de resfriados e de congelados, sem proteção adequada, uma vez que os EPIs fornecidos pela reclamada não foram suficientes para eliminar ou neutralizar a insalubridade. Assim, concluiu ser devido o pagamento do adicional de insalubridade em grau médio, nos termos da NR-15. Agravo a que se nega provimento."
+(TST - Ag: 10008204320165020492, Relator: Guilherme Augusto Caputo Bastos, Data de Julgamento: 09/03/2021, 4ª Turma, Data de Publicação: 19/03/2021)
+
+Ementa 3 (TRT-2 — choque térmico):
+"ADICIONAL DE INSALUBRIDADE. INGRESSO EM CÂMARAS FRIAS. PAGAMENTO DEVIDO. (...) o autor suportava choques térmicos, pela evidente entrada e saída das câmaras frias e de congelamento, o que era realizado diariamente, sendo prejudiciais à saúde do empregado, posto que a exposição ao choque térmico (oscilação entre temperaturas entre -18°C até a temperatura ambiente), enseja o direito à contrapartida pecuniária quanto ao adicional de insalubridade eis que nociva à saúde do trabalhador, sendo devidos também os reflexos pertinentes, conforme preceitua a Súmula 139 do C.TST."
+(TRT-2 10001763520195020706 SP, Relator: VALDIR FLORINDO, 6ª Turma - Cadeira 3, Data de Publicação: 05/03/2020)
+
+Súmula obrigatória câmara fria:
+"SÚMULA Nº 47 DO TST — INSALUBRIDADE. O trabalho executado em condições insalubres, em caráter intermitente, não afasta, só por essa circunstância, o direito à percepção do respectivo adicional."
+
+**EMENTA OBRIGATÓRIA — DANOS MORAIS / FALTA DE EPI:**
+"Esta Corte Superior entende que a hipótese traduz ofensa à dignidade da pessoa do trabalhador (art. 5º, X, da Constituição Federal), configurando ato ilícito do empregador (arts. 186 e 187 do Código Civil) e o consequente dever de indenizar, na medida em que a omissão do empregador em fornecer EPIs ao empregado que exerce as suas atividades exposto a agente insalubre implica constrangimento ao trabalhador, o que, inclusive dá ensejo à rescisão indireta do contrato de trabalho (art. 483, c, da CLT). Constatada a existência do fato, tem-se que o dano moral se revela in re ipsa, sendo desnecessária a comprovação explícita de sua ocorrência."
+(TST - RR: 0000910-29.2018.5.19.0006, Relatora: Maria Helena Mallmann, Data de Julgamento: 25/10/2023, 2ª Turma, Data de Publicação: 27/10/2023)
+
+**Demais referências — Ação Acidentária:**
+- Súmula 139 do TST — reflexos do adicional de insalubridade sobre HE, noturno, DSR, férias, 13º, FGTS
 - Súmula 448 do TST — limpeza de banheiros coletivos = grau máximo (40%)
-- Súmula 293 do TST — acréscimo de insalubridade (base de cálculo)
-
-**Câmara fria (tema recorrente):**
-- TST RR 111158720165030021 — Augusto Cesar Leite de Carvalho (6ª T.) — 09/09/2021
-- TST Ag 10008204320165020492 — Guilherme Augusto Caputo Bastos (4ª T.) — 09/03/2021
-
-**Doença ocupacional / Estabilidade acidentária:**
 - OJ 230 SBDI-1 — doença equiparada ao acidente; estabilidade 12 meses após alta
-- TST RR 5774920165110013 — Alberto Luiz Bresciani (3ª T.) — nexo causal
+- TST RR 5774920165110013 — Alberto Luiz Bresciani (3ª T.) — doença ocupacional / nexo causal
 - TST Ag 5190320165200011 — Amaury Rodrigues Pinto Junior (1ª T.) — limbo previdenciário
 - TST RR 00014487820205120056 — Alberto Bastos Balazeiro (3ª T.) — 24/05/2023
-
-**Danos morais / Vínculo:**
-- TST RR 0020786-26.2015.5.04.0124 — Delaíde Miranda Arantes (2ª T.) — **13x citado**
-- TRT-3 RO 00106550920205030103 — Des. Antonio Gomes — 2020
-- TRT-4 ROT 00207958920205040551 — 1ª T. — 13/07/2023
-- TRT-1 RO 01005510920195010021 — 06/09/2021
-
-**Rescisão indireta / FGTS / Multa 477:**
-- TST RR 10017567620165020069 — Augusto Cesar Leite de Carvalho (6ª T.) — 06/04/2022
-- TST Ag 10006625520165020502 — João Pedro Silvestrin (5ª T.) — 07/04/2021 (10x)
-- TST RR 118242220175150032 — João Batista Brito Pereira (8ª T.) — 24/02/2021
-- TRT-11 RO 00008726020145110012 — 3ª T. — 10/12/2015
-
-**Periculosidade:**
-- Súmula 364 do TST — exposição permanente ou intermitente (não eventual)
-- OJ 278 SBDI — periculosidade
-- Súmula 191 do TST
-
-**Outros:**
+- TST RR 0020786-26.2015.5.04.0124 — Delaíde Miranda Arantes (2ª T.) — danos morais (13x citado)
+- TST RR 10017567620165020069 — Augusto Cesar Leite de Carvalho (6ª T.) — multa 477 / rescisão indireta
+- TST Ag 10006625520165020502 — João Pedro Silvestrin (5ª T.) — multa 477 / verbas rescisórias
+- Súmula 364 do TST — periculosidade: exposição permanente ou intermitente (não eventual)
 - Súmula 396 do TST — estabilidade provisória / indenização substitutiva
-- Súmula 244 do TST — gestante; estabilidade provisória
+- Súmula 244 do TST — estabilidade gestante
 - Súmula 461 do TST + OJ 89 SBDI-1 — FGTS e reflexos
 - OJ 210 SBDI-1 + Súmula 389 do TST — seguro-desemprego
 """,
