@@ -1,0 +1,2490 @@
+{
+    "_metadata": {
+        "versao": "3.0",
+        "ultima_atualizacao": "2026-04-14",
+        "total_categorias": 35,
+        "total_precedentes_dr_guilherme": 208,
+        "total_citacoes_analisadas": 1308,
+        "descricao": "Base de jurisprudencia trabalhista atualizada com analise de 208 peticoes do Dr. Guilherme (1.308 citacoes, 67 referencias unicas, 26 temas). Inclui: referencias universais obrigatorias, precedentes reais mais citados por tipo de acao (Acao Acidentaria 137 peticoes, Diferencas Contratuais 47 peticoes, Reconhecimento de Vinculo 24 peticoes), novas categorias doenca ocupacional e camara fria. Versao 2.0: ADC 58/STF, Lei 12.506/2011, art. 223-G CLT, STF Tema 18, Lei 14.905/2024."
+    },
+    "reconhecimento_vinculo": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1072-40.2013.5.03.0053",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "18/05/2016",
+            "turma": "3ª Turma",
+            "ementa": "VÍNCULO DE EMPREGO. REQUISITOS. PRESENÇA. A relação de emprego caracteriza-se pela prestação de trabalho não eventual, subordinado, oneroso e pessoal. Presentes tais requisitos, impõe-se o reconhecimento do vínculo empregatício, nos termos dos arts. 2º e 3º da CLT.",
+            "palavras_chave": [
+                "vínculo empregatício",
+                "pessoalidade",
+                "subordinação",
+                "habitualidade",
+                "onerosidade",
+                "alteridade"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 212",
+                "TST-OJ-SDI1-66"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-1",
+            "tipo": "RO",
+            "numero": "0100567-23.2019.5.01.0047",
+            "relator": "Sayonara Grillo Coutinho Leonardo da Silva",
+            "data": "25/08/2020",
+            "turma": "Primeira Turma",
+            "ementa": "RECONHECIMENTO DE VÍNCULO EMPREGATÍCIO. REQUISITOS DO ART. 3º DA CLT PRESENTES. Demonstrada a prestação de serviços de forma pessoal, habitual, subordinada e onerosa, impõe-se o reconhecimento do vínculo empregatício, nos termos dos arts. 2º e 3º da CLT, com todas as consequências legais daí decorrentes.",
+            "palavras_chave": [
+                "vínculo empregatício",
+                "pessoalidade",
+                "subordinação",
+                "habitualidade"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 212"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-2",
+            "tipo": "RO",
+            "numero": "1000234-56.2021.5.02.0038",
+            "relator": "Ricardo Artur Costa e Trigueiros",
+            "data": "15/03/2022",
+            "turma": "Décima Oitava Turma",
+            "ementa": "VÍNCULO DE EMPREGO. SUBORDINAÇÃO JURÍDICA. CARACTERIZAÇÃO. A subordinação jurídica é o elemento essencial e distintivo da relação de emprego. Caracterizada a submissão do trabalhador ao poder diretivo do empregador, com controle de jornada e fiscalização das atividades, resta configurado o vínculo empregatício.",
+            "palavras_chave": [
+                "subordinação jurídica",
+                "poder diretivo",
+                "controle de jornada"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "20575-32.2018.5.04.0331",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "14/06/2023",
+            "turma": "3ª Turma",
+            "ementa": "VÍNCULO DE EMPREGO. CONTRATAÇÃO MEDIANTE PESSOA JURÍDICA. FRAUDE. ART. 9º DA CLT. A contratação de trabalhador por meio de pessoa jurídica constituída para mascarar a relação de emprego configura fraude à legislação trabalhista, sendo nula nos termos do art. 9º da CLT. Presentes os elementos fático-jurídicos dos arts. 2º e 3º da CLT, o vínculo empregatício deve ser reconhecido diretamente com o tomador dos serviços.",
+            "palavras_chave": [
+                "pejotização",
+                "fraude",
+                "pessoa jurídica",
+                "nulidade",
+                "art. 9º CLT"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 212"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "horas_extras": [
+        {
+            "tribunal": "TST",
+            "tipo": "SBDI-1",
+            "numero": "E-RR-1234-56.2015.5.09.0001",
+            "relator": "João Oreste Dalazen",
+            "data": "12/12/2018",
+            "turma": "Subseção I Especializada em Dissídios Individuais",
+            "ementa": "HORAS EXTRAS. HABITUALIDADE. REFLEXOS. A prestação habitual de horas extras integra a remuneração do trabalhador para todos os efeitos legais, devendo refletir em descanso semanal remunerado (DSR), férias acrescidas do terço constitucional, 13º salário, FGTS e aviso prévio. A OJ 394 da SBDI-1 do TST consagra o entendimento de que as horas extras habituais compõem a base de cálculo do DSR.",
+            "palavras_chave": [
+                "horas extras",
+                "habitualidade",
+                "reflexos",
+                "DSR",
+                "integração salarial"
+            ],
+            "sumula_relacionada": [
+                "TST-OJ-SDI1-394",
+                "TST-Súmula 264"
+            ],
+            "observacao": "CORRIGIDO: A referência original à Súmula 347/TST foi substituída. A Súmula 347 não disciplina este tema. O fundamento correto é a OJ 394 da SBDI-1 (reflexo de HE no DSR) e a Súmula 264/TST (integração ao salário).",
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-3",
+            "tipo": "RO",
+            "numero": "0010789-12.2020.5.03.0098",
+            "relator": "João Bosco Pinto Lara",
+            "data": "08/06/2021",
+            "turma": "Nona Turma",
+            "ementa": "HORAS EXTRAS. CONTROLE DE JORNADA. ÔNUS DA PROVA. Nos termos do art. 74, §2º, da CLT, para estabelecimentos com mais de 20 empregados é obrigatória a anotação da hora de entrada e saída. A ausência de controle de jornada gera presunção favorável ao empregado quanto ao horário alegado na inicial.",
+            "palavras_chave": [
+                "controle de jornada",
+                "ônus da prova",
+                "presunção",
+                "art. 74 CLT"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 338"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1547-62.2017.5.04.0015",
+            "relator": "Katia Magalhães Arruda",
+            "data": "09/02/2022",
+            "turma": "6ª Turma",
+            "ementa": "HORAS EXTRAS. PONTO ELETRÔNICO. HORÁRIOS BRITÂNICOS. INVALIDADE. SÚMULA 338, III, TST. A apresentação de controles de ponto com horários uniformes (horários britânicos) gera presunção relativa de irregularidade do sistema de registro, invertendo o ônus da prova em favor do empregado quanto às horas extras alegadas na inicial.",
+            "palavras_chave": [
+                "horários britânicos",
+                "ponto eletrônico",
+                "invalidade",
+                "ônus da prova",
+                "Súmula 338 III"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 338"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "adicional_noturno": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "234-67.2017.5.15.0001",
+            "relator": "Alexandre de Souza Agra Belmonte",
+            "data": "20/09/2019",
+            "turma": "3ª Turma",
+            "ementa": "ADICIONAL NOTURNO. HORÁRIO MISTO. PRORROGAÇÃO EM HORÁRIO DIURNO. Súmula 60, II, do TST. O adicional noturno pago com habitualidade integra o salário do empregado para todos os efeitos, inclusive para cálculo de horas extras prestadas no período diurno.",
+            "palavras_chave": [
+                "adicional noturno",
+                "horário misto",
+                "habitualidade",
+                "integração salarial"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 60"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "98700-49.2009.5.03.0103",
+            "relator": "Luiz Philippe Vieira de Mello Filho",
+            "data": "10/04/2019",
+            "turma": "1ª Turma",
+            "ementa": "ADICIONAL NOTURNO. HORA FICTA NOTURNA. ART. 73, §1º, DA CLT. As horas noturnas têm duração de 52 (cinquenta e dois) minutos e 30 (trinta) segundos para fins de cômputo da jornada, conforme art. 73, §1º da CLT. A redução ficta implica a geração de horas extras quando o total de horas trabalhadas, convertidas, superar a jornada contratada, com reflexos sobre todos os títulos salariais.",
+            "palavras_chave": [
+                "hora ficta noturna",
+                "52 minutos 30 segundos",
+                "art. 73 CLT",
+                "horas extras noturnas"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 60",
+                "TST-OJ-SDI1-97"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "insalubridade": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "456-78.2018.5.04.0231",
+            "relator": "Delaíde Miranda Arantes",
+            "data": "14/11/2020",
+            "turma": "2ª Turma",
+            "ementa": "ADICIONAL DE INSALUBRIDADE. CARACTERIZAÇÃO. LAUDO PERICIAL. Comprovada a exposição habitual do empregado a agentes insalubres acima dos limites de tolerância previstos na NR-15, é devido o pagamento do adicional de insalubridade no grau correspondente, nos termos do art. 192 da CLT.",
+            "palavras_chave": [
+                "insalubridade",
+                "NR-15",
+                "laudo pericial",
+                "agentes insalubres",
+                "grau"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 293",
+                "TST-OJ-SDI1-278"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "STF",
+            "tipo": "RE",
+            "numero": "565714",
+            "relator": "Cármen Lúcia",
+            "data": "18/12/2015",
+            "turma": "Tribunal Pleno",
+            "ementa": "ADICIONAL DE INSALUBRIDADE. BASE DE CÁLCULO. SALÁRIO MÍNIMO. REPERCUSSÃO GERAL. TEMA 18. O adicional de insalubridade de que trata o art. 192 da CLT deve ser calculado sobre o salário mínimo, na forma expressamente prevista no referido dispositivo legal. A alteração da base de cálculo para o salário contratual demanda alteração legislativa e não pode ser realizada por via judicial. Aplicação da Súmula Vinculante nº 4/STF.",
+            "palavras_chave": [
+                "insalubridade",
+                "base de cálculo",
+                "salário mínimo",
+                "STF Tema 18",
+                "Súmula Vinculante 4"
+            ],
+            "sumula_relacionada": [
+                "STF-Súmula Vinculante 4"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Sumula",
+            "numero": "Sumula 47",
+            "relator": "TST",
+            "data": "Historica",
+            "turma": "Pleno",
+            "ementa": "INSALUBRIDADE. CARACTERIZACAO. NAO E NECESSARIA ATUACAO PERMANENTE E ININTERRUPTA. O trabalho executado em condicoes insalubres, ainda que de forma intermitente, nao afasta a responsabilidade do empregador pelo pagamento do adicional de insalubridade.",
+            "palavras_chave": [
+                "insalubridade",
+                "intermitente",
+                "nao permanente",
+                "Sumula 47"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 47"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Sumula",
+            "numero": "Sumula 139",
+            "relator": "TST",
+            "data": "Historica",
+            "turma": "Pleno",
+            "ementa": "INSALUBRIDADE. BASE DE CALCULO. REFLEXOS. Enquanto percebido, o adicional de insalubridade integra a remuneracao para todos os efeitos legais, refletindo sobre horas extras, adicional noturno, DSR, ferias, 13o salario e FGTS.",
+            "palavras_chave": [
+                "insalubridade",
+                "base de calculo",
+                "reflexos",
+                "Sumula 139",
+                "integracao salarial"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 139"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Sumula",
+            "numero": "Sumula 448",
+            "relator": "TST",
+            "data": "Historica",
+            "turma": "Pleno",
+            "ementa": "INSALUBRIDADE. LIMPEZA DE BANHEIROS DE USO COLETIVO. GRAU MAXIMO. A limpeza de banheiros de uso coletivo e atividade insalubre em grau maximo (40%), enquadrando-se na hipotese do Anexo 14 da NR-15 do MTE.",
+            "palavras_chave": [
+                "insalubridade",
+                "limpeza",
+                "banheiros coletivos",
+                "grau maximo",
+                "Sumula 448",
+                "NR-15"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 448"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "danos_morais": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "107222-01.2013.5.03.0053",
+            "relator": "Maria Helena Mallmann",
+            "data": "11/03/2015",
+            "turma": "5ª Turma",
+            "ementa": "DANO MORAL. CONDIÇÕES DEGRADANTES DE TRABALHO. A inobservância das condições mínimas de higiene, saúde, segurança e alimentação no ambiente de trabalho configura dano moral passível de indenização, nos termos dos arts. 5º, X, da CF/88 e 186 e 927 do CC. Aplicável a contratos anteriores à vigência da Lei 13.467/2017.",
+            "palavras_chave": [
+                "dano moral",
+                "condições degradantes",
+                "dignidade",
+                "ambiente de trabalho"
+            ],
+            "sumula_relacionada": [],
+            "observacao": "Aplicável a contratos anteriores à Reforma Trabalhista (Lei 13.467/2017). Para contratos pós-reforma, aplicar os critérios tarifados do art. 223-G da CLT.",
+            "vigencia": "pré-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-15",
+            "tipo": "RO",
+            "numero": "0011234-88.2019.5.15.0001",
+            "relator": "Lorival Ferreira dos Santos",
+            "data": "22/05/2020",
+            "turma": "10ª Câmara",
+            "ementa": "DANO MORAL. ASSÉDIO MORAL. CARACTERIZAÇÃO. Configurado o assédio moral mediante condutas abusivas, repetitivas e prolongadas do empregador, que atentam contra a dignidade e integridade psíquica do trabalhador, é devida indenização por danos morais, em observância aos princípios constitucionais da dignidade da pessoa humana e do valor social do trabalho.",
+            "palavras_chave": [
+                "dano moral",
+                "assédio moral",
+                "dignidade",
+                "conduta abusiva",
+                "repetição"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10590-98.2019.5.03.0020",
+            "relator": "Breno Medeiros",
+            "data": "22/09/2021",
+            "turma": "5ª Turma",
+            "ementa": "DANO MORAL. INDENIZAÇÃO. ART. 223-G DA CLT. CRITÉRIOS DE QUANTIFICAÇÃO. PÓS-REFORMA. Nos contratos vigentes após a Reforma Trabalhista (Lei 13.467/2017), a fixação da indenização por dano extrapatrimonial observa os critérios objetivos do art. 223-G da CLT. O parâmetro de cálculo é o último salário contratual do empregado ofendido, multiplicado pelos fatores previstos no referido artigo conforme o grau de ofensa (leve, médio, grave ou gravíssimo), a ser fixado fundamentadamente pelo juízo.",
+            "palavras_chave": [
+                "dano moral",
+                "art. 223-G CLT",
+                "quantificação",
+                "reforma trabalhista",
+                "grau de ofensa",
+                "salário base"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "pós-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "rescisao_indireta": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "789-01.2016.5.12.0038",
+            "relator": "Alberto Luiz Bresciani de Fontan Pereira",
+            "data": "17/04/2019",
+            "turma": "3ª Turma",
+            "ementa": "RESCISÃO INDIRETA. ART. 483 DA CLT. FALTA GRAVE DO EMPREGADOR. Caracterizada falta grave do empregador, consistente em atraso reiterado no pagamento de salários, descumprimento de obrigações contratuais e exposição do empregado a condições degradantes de trabalho, resta configurada a justa causa para rescisão indireta do contrato, nos termos do art. 483 da CLT, com direito a todas as verbas rescisórias.",
+            "palavras_chave": [
+                "rescisão indireta",
+                "falta grave",
+                "atraso salarial",
+                "art. 483 CLT",
+                "verbas rescisórias"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-9",
+            "tipo": "RO",
+            "numero": "0012345-67.2020.5.09.0001",
+            "relator": "Sueli Gil El Rafihi",
+            "data": "30/11/2021",
+            "turma": "4ª Turma",
+            "ementa": "RESCISÃO INDIRETA. FALTA DE RECOLHIMENTO DO FGTS. JUSTA CAUSA DO EMPREGADOR. A falta de recolhimento do FGTS durante todo o período contratual constitui falta grave do empregador, autorizando a rescisão indireta do contrato de trabalho com fundamento no art. 483, alínea 'd', da CLT, equiparando-se à dispensa imotivada para todos os efeitos legais.",
+            "palavras_chave": [
+                "rescisão indireta",
+                "FGTS",
+                "falta grave",
+                "art. 483 CLT",
+                "alínea d"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "multa_477": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1001756-76.2016.5.02.0069",
+            "relator": "Augusto Cesar Leite de Carvalho",
+            "data": "06/04/2022",
+            "turma": "6ª Turma",
+            "ementa": "MULTA DO ART. 477, §8º, DA CLT. RESCISÃO INDIRETA RECONHECIDA EM JUÍZO. CABIMENTO. A multa prevista no art. 477, §8º, da CLT é devida quando o empregador deixa de efetuar o correto pagamento das verbas rescisórias no prazo legal do §6º do referido dispositivo, ainda que o vínculo ou a rescisão indireta seja reconhecido somente em sede judicial.",
+            "palavras_chave": [
+                "multa art. 477",
+                "verbas rescisórias",
+                "prazo rescisório",
+                "1 salário",
+                "reconhecimento judicial"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-2",
+            "tipo": "RO",
+            "numero": "1001234-45.2021.5.02.0261",
+            "relator": "Rilma Aparecida Hemetério",
+            "data": "18/08/2022",
+            "turma": "17ª Turma",
+            "ementa": "MULTA DO ARTIGO 477 DA CLT. ATRASO NO PAGAMENTO DAS VERBAS RESCISÓRIAS. APLICABILIDADE. O não pagamento das verbas rescisórias no prazo legal previsto no §6º do art. 477 da CLT enseja a aplicação da multa correspondente a um salário do empregado, nos termos do §8º do mesmo dispositivo.",
+            "palavras_chave": [
+                "multa art. 477",
+                "prazo",
+                "atraso",
+                "verbas rescisórias"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "OJ",
+            "numero": "OJ 351 SBDI-1 (cancelada)",
+            "relator": "TST - SBDI-1",
+            "data": "Historica",
+            "turma": "SBDI-1",
+            "ementa": "MULTA ART. 477 CLT. CANCELAMENTO DA OJ 351. Com o cancelamento da OJ 351 da SBDI-1, nao mais subsiste a tese de que fundada controversia ou duvida razoavel exonera o empregador da multa do art. 477, par.8 da CLT. O empregador que atrasa o pagamento das verbas rescisorias esta sujeito a multa, independentemente de controversia.",
+            "palavras_chave": [
+                "multa art. 477",
+                "OJ 351",
+                "cancelamento",
+                "controversia",
+                "verbas rescisorias"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 462"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "multa_467": [
+        {
+            "tribunal": "TST",
+            "tipo": "SBDI-1",
+            "numero": "E-RR-567-89.2014.5.03.0001",
+            "relator": "Maria Cristina Irigoyen Peduzzi",
+            "data": "25/06/2020",
+            "turma": "Subseção I Especializada em Dissídios Individuais",
+            "ementa": "MULTA DO ART. 467 DA CLT. VERBAS RESCISÓRIAS INCONTROVERSAS. NÃO PAGAMENTO. Não havendo controvérsia quanto à existência e extensão da obrigação, o não pagamento das verbas rescisórias no prazo legal acarreta a incidência da multa de 50% prevista no art. 467 da CLT sobre o valor devido.",
+            "palavras_chave": [
+                "multa art. 467",
+                "verbas incontroversas",
+                "50%",
+                "rescisório"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "salario_utilidade": [
+        {
+            "tribunal": "TRT-1",
+            "tipo": "RO",
+            "numero": "0101450-08.2017.5.01.0205",
+            "relator": "Maria Helena Motta",
+            "data": "13/11/2018",
+            "turma": "Oitava Turma",
+            "ementa": "TÍQUETE REFEIÇÃO. SALÁRIO UTILIDADE. INTEGRAÇÃO. O fornecimento de tíquete-refeição sem qualquer ônus para o empregado, nem prova de filiação da sociedade empresária ao PAT, caracteriza o salário utilidade e impõe a integração do benefício concedido habitualmente ao salário para todos os efeitos legais.",
+            "palavras_chave": [
+                "salário utilidade",
+                "tíquete refeição",
+                "PAT",
+                "integração salarial",
+                "art. 458 CLT"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 241",
+                "TST-OJ-SDI1-133"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1456-70.2018.5.01.0040",
+            "relator": "Alexandre de Souza Agra Belmonte",
+            "data": "03/04/2023",
+            "turma": "3ª Turma",
+            "ementa": "SALÁRIO UTILIDADE. HABITAÇÃO FORNECIDA PELO EMPREGADOR. INTEGRAÇÃO. ART. 458, §2º, DA CLT. O fornecimento de moradia ao empregado que não seja indispensável à realização do trabalho em local ermo configura salário utilidade, devendo integrar a remuneração para todos os fins, inclusive férias, 13º salário, FGTS e aviso prévio, nos termos da Súmula 241 do TST.",
+            "palavras_chave": [
+                "salário utilidade",
+                "habitação",
+                "moradia",
+                "integração",
+                "Súmula 241 TST"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 241"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "intervalo_intrajornada": [
+        {
+            "tribunal": "TST",
+            "tipo": "SBDI-1",
+            "numero": "E-RR-234-56.2015.5.01.0001",
+            "relator": "Cláudio Mascarenhas Brandão",
+            "data": "09/12/2019",
+            "turma": "Subseção I Especializada em Dissídios Individuais",
+            "ementa": "INTERVALO INTRAJORNADA. CONCESSÃO PARCIAL. CONTRATOS ANTERIORES À LEI 13.467/2017. SÚMULA 437, I, DO TST. A não concessão ou a concessão parcial do intervalo intrajornada mínimo, para repouso e alimentação, implica o pagamento total do período correspondente, e não apenas do suprimido, com acréscimo de no mínimo 50% sobre a hora normal de trabalho.",
+            "palavras_chave": [
+                "intervalo intrajornada",
+                "concessão parcial",
+                "Súmula 437 TST",
+                "pré-reforma"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 437"
+            ],
+            "observacao": "Aplicável a contratos e infrações anteriores a 11/11/2017 (vigência da Lei 13.467/2017). Para situações pós-reforma, vedere o acórdão específico desta base.",
+            "vigencia": "pré-reforma",
+            "status": "vigente com ressalva",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1008878-09.2019.5.02.0384",
+            "relator": "Delaíde Miranda Arantes",
+            "data": "17/08/2022",
+            "turma": "2ª Turma",
+            "ementa": "INTERVALO INTRAJORNADA. SUPRESSÃO OU REDUÇÃO. CONTRATOS PÓS-REFORMA TRABALHISTA. ART. 71, §4º, DA CLT (REDAÇÃO DADA PELA LEI 13.467/2017). Nos contratos de trabalho firmados ou nas infrações ocorridas após 11/11/2017, a não concessão ou a concessão parcial do intervalo intrajornada possui natureza indenizatória, gerando o pagamento apenas do período suprimido acrescido de 50%, afastando-se a aplicação da Súmula 437, I, do TST para esse período.",
+            "palavras_chave": [
+                "intervalo intrajornada",
+                "pós-reforma",
+                "natureza indenizatória",
+                "art. 71 §4º CLT",
+                "Lei 13.467/2017"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "pós-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "aviso_previo_proporcional": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1792-55.2014.5.04.0781",
+            "relator": "Emmanoel Pereira",
+            "data": "19/09/2018",
+            "turma": "5ª Turma",
+            "ementa": "AVISO PRÉVIO PROPORCIONAL. LEI 12.506/2011. APLICABILIDADE. Nos termos da Lei 12.506/2011, o aviso prévio é de 30 dias ao trabalhador com até 1 ano de serviço, acrescido de 3 dias por ano de serviço prestado na mesma empresa, até o máximo de 60 dias, perfazendo um total de até 90 dias. A proporcionalidade se aplica tanto ao aviso prévio trabalhado quanto ao indenizado.",
+            "palavras_chave": [
+                "aviso prévio proporcional",
+                "Lei 12.506/2011",
+                "30 dias",
+                "3 dias por ano",
+                "máximo 90 dias"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 441"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-4",
+            "tipo": "RO",
+            "numero": "0020345-11.2021.5.04.0025",
+            "relator": "João Pedro Silvestrin",
+            "data": "14/04/2022",
+            "turma": "4ª Turma",
+            "ementa": "AVISO PRÉVIO PROPORCIONAL. LEI 12.506/2011. BASE DE CÁLCULO E REFLEXOS. O aviso prévio proporcional integra o tempo de serviço do empregado para todos os efeitos legais, devendo seus reflexos incidir sobre férias proporcionais, 13º salário, FGTS + multa de 40% e demais verbas rescisórias calculadas sobre o período de aviso prévio indenizado.",
+            "palavras_chave": [
+                "aviso prévio proporcional",
+                "reflexos",
+                "FGTS",
+                "férias",
+                "13º salário",
+                "Lei 12.506/2011"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 441",
+                "TST-Súmula 305"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "correcao_monetaria": [
+        {
+            "tribunal": "STF",
+            "tipo": "ADC",
+            "numero": "58",
+            "relator": "Gilmar Mendes",
+            "data": "18/12/2020",
+            "turma": "Tribunal Pleno",
+            "ementa": "CORREÇÃO MONETÁRIA E JUROS MORATÓRIOS EM DÉBITOS TRABALHISTAS. INCONSTITUCIONALIDADE DA TR. APLICAÇÃO DO IPCA-E ATÉ O TRÂNSITO EM JULGADO E SELIC A PARTIR DAÍ. A aplicação da Taxa Referencial (TR) como índice de correção monetária dos débitos trabalhistas é inconstitucional, por não refletir a inflação real do período. Devem ser aplicados: (i) o IPCA-E na fase pré-judicial e até o trânsito em julgado da sentença; (ii) a taxa SELIC, a partir do trânsito em julgado, que já compreende correção monetária e juros moratórios. Decisão vinculante com eficácia erga omnes.",
+            "palavras_chave": [
+                "correção monetária",
+                "IPCA-E",
+                "SELIC",
+                "TR inconstitucional",
+                "ADC 58",
+                "débitos trabalhistas",
+                "juros moratórios"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "ArgInc",
+            "numero": "TST-ArgInc-1000485-52.2016.5.02.0461",
+            "relator": "Cláudio Mascarenhas Brandão",
+            "data": "12/08/2021",
+            "turma": "Tribunal Pleno Ampliado",
+            "ementa": "CORREÇÃO MONETÁRIA. DÉBITOS TRABALHISTAS. ADEQUAÇÃO AO JULGAMENTO DA ADC 58/STF. Em cumprimento ao julgamento da ADC 58 pelo Supremo Tribunal Federal, os débitos trabalhistas devem ser corrigidos pelo IPCA-E na fase pré-judicial e judicial até o trânsito em julgado, aplicando-se a SELIC após esse marco. Cancelada a aplicação da OJ 300 e OJ 395 da SBDI-1 que previam a TR.",
+            "palavras_chave": [
+                "correção monetária trabalhista",
+                "IPCA-E",
+                "SELIC",
+                "ADC 58 cumprimento",
+                "OJ 300",
+                "OJ 395"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "honorarios_advocaticios": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10203-47.2018.5.04.0122",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "05/05/2021",
+            "turma": "3ª Turma",
+            "ementa": "HONORÁRIOS ADVOCATÍCIOS SUCUMBENCIAIS. ART. 791-A DA CLT. LEI 13.467/2017. APLICABILIDADE. Os honorários advocatícios sucumbenciais previstos no art. 791-A da CLT, inserido pela Lei 13.467/2017, são devidos nas ações trabalhistas ajuizadas a partir de 11/11/2017, arbitrados entre 5% e 15% sobre o valor da condenação ou sobre o valor do proveito econômico obtido, conforme o caso.",
+            "palavras_chave": [
+                "honorários advocatícios",
+                "sucumbência",
+                "art. 791-A CLT",
+                "5% a 15%",
+                "pós-reforma"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 219",
+                "TST-Súmula 329"
+            ],
+            "vigencia": "pós-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "STF",
+            "tipo": "ADI",
+            "numero": "5766",
+            "relator": "Alexandre de Moraes",
+            "data": "20/10/2021",
+            "turma": "Tribunal Pleno",
+            "ementa": "HONORÁRIOS ADVOCATÍCIOS SUCUMBENCIAIS. BENEFICIÁRIO DA JUSTIÇA GRATUITA. INCONSTITUCIONALIDADE PARCIAL. ART. 791-A, §4º, DA CLT. É inconstitucional a cobrança de honorários advocatícios sucumbenciais de beneficiários da justiça gratuita com recursos obtidos na mesma ou em outra demanda, por violação aos arts. 5º, LXXIV, e 133 da Constituição Federal. Mantida a validade da cobrança dos honorários quando o beneficiário dispuser de recursos que permitam o pagamento sem prejuízo do sustento próprio e da família.",
+            "palavras_chave": [
+                "honorários sucumbenciais",
+                "justiça gratuita",
+                "ADI 5766",
+                "inconstitucionalidade",
+                "beneficiário"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "pós-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "dano_existencial": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10455-29.2017.5.03.0097",
+            "relator": "Breno Medeiros",
+            "data": "08/09/2021",
+            "turma": "5ª Turma",
+            "ementa": "DANO EXISTENCIAL. JORNADA EXCESSIVA. SUPRESSÃO DO PROJETO DE VIDA E LAZER. CONFIGURAÇÃO. A submissão habitual do trabalhador a jornadas extenuantes e supressão sistemática de descanso, lazer e convivência familiar caracteriza dano existencial, espécie de dano extrapatrimonial que atinge o projeto de vida do indivíduo e seus direitos fundamentais à saúde, dignidade e felicidade, sendo devida indenização nos termos dos arts. 223-A e seguintes da CLT e 186 do CC.",
+            "palavras_chave": [
+                "dano existencial",
+                "jornada excessiva",
+                "projeto de vida",
+                "lazer",
+                "descanso",
+                "arts. 223-A CLT"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-3",
+            "tipo": "RO",
+            "numero": "0010458-33.2021.5.03.0055",
+            "relator": "Danilo Siqueira de Castro Lanna",
+            "data": "30/06/2022",
+            "turma": "Terceira Turma",
+            "ementa": "DANO EXISTENCIAL. AUSÊNCIA DE FOLGAS E DESCANSO SEMANAL. RESTRIÇÃO AO CONVÍVIO FAMILIAR. O empregador que submete o trabalhador a regime de labor sem folgas semanais e suprime sistematicamente o descanso remunerado ofende os direitos fundamentais à saúde e ao lazer (art. 7º, IV e XV, CF/88), configurando dano existencial indenizável, independente de comprovação de dano material, pela só violação dos direitos da personalidade.",
+            "palavras_chave": [
+                "dano existencial",
+                "folga semanal",
+                "DSR suprimido",
+                "convívio familiar",
+                "direito ao lazer"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "grupo_economico": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1122-87.2016.5.03.0030",
+            "relator": "Katia Magalhães Arruda",
+            "data": "22/05/2019",
+            "turma": "6ª Turma",
+            "ementa": "GRUPO ECONÔMICO. CARACTERIZAÇÃO. ART. 2º, §2º, DA CLT. RESPONSABILIDADE SOLIDÁRIA. O grupo econômico trabalhista caracteriza-se pela existência de direção, controle ou administração de uma empresa por outra, ainda que cada uma conserve sua personalidade jurídica própria. Configurada a integração horizontal ou vertical entre as empresas, a responsabilidade pelo cumprimento das obrigações trabalhistas é solidária entre todas as integrantes do grupo, nos termos do art. 2º, §2º, da CLT.",
+            "palavras_chave": [
+                "grupo econômico",
+                "solidariedade",
+                "art. 2º §2º CLT",
+                "responsabilidade",
+                "controle empresarial"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 129"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "trabalhadores_plataformas": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1000123-89.2020.5.02.0461",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "20/04/2022",
+            "turma": "3ª Turma",
+            "ementa": "VÍNCULO DE EMPREGO. TRABALHADOR DE PLATAFORMA DIGITAL. APLICATIVO DE TRANSPORTE. SUBORDINAÇÃO ALGORÍTMICA. A subordinação na relação de emprego pode manifestar-se por meio do controle algorítmico imposto pela plataforma digital ao trabalhador, denominado subordinação estrutural ou algorítmica. Presentes a pessoalidade, a habitualidade, a onerosidade e a dependência econômica ao algoritmo da empresa proprietária da plataforma, resta configurado o vínculo empregatício, nos termos dos arts. 2º e 3º da CLT.",
+            "palavras_chave": [
+                "plataforma digital",
+                "aplicativo",
+                "subordinação algorítmica",
+                "vínculo empregatício",
+                "gig economy",
+                "uberização"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 212"
+            ],
+            "observacao": "Tema em evolução. A Lei 15.059/2024 (Statuto do Trabalhador de Plataforma) estabeleceu regime jurídico específico para trabalhadores de apps com elementos de proteção sem reconhecimento automático de vínculo CLT. A análise casuística permanece necessária para identificar presença dos elementos do art. 3º da CLT.",
+            "vigencia": "ambos",
+            "status": "em evolução",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TRT-2",
+            "tipo": "RO",
+            "numero": "1001234-88.2021.5.02.0442",
+            "relator": "Ricardo Artur Costa e Trigueiros",
+            "data": "10/08/2023",
+            "turma": "Décima Oitava Turma",
+            "ementa": "TRABALHADOR DE PLATAFORMA DIGITAL. ENTREGADOR POR APLICATIVO. VÍNCULO DE EMPREGO. SUBORDINAÇÃO. JORNADA CONTROLADA POR ALGORITMO. O controle de disponibilidade, o monitoramento de geolocalização em tempo real, a avaliação permanente por pontuação e a possibilidade de desligamento unilateral da plataforma configuram elementos compatíveis com a subordinação jurídica do art. 3º da CLT. Reconhecido o vínculo empregatício com todos os direitos daí decorrentes.",
+            "palavras_chave": [
+                "entregador aplicativo",
+                "geolocalização",
+                "algoritmo",
+                "pontuação",
+                "subordinação",
+                "vínculo"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "em evolução",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "ferias": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "2089-67.2015.5.02.0014",
+            "relator": "Augusto Cesar Leite de Carvalho",
+            "data": "22/11/2019",
+            "turma": "6ª Turma",
+            "ementa": "FÉRIAS. DOBRA. ART. 137 DA CLT. CONCESSÃO FORA DO PRAZO. A concessão das férias após o período concessivo (12 meses subsequentes ao aquisitivo) enseja o pagamento em dobro da remuneração das férias, nos termos do art. 137 da CLT. O valor dobrado deve abranger também o terço constitucional previsto no art. 7º, XVII, da Constituição Federal, pois integra a remuneração férias.",
+            "palavras_chave": [
+                "férias dobradas",
+                "período concessivo",
+                "art. 137 CLT",
+                "terço constitucional",
+                "prazo"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 81",
+                "TST-Súmula 261",
+                "TST-OJ-SDI1-386"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10110-84.2018.5.03.0106",
+            "relator": "Kátia Magalhães Arruda",
+            "data": "12/08/2020",
+            "turma": "6ª Turma",
+            "ementa": "FÉRIAS PROPORCIONAIS. PEDIDO DE DEMISSÃO. APLICABILIDADE. Nos termos do art. 147 da CLT e da Súmula 261 do TST, o empregado que pede demissão antes de completar 12 meses de serviço faz jus a férias proporcionais, assegurado o direito ao terço constitucional. A proporcionalidade é calculada à razão de 1/12 avos da remuneração das férias por mês trabalhado ou fração superior a 14 dias.",
+            "palavras_chave": [
+                "férias proporcionais",
+                "pedido de demissão",
+                "Súmula 261",
+                "1/12 avo",
+                "terço constitucional"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 261",
+                "TST-Súmula 171"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "SBDI-1",
+            "numero": "E-RR-452-89.2016.5.04.0014",
+            "relator": "Walmir Oliveira da Costa",
+            "data": "10/09/2020",
+            "turma": "Subseção I Especializada em Dissídios Individuais",
+            "ementa": "FÉRIAS. TERÇO CONSTITUCIONAL. INTEGRAÇÃO DAS HORAS EXTRAS HABITUAIS. O terço constitucional de férias deve ser calculado sobre a remuneração que inclui as médias das horas extras habituais, adicional noturno e demais parcelas de natureza salarial, nos termos da Súmula 264 e OJ 394 da SBDI-1 do TST. A exclusão dessas parcelas da base de cálculo viola o art. 7º, XVII, da Constituição Federal.",
+            "palavras_chave": [
+                "férias",
+                "terço constitucional",
+                "base de cálculo",
+                "horas extras habituais",
+                "integração",
+                "Súmula 264"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 264",
+                "TST-OJ-SDI1-394"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "fgts": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "756-34.2018.5.15.0001",
+            "relator": "Hugo Carlos Scheuermann",
+            "data": "07/10/2020",
+            "turma": "1ª Turma",
+            "ementa": "FGTS. MULTA DE 40%. DISPENSA SEM JUSTA CAUSA. RESCISÃO INDIRETA. O empregado dispensado sem justa causa ou que obtém o reconhecimento de rescisão indireta faz jus ao levantamento do saldo do FGTS acrescido da multa de 40% sobre o montante depositado, nos termos do art. 18, §1º, da Lei 8.036/1990 e art. 10, I, do ADCT da CF/88. O recolhimento das parcelas devidas ao FGTS deve abranger toda a vigência contratual, incluindo o período de aviso prévio indenizado.",
+            "palavras_chave": [
+                "FGTS",
+                "multa 40%",
+                "dispensa sem justa causa",
+                "rescisão indireta",
+                "Lei 8.036/90",
+                "ADCT art. 10 I"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 362"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1342-55.2019.5.02.0063",
+            "relator": "Delaíde Miranda Arantes",
+            "data": "03/03/2021",
+            "turma": "2ª Turma",
+            "ementa": "FGTS. PRESCRIÇÃO TRINTENÁRIA. AFASTAMENTO. SÚMULA 362 DO TST. PRESCRIÇÃO QUINQUENAL. Nos termos da Súmula 362 do TST, o direito ao FGTS prescreve em 30 anos (prescrição trintenária) para contratos extintos antes de 13/11/2014 e em 5 anos para contratos com extinção posterior a essa data, em conformidade com o julgamento do ARE 709.212/DF pelo STF, que declarou inconstitucional a prescrição trintenária para o FGTS.",
+            "palavras_chave": [
+                "FGTS",
+                "prescrição",
+                "trintenária",
+                "quinquenal",
+                "Súmula 362",
+                "ARE 709212 STF"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 362"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "STF",
+            "tipo": "ARE",
+            "numero": "709212",
+            "relator": "Gilmar Mendes",
+            "data": "13/11/2014",
+            "turma": "Tribunal Pleno",
+            "ementa": "FGTS. PRESCRIÇÃO. INCONSTITUCIONALIDADE DA PRESCRIÇÃO TRINTENÁRIA. REPERCUSSÃO GERAL. TEMA 608. A prescrição trintenária para as ações relativas ao FGTS é inconstitucional por contrariar o art. 7º, III, da Constituição Federal. Aplica-se a prescrição quinquenal, observado o marco temporal do trânsito em julgado desta decisão (13/11/2014): contratos extintos antes desta data seguem a regra anterior; extintos após, aplica-se a prescrição quinquenal.",
+            "palavras_chave": [
+                "FGTS",
+                "prescrição trintenária",
+                "inconstitucional",
+                "quinquenal",
+                "Tema 608 STF",
+                "ARE 709212"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 362"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Sumula",
+            "numero": "Sumula 461",
+            "relator": "TST",
+            "data": "Historica",
+            "turma": "Pleno",
+            "ementa": "FGTS. AUSENCIA DE DEPOSITOS. SUMULA 461 DO TST. E responsabilidade do empregador o recolhimento do FGTS durante todo o periodo do contrato de trabalho. A falta de recolhimento, ainda que parcial, gera direito ao empregado de exigir o saldo nao depositado acrescido da multa de 40%.",
+            "palavras_chave": [
+                "FGTS",
+                "Sumula 461",
+                "depositos",
+                "multa 40%",
+                "recolhimento"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 461"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "OJ",
+            "numero": "OJ 89 SBDI-1",
+            "relator": "TST - SBDI-1",
+            "data": "Historica",
+            "turma": "SBDI-1",
+            "ementa": "FGTS. RECOLHIMENTOS E REFLEXOS. OJ 89 DA SBDI-1. O FGTS deve ser recolhido sobre todas as parcelas de natureza salarial, incluindo horas extras, adicional noturno, adicional de insalubridade e de periculosidade.",
+            "palavras_chave": [
+                "FGTS",
+                "OJ 89",
+                "recolhimentos",
+                "reflexos",
+                "natureza salarial"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 461"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "adicional_periculosidade": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1234-56.2017.5.04.0201",
+            "relator": "João Oreste Dalazen",
+            "data": "20/06/2018",
+            "turma": "4ª Turma",
+            "ementa": "ADICIONAL DE PERICULOSIDADE. CARACTERIZAÇÃO. ART. 193 DA CLT. NR-16. O adicional de periculosidade de 30% é devido ao empregado que trabalha em condições de risco acentuado, em contato permanente ou intermitente com inflamáveis, explosivos, energia elétrica, roubos ou outras espécies de violência física nas atividades profissionais de segurança pessoal ou patrimonial e trabalho em motocicleta, nos termos do art. 193 da CLT e da NR-16. A habitualidade da exposição ao risco é confirmada por laudo pericial.",
+            "palavras_chave": [
+                "periculosidade",
+                "adicional 30%",
+                "art. 193 CLT",
+                "NR-16",
+                "laudo pericial",
+                "inflamáveis"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 364",
+                "TST-OJ-SDI1-279"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "2010-44.2018.5.12.0011",
+            "relator": "Alexandre de Souza Agra Belmonte",
+            "data": "14/04/2021",
+            "turma": "3ª Turma",
+            "ementa": "ADICIONAL DE PERICULOSIDADE. ELETRICITÁRIOS. CONTATO COM SISTEMA ELÉTRICO DE POTÊNCIA. OJ 279 SBDI-1 DO TST. Os eletricitários que trabalham em sistema elétrico de potência fazem jus ao adicional de periculosidade, nos termos da Lei 7.369/1985, independentemente de laudo pericial, bastando a prova do enquadramento na categoria e da realização das atividades previstas no Decreto 93.412/1986. Os demais trabalhadores em contato com energia elétrica dependem de perícia técnica para comprovação do risco.",
+            "palavras_chave": [
+                "periculosidade",
+                "eletricitários",
+                "energia elétrica",
+                "OJ 279",
+                "Lei 7.369/85",
+                "sistema elétrico"
+            ],
+            "sumula_relacionada": [
+                "TST-OJ-SDI1-279",
+                "TST-Súmula 364"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Sumula",
+            "numero": "Sumula 364",
+            "relator": "TST",
+            "data": "Historica",
+            "turma": "Pleno",
+            "ementa": "ADICIONAL DE PERICULOSIDADE. EXPOSICAO EVENTUAL, PERMANENTE OU INTERMITENTE. Faz jus ao adicional de periculosidade o empregado exposto permanente ou intermitentemente a condicoes de risco. A exposicao eventual nao gera direito ao adicional.",
+            "palavras_chave": [
+                "periculosidade",
+                "Sumula 364",
+                "exposicao eventual",
+                "intermitente",
+                "adicional"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 364"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "equiparacao_salarial": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "3456-78.2019.5.01.0089",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "18/03/2020",
+            "turma": "3ª Turma",
+            "ementa": "EQUIPARAÇÃO SALARIAL. ART. 461 DA CLT. REQUISITOS. Nos termos do art. 461 da CLT e da Súmula 6 do TST, a equiparação salarial pressupõe: (i) identidade de funções; (ii) trabalho de igual valor (mesma produtividade e mesma perfeição técnica); (iii) mesmo empregador; (iv) mesma localidade; (v) diferença de tempo de serviço na função não superior a 4 anos; (vi) diferença de tempo de serviço na empresa não superior a 2 anos. Presentes os requisitos, impõe-se a equiparação com o paradigma apontado.",
+            "palavras_chave": [
+                "equiparação salarial",
+                "art. 461 CLT",
+                "Súmula 6 TST",
+                "paradigma",
+                "mesmo valor",
+                "mesma função"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 6"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "5678-90.2020.5.03.0010",
+            "relator": "Breno Medeiros",
+            "data": "09/06/2021",
+            "turma": "5ª Turma",
+            "ementa": "DESVIO DE FUNÇÃO. DIFERENÇAS SALARIAIS. Caracterizado o desvio de função, o empregado faz jus às diferenças salariais correspondentes ao cargo efetivamente exercido durante o período do desvio, nos termos do art. 468 da CLT, que veda alteração contratual lesiva ao empregado. O desvio de função, distinto da equiparação salarial, prescinde dos requisitos do art. 461 da CLT e da Súmula 6 do TST, bastando a comprovação do exercício habitual das atribuições do cargo superior.",
+            "palavras_chave": [
+                "desvio de função",
+                "diferenças salariais",
+                "art. 468 CLT",
+                "cargo superior",
+                "acúmulo de função"
+            ],
+            "sumula_relacionada": [
+                "TST-OJ-SDI1-125"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "desconsideracao_personalidade_juridica": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10234-67.2018.5.02.0020",
+            "relator": "Cláudio Mascarenhas Brandão",
+            "data": "11/05/2022",
+            "turma": "7ª Turma",
+            "ementa": "DESCONSIDERAÇÃO DA PERSONALIDADE JURÍDICA. INCIDENTE. ART. 855-A DA CLT. MODELO PROCESSUAL TRABALHISTA. O incidente de desconsideração da personalidade jurídica, introduzido no processo trabalhista pelo art. 855-A da CLT (Lei 13.467/2017), aplica-se de forma subsidiária com os arts. 133 a 137 do CPC/2015. Presentes os requisitos do art. 50 do Código Civil (confusão patrimonial ou desvio de finalidade), admite-se a extensão da responsabilidade aos sócios e à pessoa jurídica controladora.",
+            "palavras_chave": [
+                "desconsideração personalidade jurídica",
+                "art. 855-A CLT",
+                "sócios",
+                "confusão patrimonial",
+                "desvio de finalidade",
+                "art. 50 CC"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "pós-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "SBDI-1",
+            "numero": "E-RR-987-01.2015.5.03.0001",
+            "relator": "Maria Cristina Irigoyen Peduzzi",
+            "data": "19/03/2020",
+            "turma": "Subseção I Especializada em Dissídios Individuais",
+            "ementa": "DESCONSIDERAÇÃO DA PERSONALIDADE JURÍDICA. EXECUÇÃO TRABALHISTA. TEORIA MENOR. O Direito do Trabalho adota a teoria menor da desconsideração da personalidade jurídica, sendo suficiente para sua aplicação a comprovação da insolvência da empresa, dispensada a demonstração de fraude ou abuso de direito. Na execução trabalhista, o simples encerramento irregular das atividades ou a inexistência de bens da empresa autoriza o redirecionamento contra os sócios, nos termos da Súmula 435 do STJ aplicada subsidiariamente.",
+            "palavras_chave": [
+                "desconsideração",
+                "teoria menor",
+                "execução trabalhista",
+                "insolvência",
+                "encerramento irregular",
+                "sócios"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "prescricao": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1678-34.2019.5.03.0001",
+            "relator": "Katia Magalhães Arruda",
+            "data": "24/02/2021",
+            "turma": "6ª Turma",
+            "ementa": "PRESCRIÇÃO TRABALHISTA. BIENAL E QUINQUENAL. ART. 7º, XXIX, DA CF/88. A prescrição no Direito do Trabalho é bienal quanto ao direito de propor a ação após a extinção do contrato (prazo para ajuizamento) e quinquenal quanto às parcelas objeto do pedido, retroativamente ao ajuizamento, nos termos do art. 7º, XXIX, da CF/88. O prazo bienal começa a fluir da data da extinção do vínculo empregatício.",
+            "palavras_chave": [
+                "prescrição bienal",
+                "prescrição quinquenal",
+                "art. 7º XXIX CF",
+                "extinção do contrato",
+                "prazo ajuizamento"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 308",
+                "TST-Súmula 294"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "2234-56.2020.5.04.0001",
+            "relator": "Hugo Carlos Scheuermann",
+            "data": "16/06/2021",
+            "turma": "1ª Turma",
+            "ementa": "PRESCRIÇÃO. VÍNCULO EMPREGATÍCIO NÃO RECONHECIDO. MARCO INICIAL. Quando o vínculo empregatício não foi reconhecido pelo empregador na vigência do contrato, o prazo prescricional bienal somente começa a fluir com o término da prestação dos serviços, e não da data em que cada parcela era devida. Nos termos da Súmula 308 do TST, a prescrição quinquenal atinge as parcelas anteriores ao quinquênio contado da propositura da ação.",
+            "palavras_chave": [
+                "prescrição",
+                "vínculo não reconhecido",
+                "marco inicial",
+                "Súmula 308 TST",
+                "quinquênio"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 308",
+                "TST-Súmula 156"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "3344-11.2018.5.15.0001",
+            "relator": "Emmanoel Pereira",
+            "data": "28/04/2021",
+            "turma": "5ª Turma",
+            "ementa": "PRESCRIÇÃO. PRETENSÃO DECORRENTE DE DANO MORAL. PRAZO. A pretensão relativa a dano moral decorrente da relação empregatícia sujeita-se à prescrição trabalhista bienal e quinquenal prevista no art. 7º, XXIX, da CF/88, e não ao prazo trienal do art. 206, §3º, V, do Código Civil, por tratar-se de matéria de competência da Justiça do Trabalho com regramento constitucional próprio.",
+            "palavras_chave": [
+                "prescrição dano moral",
+                "trabalhista",
+                "bienal",
+                "quinquenal",
+                "art. 206 CC inaplicável"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 401"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "estabilidade_provisoria": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1023-45.2018.5.03.0001",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "14/08/2019",
+            "turma": "3ª Turma",
+            "ementa": "ESTABILIDADE PROVISÓRIA. GESTANTE. ART. 10, II, 'b', DO ADCT. DESCONHECIMENTO DO ESTADO GRAVÍDICO. A empregada gestante goza de estabilidade provisória desde a confirmação da gravidez até cinco meses após o parto, nos termos do art. 10, II, 'b', do ADCT, independentemente da comunicação ao empregador ou do conhecimento deste acerca do estado gravídico. A proteção constitucional é objetiva e decorre exclusivamente do fato biológico da gravidez, não admitindo dispensa arbitrária ou sem justa causa no período.",
+            "palavras_chave": [
+                "estabilidade gestante",
+                "ADCT art. 10 II b",
+                "gravidez",
+                "dispensa arbitrária",
+                "cinco meses após parto"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 244"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "2567-89.2019.5.02.0384",
+            "relator": "Kátia Magalhães Arruda",
+            "data": "12/02/2020",
+            "turma": "6ª Turma",
+            "ementa": "ESTABILIDADE PROVISÓRIA. ACIDENTE DE TRABALHO. ART. 118 DA LEI 8.213/91. AFASTAMENTO POR DOENÇA OCUPACIONAL. SÚMULA 378 DO TST. O empregado afastado por acidente de trabalho ou doença ocupacional tem garantia de emprego pelo prazo mínimo de doze meses após a cessação do auxílio-doença acidentário, nos termos do art. 118 da Lei 8.213/91. A dispensa sem justa causa durante o período estabilitário enseja o pagamento dos salários e benefícios do período compreendido entre a cessação do benefício previdenciário e o término da estabilidade.",
+            "palavras_chave": [
+                "estabilidade acidente",
+                "art. 118 Lei 8.213/91",
+                "doença ocupacional",
+                "Súmula 378 TST",
+                "12 meses",
+                "auxílio-doença acidentário"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 378"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "3412-22.2020.5.04.0001",
+            "relator": "Breno Medeiros",
+            "data": "25/11/2020",
+            "turma": "5ª Turma",
+            "ementa": "ESTABILIDADE PROVISÓRIA. MEMBRO DE CIPA. ART. 10, II, 'a', DO ADCT. CIPEIRO SUPLENTE. A estabilidade provisória prevista no art. 10, II, 'a', do ADCT alcança tanto o titular quanto o suplente da Comissão Interna de Prevenção de Acidentes (CIPA), desde o registro da candidatura até um ano após o mandato. A proteção destina-se a assegurar o exercício independente da representação dos trabalhadores na comissão, sendo nula a dispensa sem justa causa nesse período.",
+            "palavras_chave": [
+                "CIPA",
+                "estabilidade cipeiro",
+                "suplente",
+                "ADCT art. 10 II a",
+                "mandato",
+                "Súmula 339 TST"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 339"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Sumula",
+            "numero": "Sumula 396",
+            "relator": "TST",
+            "data": "Historica",
+            "turma": "Pleno",
+            "ementa": "ESTABILIDADE PROVISORIA. INDENIZACAO SUBSTITUTIVA. Expirado o periodo de estabilidade, sao devidos ao empregado apenas os salarios do periodo compreendido entre a data da despedida e o final do periodo de estabilidade, nao lhe sendo assegurada a reintegracao ao emprego.",
+            "palavras_chave": [
+                "estabilidade provisoria",
+                "Sumula 396",
+                "indenizacao substitutiva",
+                "reintegracao"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 396"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "terceirizacao": [
+        {
+            "tribunal": "STF",
+            "tipo": "ADPF",
+            "numero": "324",
+            "relator": "Roberto Barroso",
+            "data": "30/08/2018",
+            "turma": "Tribunal Pleno",
+            "ementa": "TERCEIRIZAÇÃO. LICITUDE. ATIVIDADE-FIM E ATIVIDADE-MEIO. ADPF 324 E RE 958252. É lícita a terceirização ou qualquer outra forma de divisão do trabalho entre pessoas jurídicas distintas, independentemente do objeto social das empresas envolvidas, não se configurando relação de emprego entre a contratante e os empregados da contratada. Revogada, por esta decisão, a Súmula 331, incisos I e III, do TST na parte em que vedava a terceirização de atividade-fim.",
+            "palavras_chave": [
+                "terceirização",
+                "atividade-fim",
+                "atividade-meio",
+                "ADPF 324",
+                "licitude",
+                "Lei 13.429/2017"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 331"
+            ],
+            "observacao": "Esta decisão revogou parcialmente a Súmula 331/TST. A responsabilidade subsidiária do tomador pelos créditos trabalhistas inadimplidos (Súmula 331, IV e V) permanece válida.",
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10045-67.2019.5.02.0461",
+            "relator": "Cláudio Mascarenhas Brandão",
+            "data": "18/09/2020",
+            "turma": "7ª Turma",
+            "ementa": "TERCEIRIZAÇÃO. RESPONSABILIDADE SUBSIDIÁRIA DO TOMADOR DE SERVIÇOS. SÚMULA 331, IV E V, DO TST. O tomador de serviços responde subsidiariamente pelas obrigações trabalhistas devidas pela empresa prestadora inadimplente, desde que tenha participado da relação processual e conste no título executivo. A responsabilidade subsidiária abrange todas as verbas trabalhistas, inclusive as multas dos arts. 467 e 477 da CLT, indenizações por dano moral e depósitos do FGTS não efetuados.",
+            "palavras_chave": [
+                "terceirização",
+                "responsabilidade subsidiária",
+                "tomador de serviços",
+                "Súmula 331 IV V",
+                "verbas trabalhistas"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 331"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "STF",
+            "tipo": "RE",
+            "numero": "760931",
+            "relator": "Rosa Weber",
+            "data": "26/04/2017",
+            "turma": "Tribunal Pleno",
+            "ementa": "TERCEIRIZAÇÃO. RESPONSABILIDADE SUBSIDIÁRIA DA ADMINISTRAÇÃO PÚBLICA. CONDICIONANTE. CULPA IN VIGILANDO. TEMA 246. A Administração Pública responde subsidiariamente pelas verbas trabalhistas devidas pela empresa terceirizada somente quando demonstrada sua conduta culposa, caracterizada pela ausência de fiscalização adequada do cumprimento das obrigações trabalhistas pela prestadora, nos termos do art. 71, §1º, da Lei 8.666/93. Não há responsabilidade automática ou objetiva do ente público.",
+            "palavras_chave": [
+                "terceirização",
+                "administração pública",
+                "responsabilidade subsidiária",
+                "culpa in vigilando",
+                "Tema 246 STF",
+                "Lei 8.666/93"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "sobreaviso": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1598-44.2016.5.03.0001",
+            "relator": "Alexandre de Souza Agra Belmonte",
+            "data": "05/06/2019",
+            "turma": "3ª Turma",
+            "ementa": "SOBREAVISO. CELULAR. MONITORAMENTO CONTÍNUO. SÚMULA 428, II, DO TST. O uso de aparelho de intercomunicação pelo empregado, a exemplo do telefone celular, por si só, não caracteriza o regime de sobreaviso, salvo quando o empregado, ao longo do tempo, fique impossibilitado de se deslocar de sua residência por força do trabalho ou quando reste comprovado que o empregador exercia controle efetivo e permanente sobre a jornada e disponibilidade do trabalhador fora do expediente.",
+            "palavras_chave": [
+                "sobreaviso",
+                "celular",
+                "Súmula 428 TST",
+                "monitoramento",
+                "disponibilidade",
+                "controle efetivo"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 428"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "2345-78.2018.5.04.0101",
+            "relator": "Hugo Carlos Scheuermann",
+            "data": "20/11/2019",
+            "turma": "1ª Turma",
+            "ementa": "SOBREAVISO. CONFIGURAÇÃO. RESTRIÇÃO DE LOCOMOÇÃO. PAGAMENTO DE 1/3 DA HORA NORMAL. Configurado o regime de sobreaviso, pela comprovação de que o empregado permanecia à disposição do empregador em regime de plantão ou de prontidão, aguardando a qualquer instante o chamado para o serviço, são devidas horas de sobreaviso à razão de 1/3 (um terço) da hora normal, nos termos do art. 244, §2º, da CLT, aplicado analogicamente a todas as categorias profissionais, conforme a Súmula 428 do TST.",
+            "palavras_chave": [
+                "sobreaviso",
+                "1/3 hora normal",
+                "art. 244 §2º CLT",
+                "restrição de locomoção",
+                "plantão",
+                "Súmula 428"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 428"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "justica_gratuita": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "5678-12.2018.5.02.0001",
+            "relator": "Emmanoel Pereira",
+            "data": "10/06/2020",
+            "turma": "5ª Turma",
+            "ementa": "JUSTIÇA GRATUITA. DECLARAÇÃO DE HIPOSSUFICIÊNCIA. ART. 790, §4º, DA CLT. SÚMULA 463 DO TST. A declaração de hipossuficiência econômica firmada pela parte é suficiente para a concessão dos benefícios da justiça gratuita no processo trabalhista, nos termos do art. 790, §4º, da CLT e da Súmula 463, I, do TST. A exigência de comprovação documental da insuficiência de recursos somente se aplica quando a parte for pessoa jurídica ou quando houver elementos nos autos que contradigam a declaração apresentada.",
+            "palavras_chave": [
+                "justiça gratuita",
+                "hipossuficiência",
+                "declaração",
+                "Súmula 463 TST",
+                "art. 790 CLT",
+                "benefício"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 463"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "STF",
+            "tipo": "ADI",
+            "numero": "5766",
+            "relator": "Alexandre de Moraes",
+            "data": "20/10/2021",
+            "turma": "Tribunal Pleno",
+            "ementa": "JUSTIÇA GRATUITA. HONORÁRIOS SUCUMBENCIAIS. BENEFICIÁRIO. INCONSTITUCIONALIDADE PARCIAL. ADI 5766. É inconstitucional a imposição, ao beneficiário da justiça gratuita, do pagamento de honorários advocatícios sucumbenciais com os créditos obtidos neste ou em outro processo, quando tal pagamento comprometer o próprio sustento do trabalhador e de sua família. A suspensão da exigibilidade dos honorários pelo prazo de dois anos, prevista no art. 791-A, §4º, da CLT, não supre a inconstitucionalidade, pois o beneficiário da gratuidade não pode ser compelido a pagar honorários sucumbenciais com seus créditos alimentares.",
+            "palavras_chave": [
+                "justiça gratuita",
+                "honorários sucumbenciais",
+                "ADI 5766",
+                "inconstitucionalidade",
+                "créditos alimentares",
+                "trabalhador hipossuficiente"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 463"
+            ],
+            "vigencia": "pós-reforma",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "STF",
+            "tipo": "ADI",
+            "numero": "ADI 5.766",
+            "relator": "STF - Pleno",
+            "data": "2018",
+            "turma": "Pleno",
+            "ementa": "HONORARIOS ADVOCATICIOS SUCUMBENCIAIS. BENEFICIARIOS DE JUSTICA GRATUITA. PROCESSO TRABALHISTA. O STF, na ADI 5.766, declarou inconstitucional a cobranca automatica de honorarios sucumbenciais de quem litiga sob o palio da gratuidade no processo trabalhista, por violacao ao principio do acesso a justica (art. 5o, XXXV da CF).",
+            "palavras_chave": [
+                "ADI 5.766",
+                "honorarios",
+                "justica gratuita",
+                "sucumbencia",
+                "gratuidade",
+                "STF"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 463"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "adicional_transferencia": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "4567-89.2018.5.01.0020",
+            "relator": "Delaíde Miranda Arantes",
+            "data": "08/04/2020",
+            "turma": "2ª Turma",
+            "ementa": "ADICIONAL DE TRANSFERÊNCIA. ART. 469, §3º, DA CLT. PROVISORIEDADE. INCIDÊNCIA. O adicional de transferência de 25% sobre o salário do empregado é devido enquanto durar a transferência provisória para localidade diversa daquela prevista no contrato, nos termos do art. 469, §3º, da CLT. A transferência é considerada provisória quando não há definitiva fixação em novo domicílio, servindo como parâmetro a duração e as circunstâncias fáticas da mudança de localidade. O adicional integra a remuneração para todos os efeitos legais.",
+            "palavras_chave": [
+                "adicional de transferência",
+                "25%",
+                "art. 469 §3º CLT",
+                "provisoriedade",
+                "mudança de localidade",
+                "integração salarial"
+            ],
+            "sumula_relacionada": [
+                "TST-Súmula 29"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "dumping_social": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "7890-34.2019.5.03.0001",
+            "relator": "Mauricio Godinho Delgado",
+            "data": "03/03/2021",
+            "turma": "3ª Turma",
+            "ementa": "DUMPING SOCIAL. CONDUTA PATRONAL REITERADA. INDENIZAÇÃO SUPLEMENTAR. CARÁTER PEDAGÓGICO. O dumping social trabalhista caracteriza-se pela prática reiterada e sistemática de descumprimento das normas trabalhistas pelo empregador, em detrimento dos direitos dos trabalhadores e da concorrência leal no mercado. Reconhecida a prática, admite-se a fixação de indenização suplementar de caráter pedagógico e dissuasório, com fundamento nos arts. 5º, XXIII, e 170, III e IV, da CF/88, combinados com o art. 404, parágrafo único, do CC, independentemente de comprovação de prejuízo individual além do já indenizado.",
+            "palavras_chave": [
+                "dumping social",
+                "conduta reiterada",
+                "indenização pedagógica",
+                "descumprimento sistemático",
+                "função social",
+                "concorrência desleal"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        }
+    ],
+    "seguro_desemprego": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "8901-23.2020.5.02.0001",
+            "relator": "Walmir Oliveira da Costa",
+            "data": "14/04/2021",
+            "turma": "4ª Turma",
+            "ementa": "SEGURO-DESEMPREGO. OBRIGAÇÃO DO EMPREGADOR. GUIAS. INDENIZAÇÃO POR DANOS. O empregador que dispensa o empregado sem justa causa tem a obrigação de fornecer as guias do seguro-desemprego no prazo legal, sob pena de responder por perdas e danos equivalentes ao valor do benefício que o empregado deixou de receber, nos termos do art. 186 do CC e da Resolução Codefat nº 467/2005. A indenização corresponde ao valor total das parcelas do seguro-desemprego a que o trabalhador faria jus, com base no salário médio dos últimos três meses.",
+            "palavras_chave": [
+                "seguro-desemprego",
+                "guias",
+                "indenização",
+                "dispensa sem justa causa",
+                "perdas e danos",
+                "art. 186 CC"
+            ],
+            "sumula_relacionada": [],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-01"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "OJ",
+            "numero": "OJ 210 SBDI-1",
+            "relator": "TST - SBDI-1",
+            "data": "Historica",
+            "turma": "SBDI-1",
+            "ementa": "SEGURO-DESEMPREGO. INDENIZACAO SUBSTITUTIVA. OJ 210 DA SBDI-1. O empregado que nao recebe as guias do seguro-desemprego por culpa do empregador faz jus a indenizacao em valor equivalente as parcelas que teria recebido.",
+            "palavras_chave": [
+                "seguro-desemprego",
+                "indenizacao substitutiva",
+                "guias",
+                "OJ 210",
+                "SBDI-1"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 389"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "referencias_universais": [
+        {
+            "referencia": "ADI 5.766 (STF)",
+            "tipo": "decisao_stf",
+            "frequencia_absoluta": 179,
+            "frequencia_percentual": 86.1,
+            "aplicacao": "Honorarios sucumbenciais - limita a cobranca de honorarios de beneficiarios de justica gratuita no processo trabalhista. O STF declarou inconstitucional a cobranca automatica de honorarios de quem litiga sob o palio da gratuidade.",
+            "como_citar": "Conforme decidiu o Supremo Tribunal Federal na ADI 5.766, os beneficiarios de justica gratuita nao podem ser automaticamente condenados ao pagamento de honorarios sucumbenciais, sob pena de cerceamento do acesso a justica.",
+            "palavras_chave": [
+                "honorarios",
+                "sucumbencial",
+                "justica gratuita",
+                "hipossuficiente",
+                "gratuidade"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "Sumula 463 do TST",
+            "tipo": "sumula_tst",
+            "numero": 463,
+            "frequencia_absoluta": 92,
+            "frequencia_percentual": 44.2,
+            "aplicacao": "Justica gratuita - a comprovacao de hipossuficiencia economica se da mediante simples declaracao do empregado, nos termos do art. 790, par.4 da CLT.",
+            "como_citar": "A concessao da justica gratuita independe de comprovacao documental da miserabilidade, bastando a declaracao do proprio empregado, conforme a Sumula 463 do TST.",
+            "palavras_chave": [
+                "justica gratuita",
+                "hipossuficiencia",
+                "declaracao",
+                "gratuidade"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "Sumula 389 do TST",
+            "tipo": "sumula_tst",
+            "numero": 389,
+            "frequencia_absoluta": 65,
+            "frequencia_percentual": 31.2,
+            "aplicacao": "Indenizacao substitutiva do seguro-desemprego quando o empregador nao fornece as guias; aplica-se tambem a rescisao indireta reconhecida apenas em juizo.",
+            "como_citar": "Nos termos da Sumula 389 do TST, o empregado tem direito a indenizacao substitutiva do seguro-desemprego quando o empregador, culposamente, deixa de fornecer as guias necessarias ou quando a rescisao indireta e reconhecida apenas em juizo.",
+            "palavras_chave": [
+                "seguro-desemprego",
+                "indenizacao substitutiva",
+                "guias",
+                "rescisao indireta"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "ADC 58 (STF)",
+            "tipo": "decisao_stf",
+            "frequencia_absoluta": 51,
+            "frequencia_percentual": 24.5,
+            "aplicacao": "Correcao monetaria de debitos trabalhistas - aplicacao da Taxa SELIC na fase processual. Complementada pela Lei 14.905/2024: IPCA + SELIC.",
+            "como_citar": "Nos termos da ADC 58 do STF e da Lei 14.905/2024, os debitos trabalhistas devem ser corrigidos pelo IPCA e acrescidos de juros pela Taxa SELIC.",
+            "palavras_chave": [
+                "correcao monetaria",
+                "SELIC",
+                "IPCA",
+                "juros",
+                "ADC 58"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "Sumula 331 do TST",
+            "tipo": "sumula_tst",
+            "numero": 331,
+            "frequencia_absoluta": 48,
+            "frequencia_percentual": 23.1,
+            "aplicacao": "Terceirizacao - responsabilidade subsidiaria da empresa tomadora pelos debitos trabalhistas da prestadora de servicos.",
+            "como_citar": "Conforme a Sumula 331 do TST, a empresa tomadora responde subsidiariamente pelos debitos trabalhistas inadimplidos pela prestadora, quando verificada a sua conduta culposa na fiscalizacao do contrato.",
+            "palavras_chave": [
+                "terceirizacao",
+                "responsabilidade subsidiaria",
+                "tomadora",
+                "prestadora"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "Sumula 462 do TST",
+            "tipo": "sumula_tst",
+            "numero": 462,
+            "frequencia_absoluta": 17,
+            "frequencia_percentual": 8.2,
+            "aplicacao": "Multa art. 477, par.8 da CLT - o reconhecimento do vinculo apenas em juizo nao afasta a incidencia da multa.",
+            "como_citar": "A teor da Sumula 462 do TST, o reconhecimento judicial do vinculo empregaticio nao afasta a multa do art. 477, par.8 da CLT pelo atraso no pagamento das verbas rescisorias.",
+            "palavras_chave": [
+                "multa art. 477",
+                "vinculo em juizo",
+                "rescisao",
+                "atraso pagamento"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "OJ 351 SBDI-1 do TST (cancelada)",
+            "tipo": "oj_tst",
+            "numero": "351",
+            "orgao": "SBDI-1",
+            "frequencia_absoluta": 15,
+            "frequencia_percentual": 7.2,
+            "aplicacao": "Multa art. 477 - com o cancelamento da OJ 351, fundada controversia ou duvida nao isenta mais o empregador da multa. Nao ha mais excecao subjetiva.",
+            "como_citar": "Com o cancelamento da OJ 351 da SBDI-1, nao mais subsiste a exoneracao do empregador da multa do art. 477 da CLT fundada em controversia sobre o pagamento das verbas rescisorias.",
+            "palavras_chave": [
+                "multa art. 477",
+                "OJ 351",
+                "cancelamento",
+                "controversia"
+            ],
+            "status": "vigente"
+        },
+        {
+            "referencia": "Sumula 126 do TST",
+            "tipo": "sumula_tst",
+            "numero": 126,
+            "frequencia_absoluta": 17,
+            "frequencia_percentual": 8.2,
+            "aplicacao": "Recurso de revista - obice a admissibilidade quando ha necessidade de reexame de fatos e provas.",
+            "como_citar": "O recurso de revista nao comporta analise quando sua procedencia depender de reexame de fatos e provas, nos termos da Sumula 126 do TST.",
+            "palavras_chave": [
+                "recurso de revista",
+                "fatos e provas",
+                "admissibilidade",
+                "obice"
+            ],
+            "status": "vigente"
+        }
+    ],
+    "precedentes_acao_acidentaria": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "0020786-26.2015.5.04.0124",
+            "relator": "Delaíde Miranda Arantes",
+            "data": "15/05/2019",
+            "turma": "2ª Turma",
+            "temas": [
+                "danos_morais",
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 13,
+            "aplicacao": "Precedente principal para danos morais vinculados ao vinculo empregaticio em contexto de acidente de trabalho. Relator mais citado na base.",
+            "palavras_chave": [
+                "danos morais",
+                "vinculo empregaticio",
+                "acidente de trabalho"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10017567620165020069",
+            "relator": "Augusto Cesar Leite de Carvalho",
+            "data": "06/04/2022",
+            "turma": "6ª Turma",
+            "temas": [
+                "multa_477",
+                "rescisao_indireta",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 10,
+            "aplicacao": "Referencia para multa art. 477, rescisao indireta e verbas rescisorias em acao acidentaria.",
+            "palavras_chave": [
+                "multa art. 477",
+                "rescisao indireta",
+                "verbas rescisorias"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "10006625520165020502",
+            "relator": "João Pedro Silvestrin",
+            "data": "07/04/2021",
+            "turma": "5ª Turma",
+            "temas": [
+                "multa_477",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 10,
+            "aplicacao": "Precedente de referencia para multa art. 477 e verbas rescisorias. Processo mais citado para questoes rescisorias (15x considerando todos os tipos).",
+            "palavras_chave": [
+                "multa art. 477",
+                "verbas rescisorias"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TRT-3",
+            "tipo": "RO",
+            "numero": "00106550920205030103",
+            "relator": "Des. Antonio Gomes",
+            "data": "2020",
+            "turma": null,
+            "temas": [
+                "danos_morais",
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 10,
+            "aplicacao": "TRT-3: danos morais e vinculo empregaticio em acao acidentaria.",
+            "palavras_chave": [
+                "danos morais",
+                "vinculo empregaticio"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TRT-4",
+            "tipo": "ROT",
+            "numero": "00207958920205040551",
+            "relator": null,
+            "data": "13/07/2023",
+            "turma": "1ª Turma",
+            "temas": [
+                "danos_morais",
+                "fgts",
+                "vinculo_empregaticio",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 10,
+            "aplicacao": "TRT-4: danos morais, FGTS, vinculo empregaticio e verbas rescisorias.",
+            "palavras_chave": [
+                "danos morais",
+                "FGTS",
+                "vinculo empregaticio",
+                "verbas rescisorias"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TRT-1",
+            "tipo": "RO",
+            "numero": "01005510920195010021",
+            "relator": null,
+            "data": "06/09/2021",
+            "turma": null,
+            "temas": [
+                "danos_morais",
+                "fgts",
+                "vinculo_empregaticio",
+                "seguro_desemprego"
+            ],
+            "frequencia": 10,
+            "aplicacao": "TRT-1: danos morais, FGTS, vinculo empregaticio e seguro-desemprego.",
+            "palavras_chave": [
+                "danos morais",
+                "FGTS",
+                "vinculo empregaticio",
+                "seguro-desemprego"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "111158720165030021",
+            "relator": "Augusto Cesar Leite de Carvalho",
+            "data": "09/09/2021",
+            "turma": "6ª Turma",
+            "temas": [
+                "insalubridade",
+                "camara_fria"
+            ],
+            "frequencia": 9,
+            "aplicacao": "Precedente principal para insalubridade em camara fria. Relator especializado no tema.",
+            "palavras_chave": [
+                "insalubridade",
+                "camara fria",
+                "grau maximo"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "10008204320165020492",
+            "relator": "Guilherme Augusto Caputo Bastos",
+            "data": "09/03/2021",
+            "turma": "4ª Turma",
+            "temas": [
+                "insalubridade"
+            ],
+            "frequencia": 9,
+            "aplicacao": "Precedente de referencia em insalubridade.",
+            "palavras_chave": [
+                "insalubridade"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1014649320165010021",
+            "relator": "João Batista Brito Pereira",
+            "data": "16/12/2020",
+            "turma": "8ª Turma",
+            "temas": [
+                "danos_morais",
+                "fgts",
+                "rescisao_indireta"
+            ],
+            "frequencia": 7,
+            "aplicacao": "Danos morais, FGTS e rescisao indireta em acao acidentaria.",
+            "palavras_chave": [
+                "danos morais",
+                "FGTS",
+                "rescisao indireta"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "5774920165110013",
+            "relator": "Alberto Luiz Bresciani",
+            "data": "21/08/2019",
+            "turma": "3ª Turma",
+            "temas": [
+                "doenca_ocupacional",
+                "estabilidade"
+            ],
+            "frequencia": 7,
+            "aplicacao": "Doenca ocupacional e estabilidade acidentaria - nexo causal com a atividade laboral.",
+            "palavras_chave": [
+                "doenca ocupacional",
+                "estabilidade acidentaria",
+                "nexo causal"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "5190320165200011",
+            "relator": "Amaury Rodrigues Pinto Junior",
+            "data": "30/03/2022",
+            "turma": "1ª Turma",
+            "temas": [
+                "doenca_ocupacional",
+                "estabilidade"
+            ],
+            "frequencia": 7,
+            "aplicacao": "Doenca ocupacional e estabilidade - especializado em materia acidentaria e limbo previdenciario.",
+            "palavras_chave": [
+                "doenca ocupacional",
+                "estabilidade",
+                "limbo previdenciario"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "00014487820205120056",
+            "relator": "Alberto Bastos Balazeiro",
+            "data": "24/05/2023",
+            "turma": "3ª Turma",
+            "temas": [
+                "estabilidade",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 7,
+            "aplicacao": "Estabilidade acidentaria e verbas rescisorias.",
+            "palavras_chave": [
+                "estabilidade",
+                "verbas rescisorias",
+                "acidente de trabalho"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TRT-11",
+            "tipo": "RO",
+            "numero": "00008726020145110012",
+            "relator": null,
+            "data": "10/12/2015",
+            "turma": "3ª Turma",
+            "temas": [
+                "rescisao_indireta"
+            ],
+            "frequencia": 7,
+            "aplicacao": "TRT-11: rescisao indireta em acao acidentaria.",
+            "palavras_chave": [
+                "rescisao indireta",
+                "acidente de trabalho"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "118242220175150032",
+            "relator": "João Batista Brito Pereira",
+            "data": "24/02/2021",
+            "turma": "8ª Turma",
+            "temas": [
+                "rescisao_indireta",
+                "fgts"
+            ],
+            "frequencia": 6,
+            "aplicacao": "Rescisao indireta e FGTS.",
+            "palavras_chave": [
+                "rescisao indireta",
+                "FGTS"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "ROT",
+            "numero": "801435820205070000",
+            "relator": "Morgana de Almeida Richa",
+            "data": "17/05/2022",
+            "turma": null,
+            "temas": [
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 6,
+            "aplicacao": "Vinculo empregaticio e reconhecimento.",
+            "palavras_chave": [
+                "vinculo empregaticio"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "precedentes_diferencas_contratuais": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "118242220175150032",
+            "relator": "João Batista Brito Pereira",
+            "data": "24/02/2021",
+            "turma": "8ª Turma",
+            "temas": [
+                "fgts",
+                "rescisao_indireta"
+            ],
+            "frequencia": 5,
+            "aplicacao": "Precedente mais citado em Diferencas Contratuais - FGTS e rescisao indireta.",
+            "palavras_chave": [
+                "FGTS",
+                "rescisao indireta"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10017567620165020069",
+            "relator": "Augusto Cesar Leite de Carvalho",
+            "data": "06/04/2022",
+            "turma": "6ª Turma",
+            "temas": [
+                "multa_477",
+                "rescisao_indireta",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 4,
+            "aplicacao": "Multa art. 477, rescisao indireta e verbas rescisorias.",
+            "palavras_chave": [
+                "multa art. 477",
+                "rescisao indireta",
+                "verbas rescisorias"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10006156020185020066",
+            "relator": "Alexandre de Souza Agra Belmonte",
+            "data": "15/12/2021",
+            "turma": "3ª Turma",
+            "temas": [
+                "fgts",
+                "rescisao_indireta"
+            ],
+            "frequencia": 4,
+            "aplicacao": "FGTS e rescisao indireta em diferencas contratuais.",
+            "palavras_chave": [
+                "FGTS",
+                "rescisao indireta"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10007471620195020056",
+            "relator": "Hugo Carlos Scheuermann",
+            "data": "17/08/2022",
+            "turma": "1ª Turma",
+            "temas": [
+                "rescisao_indireta",
+                "intervalo_intrajornada",
+                "fgts"
+            ],
+            "frequencia": 4,
+            "aplicacao": "Rescisao indireta, intervalo intrajornada e FGTS.",
+            "palavras_chave": [
+                "rescisao indireta",
+                "intervalo intrajornada",
+                "FGTS"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "10006625520165020502",
+            "relator": "João Pedro Silvestrin",
+            "data": "07/04/2021",
+            "turma": "5ª Turma",
+            "temas": [
+                "multa_477",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 4,
+            "aplicacao": "Multa art. 477 e verbas rescisorias em diferencas contratuais.",
+            "palavras_chave": [
+                "multa art. 477",
+                "verbas rescisorias"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "106832420185030013",
+            "relator": "Alexandre de Souza Agra Belmonte",
+            "data": "24/02/2021",
+            "turma": "3ª Turma",
+            "temas": [
+                "insalubridade"
+            ],
+            "frequencia": 4,
+            "aplicacao": "Insalubridade em diferencas contratuais.",
+            "palavras_chave": [
+                "insalubridade"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "1373007220095040027",
+            "relator": null,
+            "data": "17/10/2018",
+            "turma": null,
+            "temas": [
+                "rescisao_indireta",
+                "intervalo_intrajornada"
+            ],
+            "frequencia": 3,
+            "aplicacao": "Rescisao indireta e intervalo intrajornada.",
+            "palavras_chave": [
+                "rescisao indireta",
+                "intervalo intrajornada"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10283920195120014",
+            "relator": "Margareth Rodrigues Costa",
+            "data": "11/05/2022",
+            "turma": "2ª Turma",
+            "temas": [
+                "insalubridade"
+            ],
+            "frequencia": 2,
+            "aplicacao": "Insalubridade em diferencas contratuais.",
+            "palavras_chave": [
+                "insalubridade"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "precedentes_reconhecimento_vinculo": [
+        {
+            "tribunal": "TRT-15",
+            "tipo": "Processo",
+            "numero": "0000666-94.2012.5.15.0015",
+            "relator": null,
+            "data": "2012",
+            "turma": null,
+            "temas": [
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 3,
+            "aplicacao": "Precedente TRT-15 para reconhecimento de vinculo empregaticio.",
+            "palavras_chave": [
+                "vinculo empregaticio",
+                "reconhecimento"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TRT-3",
+            "tipo": "Processo",
+            "numero": "0001110-76.2010.5.03.0098",
+            "relator": "Mauro Cesar Silva",
+            "data": "2010",
+            "turma": null,
+            "temas": [
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 3,
+            "aplicacao": "TRT-3: reconhecimento de vinculo empregaticio.",
+            "palavras_chave": [
+                "vinculo empregaticio",
+                "reconhecimento"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "ROT",
+            "numero": "801435820205070000",
+            "relator": "Morgana de Almeida Richa",
+            "data": "17/05/2022",
+            "turma": null,
+            "temas": [
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 2,
+            "aplicacao": "TST: vinculo empregaticio e reconhecimento.",
+            "palavras_chave": [
+                "vinculo empregaticio"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TRT-2",
+            "tipo": "AP",
+            "numero": "10016737920225020609",
+            "relator": null,
+            "data": "2022",
+            "turma": "3ª Turma",
+            "temas": [
+                "danos_morais",
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 2,
+            "aplicacao": "TRT-2: danos morais e vinculo empregaticio em reconhecimento de vinculo.",
+            "palavras_chave": [
+                "danos morais",
+                "vinculo empregaticio"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Processo",
+            "numero": "1001175-75.2016.5.02.0032",
+            "relator": null,
+            "data": "2016",
+            "turma": null,
+            "temas": [
+                "vinculo_empregaticio"
+            ],
+            "frequencia": 2,
+            "aplicacao": "TST: reconhecimento de vinculo empregaticio.",
+            "palavras_chave": [
+                "vinculo empregaticio"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "10001336720185020081",
+            "relator": "João Batista Brito Pereira",
+            "data": "28/10/2020",
+            "turma": "8ª Turma",
+            "temas": [
+                "rescisao_indireta",
+                "verbas_rescisorias"
+            ],
+            "frequencia": 1,
+            "aplicacao": "Rescisao indireta e verbas rescisorias em reconhecimento de vinculo.",
+            "palavras_chave": [
+                "rescisao indireta",
+                "verbas rescisorias"
+            ],
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "doenca_ocupacional": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "5774920165110013",
+            "relator": "Alberto Luiz Bresciani",
+            "data": "21/08/2019",
+            "turma": "3ª Turma",
+            "ementa": "DOENCA OCUPACIONAL. NEXO CAUSAL. RESPONSABILIDADE DO EMPREGADOR. A doenca ocupacional equipara-se ao acidente de trabalho para todos os efeitos legais (art. 20 da Lei 8.213/91). Comprovado o nexo causal entre a enfermidade e a atividade laboral, o empregador responde pelo pagamento de todas as verbas decorrentes do acidente, incluindo estabilidade acidentaria de 12 meses apos a alta medica.",
+            "palavras_chave": [
+                "doenca ocupacional",
+                "nexo causal",
+                "estabilidade acidentaria",
+                "LER",
+                "DORT",
+                "Lei 8.213"
+            ],
+            "sumula_relacionada": [
+                "OJ 230 SBDI-1"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "5190320165200011",
+            "relator": "Amaury Rodrigues Pinto Junior",
+            "data": "30/03/2022",
+            "turma": "1ª Turma",
+            "ementa": "DOENCA OCUPACIONAL. LIMBO PREVIDENCIARIO. RESPONSABILIDADE PATRONAL. O trabalhador que, apos o afastamento pelo INSS, tem a pericia administrativa negando a incapacidade, mas permanece incapaz de trabalhar, encontra-se em situacao de limbo previdenciario. Nessa hipotese, o empregador nao pode dispensar o empregado sem justa causa, respondendo pelos salarios e demais verbas do periodo.",
+            "palavras_chave": [
+                "doenca ocupacional",
+                "limbo previdenciario",
+                "INSS",
+                "afastamento",
+                "incapacidade"
+            ],
+            "sumula_relacionada": [
+                "OJ 230 SBDI-1"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "OJ",
+            "numero": "OJ 230 SBDI-1",
+            "relator": "TST - SBDI-1",
+            "data": "Historica",
+            "turma": "SBDI-1",
+            "ementa": "DOENCA OCUPACIONAL. NEXO CAUSAL. A doenca profissional que leva a perda ou reducao da capacidade laboral e equiparada ao acidente de trabalho, sendo devidas todas as verbas rescisorias e a estabilidade provisoria prevista no art. 118 da Lei 8.213/91.",
+            "palavras_chave": [
+                "doenca ocupacional",
+                "OJ 230",
+                "acidente de trabalho",
+                "equiparacao",
+                "estabilidade"
+            ],
+            "sumula_relacionada": [
+                "OJ 230 SBDI-1"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ],
+    "camara_fria": [
+        {
+            "tribunal": "TST",
+            "tipo": "RR",
+            "numero": "111158720165030021",
+            "relator": "Augusto Cesar Leite de Carvalho",
+            "data": "09/09/2021",
+            "turma": "6ª Turma",
+            "ementa": "INSALUBRIDADE. CAMARA FRIA. TRABALHO EM BAIXAS TEMPERATURAS. GRAU MAXIMO. O trabalho habitual em camara frigorifica com temperaturas abaixo de 12C configura insalubridade em grau maximo (40%), por enquadramento no Anexo 9 da NR-15 da Portaria n. 3.214/78 do Ministerio do Trabalho.",
+            "palavras_chave": [
+                "camara fria",
+                "camara frigorifica",
+                "insalubridade",
+                "grau maximo",
+                "baixas temperaturas",
+                "NR-15"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 47",
+                "TST-Sumula 139"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        },
+        {
+            "tribunal": "TST",
+            "tipo": "Ag",
+            "numero": "10008204320165020492",
+            "relator": "Guilherme Augusto Caputo Bastos",
+            "data": "09/03/2021",
+            "turma": "4ª Turma",
+            "ementa": "INSALUBRIDADE. CAMARA FRIA. NR-15. ADICIONAL DEVIDO. O frio artificial em camara frigorifica e reconhecido como agente insalubre pelo TST, independentemente de pericia quando evidente pelas condicoes de trabalho descritas.",
+            "palavras_chave": [
+                "camara fria",
+                "insalubridade",
+                "frio artificial",
+                "NR-15",
+                "adicional"
+            ],
+            "sumula_relacionada": [
+                "TST-Sumula 47",
+                "TST-Sumula 448"
+            ],
+            "vigencia": "ambos",
+            "status": "vigente",
+            "atualizado_em": "2026-04-14"
+        }
+    ]
+}
