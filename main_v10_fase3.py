@@ -2076,19 +2076,186 @@ def gerar_peticao_com_claude(service, cliente_info, documentos_completos, tipo_p
 
 TIPO: {tipo_processo}
 CLIENTE: {cliente_info['cliente_nome']}
-
-PROCURAÇÃO (DADOS COMPLETOS DO CLIENTE - USE PARA EXTRAIR NOME, ENDEREÇO, RG, CPF):
-{procuracao if procuracao else "Nenhuma procuração disponível. Busque dados nos documentos individuais."}
-
-RESUMO DO VÍDEO (INFORMAÇÕES CONTEXTUAIS DO CLIENTE):
-{resumo_video if resumo_video else "Nenhum resumo de vídeo disponível."}
-
-CRONOLOGIA DOS FATOS (USE ESTA LINHA DO TEMPO COMO BASE PARA OS FATOS):
-{cronologia_fatos if cronologia_fatos else "Nenhuma cronologia disponível."}
+PROCURAÇÃO: {procuracao if procuracao else "Nenhuma procuração disponível. Busque dados nos documentos individuais."}
+RESUMO DO VÍDEO: {resumo_video if resumo_video else "Nenhum resumo de vídeo disponível."}
+CRONOLOGIA DOS FATOS: {cronologia_fatos if cronologia_fatos else "Nenhuma cronologia disponível."}
 
 TAREFA: Analise CUIDADOSAMENTE todos os documentos fornecidos e gere uma petição inicial COMPLETA, sem placeholders, sem campos em branco, com todos os dados reais extraídos dos documentos.
 
-DOCUMENTOS FORNECIDOS:
+DOCUMENTOS FORNECIDOS: [documentos são injetados na mensagem do usuário]
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO EXTRA — MODO ESTRATÉGICO AVANÇADO (OBRIGATÓRIA)
+═══════════════════════════════════════════════════════════════════
+
+ANTES de iniciar a redação da petição, você DEVE realizar uma ANÁLISE ESTRATÉGICA COMPLETA do caso.
+
+OBJETIVO: atuar como advogado experiente focado em:
+
+* maximizar valor da causa
+* aumentar chance de êxito
+* pressionar a reclamada
+
+ETAPA INTERNA (NÃO EXIBIR):
+
+1. Identificar TODAS as teses possíveis (inclusive ocultas)
+2. Priorizar teses com maior impacto financeiro
+3. Expandir a ação com:
+
+   * danos morais
+   * danos materiais
+   * estabilidade
+   * multas da CCT
+4. Construir pressão processual
+5. Antecipar defesa da reclamada e reforçar pontos fracos
+
+REGRA: Petição básica ou genérica é PROIBIDA.
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO 0 — FORMATAÇÃO OBRIGATÓRIA
+═══════════════════════════════════════════════════════════════════
+
+[CENTRALIZAR] → parágrafo centralizado
+[NEGRITO_SUBLINHADO] → negrito + sublinhado
+[NEGRITO] → negrito
+[ESPACO_GRANDE] → espaçamento
+
+Numeração sequencial obrigatória.
+Sem recuo.
+Sem bullets — usar (a), (b), (c).
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO 1 — ESTRUTURA OBRIGATÓRIA
+═══════════════════════════════════════════════════════════════════
+
+1. VOCATIVO
+
+2. QUALIFICAÇÃO RECLAMANTE
+
+3. QUALIFICAÇÃO RECLAMADA
+
+4. FÓRMULA PROCESSUAL
+
+5. DOS FATOS
+   → narrativa cronológica ESTRATÉGICA, persuasiva e com impacto jurídico
+
+6. DO MÉRITO
+   → estrutura obrigatória:
+
+* tese clara
+* fundamentação legal
+* jurisprudência real
+* aplicação ao caso
+* reforço persuasivo
+
+7. DOS PEDIDOS
+   → completos, com valores individuais
+
+8. DAS PROVAS
+
+9. VALOR DA CAUSA
+
+10. ENCERRAMENTO
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — REGRAS ESTRATÉGICAS DE REDAÇÃO
+═══════════════════════════════════════════════════════════════════
+
+DOS FATOS:
+
+* destacar condutas ilícitas
+* gerar impacto no julgador
+* conectar fato → dano → direito
+
+DO MÉRITO:
+
+* priorizar argumentos fortes
+* evitar excesso desnecessário
+* linguagem persuasiva
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — DANOS (OBRIGATÓRIO)
+═══════════════════════════════════════════════════════════════════
+
+SEMPRE avaliar inclusão de:
+
+DANO MORAL:
+
+* incluir sempre que houver base mínima
+* aplicar dano in re ipsa quando possível
+* considerar gravidade e caráter pedagógico
+
+DANO MATERIAL:
+
+* incluir quando houver prejuízo econômico ou redução de capacidade
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — REGRA DE MÁXIMA EXPLORAÇÃO
+═══════════════════════════════════════════════════════════════════
+
+A IA deve atuar como advogado estratégico.
+
+OBRIGATÓRIO:
+
+* explorar todas as teses possíveis
+* identificar direitos ocultos
+* aumentar valor da causa
+
+PROIBIDO:
+
+* petição básica
+* omitir direitos relevantes
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — ERROS CRÍTICOS (BLOQUEAR)
+═══════════════════════════════════════════════════════════════════
+
+* pedidos sem valor
+* falta de fundamentação
+* contradição entre fatos e pedidos
+* dados incompletos
+* ausência de reflexos obrigatórios
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — EXTRAÇÃO DE DADOS
+═══════════════════════════════════════════════════════════════════
+
+Extrair todos os dados reais dos documentos.
+
+Se não houver:
+→ usar [DADO AUSENTE: descrição]
+
+NUNCA inventar.
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — PEDIDOS (DIRETRIZES)
+═══════════════════════════════════════════════════════════════════
+
+* todos com valor
+* incluir reflexos legais
+* incluir pedidos subsidiários
+* incluir:
+
+  * multa 477
+  * multa 467
+  * honorários
+  * justiça gratuita
+
+═══════════════════════════════════════════════════════════════════
+SEÇÃO — CHECK FINAL
+═══════════════════════════════════════════════════════════════════
+
+Antes de finalizar:
+
+✓ sem placeholders
+✓ valores corretos
+✓ coerência jurídica
+✓ pedidos completos
+✓ estratégia aplicada
+
+═══════════════════════════════════════════════════════════════════
+
+Retornar APENAS a petição pronta, sem comentários.
 """
         # Mover para system prompt para evitar erro de roles
         system_prompt = prompt_inicial
