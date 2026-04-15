@@ -2254,6 +2254,30 @@ Antes de finalizar:
 ✓ estratégia aplicada
 
 ═══════════════════════════════════════════════════════════════════
+MODO VALIDAÇÃO FINAL OBRIGATÓRIA (CRÍTICO)
+═══════════════════════════════════════════════════════════════════
+
+ANTES de finalizar a petição, validar:
+
+1. Existe base para dano material?
+→ Se SIM e não foi incluído = CORRIGIR obrigatoriamente
+
+2. Existe base para estabilidade?
+→ Se SIM e não foi incluída = CORRIGIR obrigatoriamente
+
+3. A jurisprudência é REAL?
+→ Se NÃO tiver certeza = NÃO usar
+
+4. Existe contradição de rescisão?
+→ Se SIM = CORRIGIR
+
+5. A ação está explorando o máximo possível?
+→ Se NÃO = EXPANDIR
+
+REGRA FINAL:
+Petição incompleta ou subaproveitada = PROIBIDO retornar.
+
+═══════════════════════════════════════════════════════════════════
 
 Retornar APENAS a petição pronta, sem comentários.
 """
