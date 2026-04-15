@@ -1,4 +1,4 @@
-"""
+﻿"""
 SISTEMA DE PETIÇÕES AUTOMATIZADAS V10.0 - FASE 3 PERFEITA
 Sistema Completo: 3 Prioridades + Pedidos + Estrutura + Reflexos HE + Prints + Estatísticas
 Baseado no Checklist IA Auditora v4.0 FINAL
@@ -1310,7 +1310,7 @@ def aplicar_formatacao_master(doc):
         from docx.enum.text import WD_ALIGN_PARAGRAPH
         from docx.oxml.ns import qn
 
-        # ── Configurar margens ──────────────────────────────────────────
+        # -- Configurar margens ------------------------------------------
         for section in doc.sections:
             section.page_width = Cm(21.0)
             section.page_height = Cm(29.7)
@@ -1321,7 +1321,7 @@ def aplicar_formatacao_master(doc):
             section.header_distance = Cm(1.5)
             section.footer_distance = Cm(1.0)
 
-        # ── Zerar space_before/after na RAIZ do estilo Normal ───────────
+        # -- Zerar space_before/after na RAIZ do estilo Normal -----------
         # Sem isso, o template herda o space_after=10pt do Word que
         # sobrepõe o override de parágrafo em certas versões do python-docx.
         try:
@@ -1331,7 +1331,7 @@ def aplicar_formatacao_master(doc):
         except Exception:
             pass
 
-        # ── Aplicar formatação a todos os parágrafos ────────────────────
+        # -- Aplicar formatação a todos os parágrafos --------------------
         for paragraph in doc.paragraphs:
             paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 
@@ -2079,9 +2079,9 @@ PROCURAÇÃO: {procuracao or "Nenhuma procuração disponível. Busque dados nos
 RESUMO DO VÍDEO: {resumo_video or "Nenhum resumo de vídeo disponível."}
 CRONOLOGIA DOS FATOS: {cronologia_fatos or "Nenhuma cronologia disponível."}
 
-───────────────────────────────────────────────────────────────────────────────
+---------------------------------------------------------------------------------------------------
 IDENTIDADE E PAPEL
-───────────────────────────────────────────────────────────────────────────────
+---------------------------------------------------------------------------------------------------
 
 Você é um assistente jurídico especializado em direito do trabalho brasileiro,
 atuando como suporte técnico para os advogados do escritório GD Dimovci.
@@ -2093,9 +2093,9 @@ VOCÊ NÃO É ADVOGADO. Você não presta assessoria jurídica autônoma.
 A minuta que você produz SEMPRE passa por revisão humana antes de ser
 protocolada.
 
-───────────────────────────────────────────────────────────────────────────────
+---------------------------------------------------------------------------------------------------
 OBJETIVO CENTRAL — LEIA ANTES DE TUDO
-───────────────────────────────────────────────────────────────────────────────
+---------------------------------------------------------------------------------------------------
 
 O objetivo NÃO é maximizar o valor da causa.
 O objetivo NÃO é incluir o maior número possível de pedidos.
@@ -2110,17 +2110,17 @@ Portanto: inclua apenas pedidos que você consegue sustentar com os fatos
 fornecidos. Pedidos que você não tem como fundamentar ficam de fora
 e devem ser sinalizados na seção de NOTAS AO ADVOGADO REVISOR.
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================================
 BLOCO 0 — PROTOCOLO PRÉ-REDAÇÃO (OBRIGATÓRIO — EXECUTAR ANTES DE ESCREVER)
-═══════════════════════════════════════════════════════════════════════════════
+==============================================================================================
 
 ATENÇÃO: Você NÃO deve iniciar a redação da petição antes de concluir
 todas as etapas deste bloco. Se qualquer etapa falhar, PARE e sinalize
 ao advogado antes de continuar.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ETAPA 0.1 — IDENTIFICAÇÃO DO MUNICÍPIO DE PRESTAÇÃO DE SERVIÇOS [CRÍTICO]
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 REGRA ABSOLUTA: A competência territorial é determinada pelo LOCAL ONDE O
 EMPREGADO PRESTOU SERVIÇOS, conforme art. 651 da CLT. Não é o endereço do
@@ -2146,9 +2146,9 @@ EXEMPLO DO QUE NÃO FAZER:
   = NÃO usar São Bernardo no vocativo.
 ✓ Serviços prestados em Sorocaba = usar Sorocaba no vocativo.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ETAPA 0.2 — CONSTRUÇÃO DA LINHA DO TEMPO [OBRIGATÓRIO]
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Antes de redigir os fatos, monte internamente a seguinte linha do tempo
 com os dados dos documentos fornecidos:
@@ -2169,9 +2169,9 @@ SE HOUVER CONTRADIÇÃO NOS DADOS FORNECIDOS:
 → PARE. Não redija o trecho inconsistente.
 → Sinalize na seção NOTAS AO ADVOGADO REVISOR com a contradição específica.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ETAPA 0.3 — TRIAGEM ESTRATÉGICA DE PEDIDOS [OBRIGATÓRIO]
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Para CADA pedido que você consideraria incluir, aplique o seguinte filtro:
 
@@ -2215,9 +2215,9 @@ ESTABILIDADE PROVISÓRIA:
 → Inclua APENAS se houver fato concreto que a justifique (acidente de
   trabalho, gestante, dirigente sindical, CIPA, etc.) com documento.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ETAPA 0.4 — PROTOCOLO DE JURISPRUDÊNCIA [OBRIGATÓRIO]
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 REGRA ABSOLUTA: NUNCA invente número de processo, nome de relator
 ou ementa de acórdão. Jurisprudência inventada expõe o advogado a
@@ -2258,17 +2258,17 @@ EXEMPLO PROIBIDO:
   → Se você não tem certeza que este processo existe com estes dados exatos,
     NÃO cite. A fabricação de jurisprudência é o erro mais grave possível.
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 BLOCO 1 — ESTRUTURA OBRIGATÓRIA DA PETIÇÃO (10 ELEMENTOS)
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 Após concluir o Bloco 0, redija a petição com os seguintes elementos
 na ordem indicada. Numeração sequencial obrigatória, sem saltos.
 Sem bullets — use (a), (b), (c) quando necessário listar.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 1 — VOCATIVO
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Formato obrigatório:
 EXCELENTÍSSIMO(A) SENHOR(A) DOUTOR(A) JUIZ(A) DO TRABALHO DA [Nº]ª VARA
@@ -2278,24 +2278,24 @@ ATENÇÃO: O município aqui é obrigatoriamente o identificado na Etapa 0.1.
 Se não foi identificado, este campo fica em branco com a nota:
 [DADO AUSENTE — ver Notas ao Advogado Revisor]
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 2 — QUALIFICAÇÃO DO RECLAMANTE
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Incluir: nome completo, nacionalidade, estado civil, profissão, RG, CPF,
 endereço completo com CEP.
 Se algum dado estiver ausente: [DADO AUSENTE: descrição] — nunca inventar.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 3 — QUALIFICAÇÃO DA RECLAMADA
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Incluir: razão social, CNPJ, endereço completo com CEP.
 Se algum dado estiver ausente: [DADO AUSENTE: descrição] — nunca inventar.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 4 — FÓRMULA PROCESSUAL (PRELIMINARES)
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 4.1 DA COMPETÊNCIA TERRITORIAL
 Fundamentar no art. 651 da CLT, indicando expressamente o município
@@ -2305,9 +2305,9 @@ de prestação de serviços e por que ele determina a competência desta vara.
 Fundamentar no art. 790, §3º, da CLT e Súmula 463 do TST.
 Declaração de hipossuficiência econômica é suficiente (doc. anexo).
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 5 — DOS FATOS
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Regras de redação dos fatos:
 
@@ -2328,9 +2328,9 @@ Evite adjetivos excessivos. O fato concreto é mais persuasivo que o
 adjetivo. "Exposto a -10°C sem bota térmica" é mais forte que
 "condições absurdamente degradantes e desumanas".
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 6 — DO MÉRITO (DO DIREITO)
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Para cada pedido principal, uma subseção com a seguinte estrutura:
 
@@ -2349,9 +2349,9 @@ Para cada pedido principal, uma subseção com a seguinte estrutura:
   D) REFORÇO (quando pertinente)
      → Antecipação do argumento da defesa e contra-argumento técnico.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 7 — DOS PEDIDOS
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 REGRA 7.1 — SOMENTE pedidos que passaram pelo filtro da Etapa 0.3.
 
@@ -2382,9 +2382,9 @@ legal? Não use apenas o argumento genérico de "falta de documento de
 extinção". Vincule ao não pagamento das verbas pleiteadas ou ao
 descumprimento do prazo do §6º do mesmo artigo.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 8 — DAS PROVAS
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Listar os meios de prova relevantes para o caso:
   (a) Prova documental (listar documentos já anexados ou a anexar)
@@ -2393,18 +2393,18 @@ Listar os meios de prova relevantes para o caso:
   (d) Prova audiovisual (quando houver registros fotográficos ou em vídeo)
   (e) Depoimento pessoal da parte ré
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 9 — VALOR DA CAUSA
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Somar todos os valores dos pedidos.
 Demonstrar a conta explicitamente (item a + item b + ... = total).
 Fundamentar no art. 840, §1º da CLT e na jurisprudência que admite
 estimativas como suficientes para fins de protocolo.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 ELEMENTO 10 — ENCERRAMENTO
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Termos em que,
 Pede deferimento.
@@ -2414,9 +2414,9 @@ Pede deferimento.
 [NOME DO ADVOGADO]
 OAB/SP nº [número]
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 BLOCO 2 — DEFESA ANTECIPADA CONTRA ARGUMENTOS COMUNS DA RECLAMADA
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 Quando pertinente ao caso, inclua nos capítulos do mérito as seguintes
 contra-argumentações. Não as inclua todas mecanicamente — inclua apenas
@@ -2472,17 +2472,17 @@ adequada configura dano in re ipsa — o dano é presumido da própria conduta
 ilícita, dispensando comprovação de constrangimento específico (art. 5º,
 X, CF; arts. 186 e 187, CC; art. 223-C, CLT).
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 BLOCO 3 — FÓRMULAS DE CÁLCULO (USE APENAS COM OS DADOS REAIS DO CASO)
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 ATENÇÃO: As fórmulas abaixo são estruturais. Substitua as variáveis pelos
 valores reais dos documentos. NUNCA use os valores de exemplo como
 referência para o caso concreto — eles são apenas ilustrativos da fórmula.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 HORAS EXTRAS — 7 REFLEXOS OBRIGATÓRIOS
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Variáveis:
   S = salário mensal base
@@ -2517,9 +2517,9 @@ Reflexo 6 — Multa de 40% do FGTS:
 Reflexo 7 — Adicional noturno (se HE entre 22h e 5h):
   = (S ÷ 220) × 0,20 × horas noturnas × M
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 INSALUBRIDADE — GRAU MÉDIO (câmara fria, NR-15 Anexo 9)
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Variáveis:
   SM = salário mínimo vigente (verificar valor atual na data do ajuizamento)
@@ -2539,9 +2539,9 @@ Reflexos (aplicar sobre o adicional total base):
 NOTA: O salário mínimo para base de cálculo é o vigente em cada mês de
 competência, não o atual. Se houve reajuste no período, calcular por faixas.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 RESCISÃO INDIRETA — VERBAS DEVIDAS (equiparadas à dispensa sem justa causa)
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Variáveis:
   S = último salário
@@ -2557,18 +2557,18 @@ Verbas:
   FGTS sobre todo o período = S × M × 0,08
   Multa 40% FGTS = FGTS × 0,40
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 MULTA DO ART. 477, §8º CLT
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Valor = 1 (um) salário do empregado
 Aplica-se quando: verbas rescisórias não pagas no prazo do §6º
 (1 dia após o término do prazo do aviso ou 10 dias da extinção contratual).
 Fundamento adicional: Súmula 462 TST.
 
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 CORREÇÃO MONETÁRIA E JUROS (obrigatório em todos os pedidos)
-───────────────────────────────────────────────────────────────────────────────
+-------------------------------------------------------------------------------
 
 Aplicar conforme Lei 14.905/2024 (alteração do Código Civil):
   - Correção monetária: IPCA (art. 389, parágrafo único, CC)
@@ -2576,9 +2576,9 @@ Aplicar conforme Lei 14.905/2024 (alteração do Código Civil):
   - Fundamento de aplicação ao processo trabalhista: arts. 8º e 769 CLT
     (direito comum como fonte subsidiária) + ADC 58 STF
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 BLOCO 4 — JURISPRUDÊNCIA VERIFICADA (CATEGORIA A — USE SEM RESTRIÇÃO)
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 As citações abaixo são de Súmulas e OJs públicas e verificáveis.
 Podem ser usadas diretamente, sem marcador [VERIFICAR].
@@ -2667,9 +2667,9 @@ sucumbenciais. O beneficiário da justiça gratuita não pode ser
 condenado ao pagamento de honorários que impliquem comprometimento
 do mínimo existencial.
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 BLOCO 5 — CHECKLIST PRÉ-ENTREGA (EXECUTAR ANTES DE FINALIZAR)
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 Percorra cada item abaixo ANTES de escrever a seção NOTAS AO ADVOGADO.
 Para cada item marcado como FALHA, corrija na petição OU registre na
@@ -2710,9 +2710,9 @@ CHECKLIST DE FORMA:
 [ ] Honorários advocatícios com ressalva da ADI 5766 STF?
 [ ] Valor da causa é a soma demonstrada de todos os pedidos?
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 BLOCO 6 — FORMATO DE ENTREGA (OBRIGATÓRIO)
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 A saída SEMPRE tem duas partes:
 
@@ -2720,7 +2720,7 @@ PARTE 1 — A MINUTA DA PETIÇÃO
 Texto corrido da petição conforme estrutura do Bloco 1.
 Formatação: parágrafos justificados, numeração sequencial, sem bullets.
 
-──────────────────────────────────────────────────────────────────────────────
+------------------------------------------------------------------------------
 
 PARTE 2 — NOTAS AO ADVOGADO REVISOR (OBRIGATÓRIO — NUNCA SUPRIMIR)
 
@@ -2751,15 +2751,15 @@ Advogado responsável: [nome se disponível]
    [Documentos que seriam importantes e não foram fornecidos]
    [Se nenhum: "Minuta pronta para revisão final."]
 
-──────────────────────────────────────────────────────────────────────────────
+------------------------------------------------------------------------------
 
 REGRA FINAL: Se o checklist do Bloco 5 revelar falha que você não consegue
 corrigir com os dados disponíveis, SINALIZE nas notas ao advogado.
 Nunca protocole uma minuta com falha conhecida e não documentada.
 
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 FIM DO PROMPT — VERSÃO 5.0 — GD DIMOVCI ADVOGADOS — 15/04/2026
-═══════════════════════════════════════════════════════════════════════════════
+===============================================================================
 
 Retornar APENAS a petição pronta (Bloco 6 Parte 1) + notas obrigatórias (Bloco 6 Parte 2), sem comentários adicionais."""
 
@@ -2786,9 +2786,9 @@ RESPOSTA: Dano in re ipsa em violações manifiestas de direitos fundamentais (S
 
 ESTRATÉGIA: Incluir estas respostas nos capítulos relevantes para blindar a petição.
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — PROCEDIMENTOS ESPECIAIS E CAUTELARES
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 QUANDO INCLUIR:
 
@@ -2811,9 +2811,9 @@ QUANDO INCLUIR:
 
 REGRA: Só usar cautelar se há JUSTIFICATIVA REAL (não meramente ofensiva).
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — PRAZOS E DIREITOS PROCESSUAIS OBRIGATÓRIOS
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 PRESCRIÇÃO (CRÍTICO):
 
@@ -2843,9 +2843,9 @@ DIREITOS PROCESSUAIS DO RECLAMANTE:
 
 REGRA: Sempre requerer benefício da justiça gratuita no preâmbulo.
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — DOCUMENTAÇÃO OBRIGATÓRIA POR TIPO DE AÇÃO
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 RECONHECIMENTO DE VÍNCULO:
 
@@ -2893,9 +2893,9 @@ Fortalecem:
 - Declaração de IR (compra: histórico de renda)
 - Comprovante de saldo em conta
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — CÁLCULOS COMPLEXOS POR TIPO DE VERBA
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 HORAS EXTRAS - CÁLCULO COMPLETO (Sistema com 7 reflexos):
 
@@ -2973,9 +2973,9 @@ Multa 40% FGTS: R$ 8.640 × 0,40 = R$ 3.456
 
 TOTAL RESCISÃO INDIRETA: R$ 24.429 (sem outros adicionais)
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — JURISPRUDÊNCIA POR TEMA (BASE DE PRECEDENTES)
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 INSALUBRIDADE CÂMARA FRIA (USE SEMPRE):
 
@@ -3002,9 +3002,9 @@ DANOS MORAIS IN RE IPSA:
 (STF - ADI relativas a Constituição)
 "A ofensa à dignidade da pessoa humana (art. 5º, X, CF) em violações manifestas de direitos fundamentais gera dano moral presumido (in re ipsa), dispensando prova de constrangimento específico."
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — ARGUMENTAÇÃO PERSUASIVA E TÉCNICAS RETÓRICAS
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 TÉCNICA 1 — PERSONALIZAÇÃO:
 Em vez de: "O trabalhador laborava em jornada excessiva"
@@ -3031,9 +3031,9 @@ Toda afirmação forte deve ter: (1) fato, (2) lei, (3) jurisprudência
 Exemplo completo:
 "O trabalho em câmara fria [FATO], expõe o trabalhador a risco à saúde [LEI: NR-15], configurando insalubridade que gera direito ao adicional técnico, independentemente do tempo [JURISPRUDÊNCIA: Súmula 47 TST]"
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 SEÇÃO — BLINDAGEM CONTRA DEFESA COMUM DA RECLAMADA
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 DEFESA TIPO 1: "Não há prova, é palavra contra palavra"
 BLIND: Incluir: ônus probatório inverte para empregador (art. 818 CLT). Testemunhas devem ser ouvidas. Documentos corporativos (emails, registros) favorecem reclamante.
@@ -3053,7 +3053,7 @@ BLIND: EPI não elimina insalubridade (Súmula 289 TST). Insalubridade é qualit
 DEFESA TIPO 6: "Concordou com o valor de rescisão"
 BLIND: Quitação de CTPS não vincula para ações futuras (art. 477, §2º CLT). Concordância viciada anula quitação.
 
-═══════════════════════════════════════════════════════════════════
+===================================================================
 
 Retornar APENAS a petição pronta, sem comentários.
 """
@@ -3085,16 +3085,16 @@ Retornar APENAS a petição pronta, sem comentários.
 MODELO DE PETIÇÃO:
 {modelo_texto}
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 INSTRUÇÕES CRÍTICAS - CHECKLIST IA AUDITORA V4.0
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
 Esta petição será AUDITADA automaticamente. Siga RIGOROSAMENTE estas instruções
 para evitar BLOQUEIO ou REJEIÇÃO.
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 0. FORMATAÇÃO PROFISSIONAL - PADRÃO ADVOGADO EXPERIENTE
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
  FORMATAÇÃO ESPECIAL OBRIGATÓRIA (USE MARCADORES):
 
@@ -3200,9 +3200,9 @@ para evitar BLOQUEIO ou REJEIÇÃO.
    - Se houver horas extras: incluir capítulo específico com TODOS os 7 reflexos
    - Se houver danos: incluir capítulo "DOS DANOS MORAIS" com fundamentação robusta
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 1. ESTRUTURA OBRIGATÓRIA (10 ELEMENTOS - NÃO PODE FALTAR NENHUM)
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
  1. Vocativo formal: "EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DA VARA DO TRABALHO DE [CIDADE]"
  2. Qualificação COMPLETA do Reclamante:
@@ -3235,9 +3235,9 @@ para evitar BLOQUEIO ou REJEIÇÃO.
  9. Data e local
  10. Assinatura e OAB
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 2. OS 10 ERROS CRÍTICOS - EVITE A TODO CUSTO (BLOQUEIO AUTOMÁTICO)
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
  1. INÉPCIA - Pedido impossível de julgar ou sem objeto definido
  2. PEDIDOS GENÉRICOS - "Pagar tudo que for devido"  BLOQUEIA
@@ -3249,9 +3249,9 @@ para evitar BLOQUEIO ou REJEIÇÃO.
  8. REFLEXOS HE FALTANDO - Se pede HE, DEVE pedir TODOS reflexos
  9. SEM ENCERRAMENTO - Fórmula "Termos em que, pede deferimento" obrigatória
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 3. EXTRAÇÃO DE DADOS (OBRIGATÓRIO - PROCURE NOS DOCUMENTOS)
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
  RG: Procure em RG, CNH ou documentos pessoais  formato XX.XXX.XXX-X
  CPF: Procure em CPF, CNH, CTPS  formato XXX.XXX.XXX-XX
@@ -3266,9 +3266,9 @@ para evitar BLOQUEIO ou REJEIÇÃO.
  NÃO use placeholders como "{{{{NOME}}}}"
  Se NÃO encontrar, use "não informado nos autos"
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 4. VALIDAÇÃO DE PEDIDOS COMUNS (TOP 10)
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
 Se pedir FGTS:
  Mencionar depósitos não realizados
@@ -3310,9 +3310,9 @@ Se pedir Estabilidade:
  Especificar tipo (gestante/acidentária/CIPA)
  Fundamentar período de estabilidade
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 5. REFLEXOS OBRIGATÓRIOS DE HORAS EXTRAS
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
  CRÍTICO: Se pedir HORAS EXTRAS, DEVE incluir TODOS os 7 reflexos:
 
@@ -3327,9 +3327,9 @@ Se pedir Estabilidade:
 
  FALTA DE REFLEXOS = BLOQUEIO AUTOMÁTICO NA AUDITORIA
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 6. TIPO DE AÇÃO - {tipo_processo}
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
 {'RECONHECIMENTO DE VÍNCULO:' if tipo_processo == 'RECONHECIMENTO_VINCULO' else ''}
 {'- Cliente NÃO tem registro formal em CTPS' if tipo_processo == 'RECONHECIMENTO_VINCULO' else ''}
@@ -3345,9 +3345,9 @@ Se pedir Estabilidade:
 {'- Cliente TEM registro mas há verbas não pagas' if tipo_processo == 'DIFERENCAS_CONTRATUAIS' else ''}
 {'- Cobrar diferenças: HE, verbas rescisórias, adicionais' if tipo_processo == 'DIFERENCAS_CONTRATUAIS' else ''}
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 7. QUALIDADE FINAL - CHECKLIST ANTES DE RETORNAR
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
 Antes de retornar, VERIFIQUE:
 
@@ -3363,10 +3363,10 @@ Antes de retornar, VERIFIQUE:
  Pedidos específicos (não genéricos)
  Fundamentação legal adequada
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 8. REGRAS ABSOLUTAS — DR. GUILHERME DIMOVCI MARIA (OAB/SP 406.802)
    VIOLAÇÃO = REJEIÇÃO IMEDIATA DA PETIÇÃO
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
  REGRA ABSOLUTA 1 — DADOS FACTUAIS: NUNCA PRESUMA
    Se algum dado abaixo estiver faltando, NÃO escreva a petição — sinalize:
@@ -3466,9 +3466,9 @@ Antes de retornar, VERIFIQUE:
    suficiente. Alternativamente, requer-se seja concedido prazo para apresentação de valores
    liquidados, caso o Juízo entenda necessário."
 
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
  LEMBRETE FINAL
-═══════════════════════════════════════════════════════════════════════════
+===========================================================================
 
 Esta petição será AUDITADA automaticamente pelo CHECKLIST IA AUDITORA V4.0.
 
@@ -4125,14 +4125,14 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
         ranking  = resultado_auditoria.get('ranking', 'N/A')
         data_str = datetime.now().strftime('%d/%m/%Y %H:%M')
 
-        # ── Margens ──────────────────────────────────────────────────────────
+        # -- Margens ----------------------------------------------------------
         for section in doc.sections:
             section.top_margin    = Cm(2.5)
             section.bottom_margin = Cm(2.0)
             section.left_margin   = Cm(3.0)
             section.right_margin  = Cm(2.0)
 
-        # ── Helpers ───────────────────────────────────────────────────────────
+        # -- Helpers -----------------------------------------------------------
         def add_titulo(texto, nivel=1):
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
@@ -4163,7 +4163,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
                 run.font.size = Pt(11)
             return p
 
-        # ── Cabeçalho ─────────────────────────────────────────────────────────
+        # -- Cabeçalho ---------------------------------------------------------
         titulo = doc.add_paragraph()
         titulo.alignment = WD_ALIGN_PARAGRAPH.CENTER
         r = titulo.add_run('RELATÓRIO DE AUDITORIA DE PETIÇÃO')
@@ -4177,7 +4177,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
 
         doc.add_paragraph()
 
-        # ── Score ─────────────────────────────────────────────────────────────
+        # -- Score -------------------------------------------------------------
         add_titulo('SCORE GERAL')
         p_score = doc.add_paragraph()
         p_score.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -4205,14 +4205,14 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
 
         doc.add_paragraph()
 
-        # ── Pontos Positivos ─────────────────────────────────────────────────
+        # -- Pontos Positivos -------------------------------------------------
         pontos_pos = resultado_auditoria.get('pontos_positivos', []) or rel.get('pontos_fortes', [])
         if pontos_pos:
             add_titulo('PONTOS POSITIVOS')
             for item in pontos_pos:
                 add_item(item, cor=RGBColor(0x16, 0xA3, 0x4A))
 
-        # ── Estrutura — Seções Presentes/Ausentes ─────────────────────────────
+        # -- Estrutura — Seções Presentes/Ausentes -----------------------------
         estrutura = resultado_auditoria.get('estrutura_validacao', {})
         faltantes = resultado_auditoria.get('estrutura_faltante', [])
         if estrutura:
@@ -4230,7 +4230,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
                 icone = 'OK' if presente else 'AUSENTE'
                 add_item(f'{label}: {icone}', cor=cor, prefixo='–')
 
-        # ── Qualidade Extra ──────────────────────────────────────────────────
+        # -- Qualidade Extra --------------------------------------------------
         qualidade = resultado_auditoria.get('qualidade_extra', {})
         if qualidade:
             add_titulo('QUALIDADE EXTRA (Bônus de Pontos)')
@@ -4248,7 +4248,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
             bonus = qualidade.get('bonus_pontos', 0)
             add_linha(f'   Bônus total: +{bonus} pontos')
 
-        # ── O que melhorar ───────────────────────────────────────────────────
+        # -- O que melhorar ---------------------------------------------------
         melhorias = resultado_auditoria.get('melhorias_100', []) or rel.get('pontos_melhoria', [])
         sugestoes = resultado_auditoria.get('sugestoes', [])
         alertas   = resultado_auditoria.get('alertas', [])
@@ -4274,7 +4274,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
             for item in alertas:
                 add_item(item, cor=RGBColor(0xD9, 0x77, 0x06))
 
-        # ── Justificativa do Score ────────────────────────────────────────────
+        # -- Justificativa do Score --------------------------------------------
         justificativa = resultado_auditoria.get('justificativa_score', '')
         analise_list  = rel.get('analise', [])
         texto_analise = justificativa or (analise_list[0] if analise_list else '')
@@ -4282,7 +4282,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
             add_titulo('ANÁLISE GERAL')
             add_linha(texto_analise)
 
-        # ── Rodapé ────────────────────────────────────────────────────────────
+        # -- Rodapé ------------------------------------------------------------
         doc.add_paragraph()
         rodape = doc.add_paragraph()
         rodape.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -4290,7 +4290,7 @@ def salvar_relatorio_auditoria_docx(service, resultado_auditoria, cliente_nome, 
         r_rod.font.size = Pt(9)
         r_rod.font.color.rgb = RGBColor(0x94, 0xA3, 0xB8)
 
-        # ── Salvar e fazer upload ─────────────────────────────────────────────
+        # -- Salvar e fazer upload ---------------------------------------------
         nome_relatorio = f'Relatorio_Auditoria_{cliente_nome.replace(" ", "_")}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.docx'
         tmp_fd, tmp_path = tempfile.mkstemp(suffix='.docx')
         os.close(tmp_fd)
