@@ -2072,7 +2072,7 @@ def gerar_peticao_com_claude(service, cliente_info, documentos_completos, tipo_p
         if not modelo_texto:
             return None
         
-        prompt_inicial = f"""Você é advogado trabalhista especializado em gerar petições COMPLETAS e PERFEITAS.
+        prompt_inicial = f"""Você é advogado trabalhista especializado em gerar petições COMPLETAS e PERFEITAS no padrão do escritório Dimovci Advogados.
 
 TIPO: {tipo_processo}
 CLIENTE: {cliente_info['cliente_nome']}
@@ -2086,12 +2086,7 @@ RESUMO DO VÍDEO (INFORMAÇÕES CONTEXTUAIS DO CLIENTE):
 CRONOLOGIA DOS FATOS (USE ESTA LINHA DO TEMPO COMO BASE PARA OS FATOS):
 {cronologia_fatos if cronologia_fatos else "Nenhuma cronologia disponível."}
 
-INSTRUÇÕES IMPORTANTES:
-- Se houver PROCURAÇÃO, extraia dela: Nome completo, RG, CPF, Endereço completo do cliente
-- Use esses dados para preencher a qualificação do Reclamante
-- Se não houver procuração, busque nos documentos individuais (RG, CPF, Comprovante de Residência)
-
-TAREFA: Analise CUIDADOSAMENTE os documentos e gere uma petição inicial COMPLETA com TODOS os dados preenchidos.
+TAREFA: Analise CUIDADOSAMENTE todos os documentos fornecidos e gere uma petição inicial COMPLETA, sem placeholders, sem campos em branco, com todos os dados reais extraídos dos documentos.
 
 DOCUMENTOS FORNECIDOS:
 """

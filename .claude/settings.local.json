@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \":*)",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(where py:*)",
+      "Bash(py -c \"import sys; print\\(sys.version\\)\")",
+      "Read(//c/Users/Tutta/AppData/Local/Programs/**)",
+      "Bash(ls /c/Python*)",
+      "Read(//c/Users/Tutta/**)"
+    ]
+  }
+}
